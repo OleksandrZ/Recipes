@@ -1,10 +1,26 @@
+using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Recipes.Domain;
+using Recipes.Features.User;
+using Recipes.Infrastructure;
+using Recipes.Infrastructure.Interfaces;
+using Recipes.Infrastructure.Photos;
+using Recipes.Infrastructure.Security;
+using Recipes.Middleware;
+using System.Reflection;
+using System.Text;
 
 namespace Recipes
 {
@@ -21,7 +37,48 @@ namespace Recipes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            // In production, the Angular files will be served from this directory
+
+            services.AddMediatR(typeof(Register).GetTypeInfo().Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssemblyContaining<Startup>();
+
+            services.AddDbContext<RecipesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+
+            services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                            .AddEntityFrameworkStores<RecipesDbContext>();
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+
+            services.AddMvc()
+                .AddFluentValidation();
+
+
+            services.AddAutoMapper(GetType().Assembly);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            // Adding Jwt Bearer
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -44,18 +101,19 @@ namespace Recipes
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
 
             app.UseSpa(spa =>

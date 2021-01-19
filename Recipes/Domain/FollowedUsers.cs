@@ -7,9 +7,9 @@ namespace Recipes.Domain
 {
     public class FollowedUsers
     {
-        public Guid ObserverId { get; set; }
-        public User Observer { get; set; }
-        public Guid TargetId { get; set; }
-        public User Target { get; set; }
+        public string ObserverId { get; set; }
+        public AppUser Observer { get; set; }
+        public string TargetId { get; set; }
+        public AppUser Target { get; set; }
     }
 }

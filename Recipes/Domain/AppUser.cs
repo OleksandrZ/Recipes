@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Recipes.Domain
 {
-    public class User : IdentityUser
+    public class AppUser : IdentityUser
     {
         [JsonIgnore]
         public ICollection<Recipe> Recipes { get; set; }
@@ -19,7 +19,7 @@ namespace Recipes.Domain
         public ICollection<FollowedUsers> Followers { get; set; }
         [JsonIgnore]
         public ICollection<Comment> Comments { get; set; }
-        public string Image { get; set; }
+        public Photo Photo { get; set; }
 
     }
 }
