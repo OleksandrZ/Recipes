@@ -16,7 +16,7 @@ namespace Recipes.Domain
         public int Servings { get; set; }
         public TimeSpan TimeOfCooking { get; set; }
         public ICollection<Photo> Images { get; set; }
-        public NutrionValue NutrionValue { get; set; }
+        public NutritionValue NutrionValue { get; set; }
         public int SiteVisits { get; set; }
         public ICollection<Step> StepsOfCooking { get; set; }
         public ICollection<Comment> Comments { get; set; }

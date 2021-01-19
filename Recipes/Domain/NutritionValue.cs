@@ -2,7 +2,7 @@
 
 namespace Recipes.Domain
 {
-    public class NutrionValue
+    public class NutritionValue
     {
         public string Id { get; set; }
         public int? Value { get; set; }
