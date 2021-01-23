@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
 using Recipes.Infrastructure;
 using Recipes.Infrastructure.Errors;
@@ -37,12 +38,14 @@ namespace Recipes.Features.User
             private readonly SignInManager<AppUser> SignInManager;
             private readonly UserManager<AppUser> userManager;
             private readonly IJwtTokenGenerator jwtGenerator;
+            private readonly RecipesDbContext context;
 
-            public Handler(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IJwtTokenGenerator jwtGenerator)
+            public Handler(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IJwtTokenGenerator jwtGenerator, RecipesDbContext context)
             {
                 SignInManager = signInManager;
                 this.userManager = userManager;
                 this.jwtGenerator = jwtGenerator;
+                this.context = context;
             }
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
@@ -51,14 +54,15 @@ namespace Recipes.Features.User
                 if (user == null)
                     throw new RestException(System.Net.HttpStatusCode.Unauthorized);
 
+                context.Images.Load();
                 var result = await SignInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
                 if(result.Succeeded)
                 {
                     return new User()
                     {
-                        Image = user.Photo == null ? "" : user.Photo.Path,
-                        Token = jwtGenerator.CreateToken(user),
+                        Image = user.Photo == null ? "" : user.Photo.Url,
+                        Token = await jwtGenerator.CreateToken(user),
                         Username = user.UserName
                     };
                 }

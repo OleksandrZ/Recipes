@@ -35,14 +35,18 @@ namespace Recipes.Features.Image
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await context.Users.SingleOrDefaultAsync(x => x.UserName == currentUserAccessor.GetCurrentUsername());
                 context.Images.Load();
-                var photo = user.Photo.Id == request.Id ? user.Photo : null;
+                var user = await context.Users.SingleOrDefaultAsync(x => x.UserName == currentUserAccessor.GetCurrentUsername());
+                
+                if(user.Photo == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { Photo = "Photo doesn't exist" });
 
-                if(photo == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { Photo = "Not found" });
+                if(user.Photo.Id != request.Id)
+                    throw new RestException(HttpStatusCode.NotFound, new { Photo = "Photo doesn't exist" });
 
-                var result = await photoAccessor.DeletePhotoAsync(request.Id, context);
+                var photo = user.Photo;
+
+                var result = await photoAccessor.DeletePhotoAsync(photo);
 
                 if (!result)
                     throw new Exception("Problem deleting photo");

@@ -1,9 +1,10 @@
 ﻿using Recipes.Domain;
+using System.Threading.Tasks;
 
 namespace Recipes.Infrastructure.Interfaces
 {
     public interface IJwtTokenGenerator
     {
-        string CreateToken(AppUser user);
+        Task<string> CreateToken(AppUser user);
     }
 }

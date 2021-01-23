@@ -45,6 +45,7 @@ namespace Recipes
             services.AddDbContext<RecipesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
 
             services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                            .AddRoleManager<RoleManager<IdentityRole>>()
                             .AddEntityFrameworkStores<RecipesDbContext>();
 
             services.AddHttpContextAccessor();
@@ -77,6 +78,12 @@ namespace Recipes
                     ValidIssuer = Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Admin"));
             });
 
             services.AddSpaStaticFiles(configuration =>

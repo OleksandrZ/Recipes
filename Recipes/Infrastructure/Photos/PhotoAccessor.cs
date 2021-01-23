@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Recipes.Domain;
 using Recipes.Features.Image;
 using Recipes.Infrastructure.Errors;
 using Recipes.Infrastructure.Interfaces;
@@ -46,18 +48,29 @@ namespace Recipes.Infrastructure.Photos
             return result;
         }
 
-        public async System.Threading.Tasks.Task<bool> DeletePhotoAsync(string id, RecipesDbContext context)
+        public async System.Threading.Tasks.Task<bool> DeletePhotoAsync(Photo photo)
         {
-            var img = await context.Images.FindAsync(id);
-
-            File.Delete(img.Path);
-            context.Images.Remove(img);
-
-            if (await context.SaveChangesAsync() > 0)
+            using (var context = new RecipesDbContext())
             {
-                return true;
-            }
-            throw new Exception("Error deleting image");
+                File.Delete(photo.Path);
+                context.Users.Load();
+                context.Images.Remove(photo);
+
+                try
+                {
+                    if (await context.SaveChangesAsync() > 0)
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    
+                    throw;
+                }
+                
+                throw new Exception("Problem deleting image");
+            } 
         }
     }
 }

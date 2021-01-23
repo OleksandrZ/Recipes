@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Recipes.Features.User
 {
-    public class RegisterAdmin
+    public static class RegisterAdmin
     {
 
         public class Command : IRequest<User>

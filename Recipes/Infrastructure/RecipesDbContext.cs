@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
 
 namespace Recipes.Infrastructure
 {
-    public class RecipesDbContext : IdentityDbContext<AppUser>
+    public class RecipesDbContext : IdentityDbContext<AppUser, IdentityRole, string>
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
