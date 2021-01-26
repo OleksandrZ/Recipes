@@ -12,11 +12,7 @@ namespace Recipes.Features.Cuisines
 {
     public static class List
     {
-        public class CuisinesEnvelope
-        {
-            public ICollection<Cuisine> Cuisines { get; set; }
-            public int CuisineCount { get; set; }
-        }
+        public record CuisinesEnvelope(ICollection<Cuisine> Cuisines, int CuisineCount);
 
         public class Query : IRequest<CuisinesEnvelope> { }
 
@@ -31,11 +27,7 @@ namespace Recipes.Features.Cuisines
             {
                 var cuisines = await context.Cuisines.ToListAsync();
 
-                return new CuisinesEnvelope()
-                {
-                    Cuisines= cuisines,
-                    CuisineCount = cuisines.Count
-                };
+                return new CuisinesEnvelope(cuisines, cuisines.Count);
             }
         }
     }

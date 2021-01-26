@@ -37,7 +37,7 @@ namespace Recipes.Controllers
         [Route("all")]
         public async Task<ActionResult<List.CategoriesEnvelope>> List()
         {
-            return await Mediator.Send(new List.Query);
+            return await Mediator.Send(new List.Query());
         }
     }
 }

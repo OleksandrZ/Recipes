@@ -37,7 +37,7 @@ namespace Recipes.Features.Cuisines
             }
             public async Task<Cuisine> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (await context.Cuisine.Where(x => x.Name == request.Name).AnyAsync())
+                if (await context.Cuisines.Where(x => x.Name == request.Name).AnyAsync())
                     throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Cuisine = "Cuisine already exists" });
 
                 var cuisine = new Cuisine()

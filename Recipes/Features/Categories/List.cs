@@ -13,11 +13,7 @@ namespace Recipes.Features.Categories
 {
     public static class List
     {
-        public class CategoriesEnvelope
-        {
-            public ICollection<Category> Categories { get; set; }
-            public int CategoryCount { get; set; }
-        }
+        public record CategoriesEnvelope(ICollection<Category> Categories, int CategoryCount);
 
         public class Query : IRequest<CategoriesEnvelope> { }
 
@@ -32,11 +28,7 @@ namespace Recipes.Features.Categories
             {
                 var categories = await context.Categories.ToListAsync();
 
-                return new CategoriesEnvelope()
-                {
-                    Categories = categories,
-                    CategoryCount = categories.Count
-                };
+                return new CategoriesEnvelope(categories, categories.Count);
             }
         }
 
