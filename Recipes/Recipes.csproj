@@ -40,7 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Recipes\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

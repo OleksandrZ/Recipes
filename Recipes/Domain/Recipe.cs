@@ -7,7 +7,6 @@ namespace Recipes.Domain
     public class Recipe
     {
         public string Id { get; set; }
-        public string Slug { get; set; }
         public Cuisine Cuisine { get; set; }
         public AppUser Author { get; set; }
         public string Title { get; set; }
@@ -16,7 +15,7 @@ namespace Recipes.Domain
         public int Servings { get; set; }
         public TimeSpan TimeOfCooking { get; set; }
         public ICollection<Photo> Images { get; set; }
-        public NutritionValue NutrionValue { get; set; }
+        public NutritionValue NutritionValue { get; set; }
         public int SiteVisits { get; set; }
         public ICollection<Step> StepsOfCooking { get; set; }
         public ICollection<Comment> Comments { get; set; }

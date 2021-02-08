@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -49,13 +50,10 @@ namespace Recipes
                             .AddEntityFrameworkStores<RecipesDbContext>();
 
             services.AddHttpContextAccessor();
+
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IPhotoAccessor, PhotoAccessor>();
-
-            services.AddMvc()
-                .AddFluentValidation();
-
 
             services.AddAutoMapper(GetType().Assembly);
 
@@ -82,9 +80,14 @@ namespace Recipes
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireRole("Admin"));
+                options.AddPolicy("IsAuthor",
+                    policy => policy.Requirements.Add(new IsAuthorRequirement()));
             });
+
+            services.AddTransient<IAuthorizationHandler, IsAuthorRequirementHandler>();
+
+            services.AddMvc()
+                .AddFluentValidation();
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -106,6 +109,8 @@ namespace Recipes
                 app.UseHsts();
             }
 
+            app.UseRouting();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseMiddleware<ErrorHandlingMiddleware>();
@@ -114,7 +119,6 @@ namespace Recipes
                 app.UseSpaStaticFiles();
             }
 
-            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 

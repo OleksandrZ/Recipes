@@ -42,6 +42,7 @@ namespace Recipes.Infrastructure
                     .WithMany(p => p.RecipeFavorites)
                     .HasForeignKey(pt => pt.UserId);
             });
+
             builder.Entity<FollowedUsers>(b =>
             {
                 b.HasKey(t => new { t.ObserverId, t.TargetId });
