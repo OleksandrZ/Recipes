@@ -46,6 +46,7 @@ namespace Recipes.Features.Recipes
                 if (recipe == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, new { Recipe = "Not found" });
 
+                recipe.SiteVisits++;
                 return mapper.Map<Recipe, RecipeDto>(recipe);
             }
         }

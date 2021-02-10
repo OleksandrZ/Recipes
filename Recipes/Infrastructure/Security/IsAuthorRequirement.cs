@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using Recipes.Domain;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Recipes.Infrastructure.Security
@@ -27,14 +30,29 @@ namespace Recipes.Infrastructure.Security
         {
             var currentUserName = httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var recipeId = httpContextAccessor.HttpContext.Request.Query["id"].ToString();
+            long size = httpContextAccessor.HttpContext.Request.ContentLength.Value;
+            byte[] buffer = new byte[size];
 
-            var recipes = dbContext.Recipes.Include(x => x.Author);
+            var res = httpContextAccessor.HttpContext.Request.Body.ReadAsync(buffer);
+            string str = "";
 
-            var recipe = recipes.Where(x => x.Id == recipeId).FirstOrDefault();
+            if(res.IsCompletedSuccessfully)
+            {
+                str = Encoding.Default.GetString(buffer);
 
-            if (recipe.Author.UserName == currentUserName)
-                context.Succeed(requirement);
+                var obj = JObject.Parse(str);
+
+                var recipeId = obj["id"].ToString();
+
+                var recipes = dbContext.Recipes.Include(x => x.Author);
+
+                var recipe = recipes.Where(x => x.Id == recipeId).FirstOrDefault();
+
+                if (recipe.Author.UserName == currentUserName)
+                    context.Succeed(requirement);
+                else
+                    context.Fail();
+            }
             else
                 context.Fail();
 
