@@ -14,9 +14,9 @@ namespace Recipes.Infrastructure.Photos
     {
         private readonly string[] _permittedExtensions = { ".jpg", ".gif", ".png" };
 
-        public PhotoUploadResult AddPhoto(IFormFile image)
+        public Photo CreatePhoto(IFormFile image)
         {
-            PhotoUploadResult result = new PhotoUploadResult() { Id = Guid.NewGuid().ToString() };
+            Photo photo = new Photo() { Id = Guid.NewGuid().ToString() };
             using (var stream = image.OpenReadStream())
             {
                 if (FileHelper.IsValidFileExtensionAndSignature(image.FileName, stream, _permittedExtensions))
@@ -26,7 +26,7 @@ namespace Recipes.Infrastructure.Photos
                     {
                         DirectoryInfo di = Directory.CreateDirectory(path);
                     }
-                    string fileName = result.Id + Path.GetExtension(image.FileName);
+                    string fileName = photo.Id + Path.GetExtension(image.FileName);
                     string fullPath = Path.Combine(path, fileName);
                     using (var fileStream = new FileStream(fullPath, FileMode.Create))
                     {
@@ -39,13 +39,13 @@ namespace Recipes.Infrastructure.Photos
                         }
                     }
                     HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-                    result.Url = httpContextAccessor.HttpContext.Request.Host.Value + @"\images\" + fileName;
-                    result.FileName = fileName;
-                    result.Path = fullPath;
-                    result.Size = image.Length;
+                    photo.Url = httpContextAccessor.HttpContext.Request.Host.Value + @"\images\" + fileName;
+                    photo.FileName = fileName;
+                    photo.Path = fullPath;
+                    photo.Size = image.Length;
                 }
             }
-            return result;
+            return photo;
         }
 
         public async System.Threading.Tasks.Task<bool> DeletePhotoAsync(Photo photo)

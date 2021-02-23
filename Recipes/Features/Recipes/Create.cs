@@ -91,16 +91,7 @@ namespace Recipes.Features.Recipes
                     recipe.Images = new List<Photo>();
                     foreach (var image in request.Images)
                     {
-                        var result = photoAccessor.AddPhoto(image);
-
-                        recipe.Images.Add(new Photo()
-                        {
-                            FileName = result.FileName,
-                            Id = Guid.NewGuid().ToString(),
-                            Path = result.Path,
-                            Size = result.Size,
-                            Url = result.Url
-                        });
+                        recipe.Images.Add(photoAccessor.CreatePhoto(image));
                     }
                 }
 

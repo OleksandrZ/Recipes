@@ -36,18 +36,11 @@ namespace Recipes.Features.Image
             }
             public async Task<Photo> Handle(Command request, CancellationToken cancellationToken)
             {
-                var result = photoAccessor.AddPhoto(request.File);
+                var result = photoAccessor.CreatePhoto(request.File);
 
                 var user = await userManager.FindByNameAsync(currentUserAccessor.GetCurrentUsername());
 
-                user.Photo = new Photo()
-                {
-                    Id = result.Id,
-                    FileName = result.FileName,
-                    Path = result.Path,
-                    Url = result.Url,
-                    Size = result.Size
-                };
+                user.Photo = result;
 
                 context.Images.Add(user.Photo);
 

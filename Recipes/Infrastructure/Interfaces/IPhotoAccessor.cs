@@ -7,7 +7,7 @@ namespace Recipes.Infrastructure.Interfaces
 {
     public interface IPhotoAccessor
     {
-        PhotoUploadResult AddPhoto(IFormFile file);
+        Photo CreatePhoto(IFormFile file);
         public Task<bool> DeletePhotoAsync(Photo photo);
     }
 }
