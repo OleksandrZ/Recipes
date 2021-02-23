@@ -63,7 +63,7 @@ namespace Recipes.Infrastructure.Photos
                         return true;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     
                     throw;

@@ -28,6 +28,7 @@ namespace Recipes.Features.Recipes
             public NutritionValue NutritionValue { get; set; }
             public ICollection<Step> StepsOfCooking { get; set; }
             public ICollection<Category> Categories { get; set; }
+            public ICollection<IFormFile> Images { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -49,12 +50,14 @@ namespace Recipes.Features.Recipes
             private readonly RecipesDbContext context;
             private readonly UserManager<AppUser> userManager;
             private ICurrentUserAccessor currentUserAccessor;
+            private readonly IPhotoAccessor photoAccessor;
 
-            public Handler(RecipesDbContext context, UserManager<AppUser> userManager, ICurrentUserAccessor currentUserAccessor)
+            public Handler(RecipesDbContext context, UserManager<AppUser> userManager, ICurrentUserAccessor currentUserAccessor, IPhotoAccessor photoAccessor)
             {
                 this.context = context;
                 this.userManager = userManager;
                 this.currentUserAccessor = currentUserAccessor;
+                this.photoAccessor = photoAccessor;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -82,6 +85,25 @@ namespace Recipes.Features.Recipes
                 {
                     recipe.Categories.Add(context.Categories.Where(x => x.Name == cat.Name).FirstOrDefault());
                 }
+
+                if (request.Images != null && request.Images.Count > 0)
+                {
+                    recipe.Images = new List<Photo>();
+                    foreach (var image in request.Images)
+                    {
+                        var result = photoAccessor.AddPhoto(image);
+
+                        recipe.Images.Add(new Photo()
+                        {
+                            FileName = result.FileName,
+                            Id = Guid.NewGuid().ToString(),
+                            Path = result.Path,
+                            Size = result.Size,
+                            Url = result.Url
+                        });
+                    }
+                }
+
 
                 context.Recipes.Add(recipe);
 

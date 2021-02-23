@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recipes.Features.Recipes;
+using Recipes.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,9 @@ namespace Recipes.Controllers
         [Authorize]
         [HttpPost]
         [Route("create")]
-        public async Task<ActionResult<Unit>> Create(Create.Command command)
+        public async Task<ActionResult<Unit>> Create([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, ICollection<IFormFile> images)
         {
+            command.Images = images;
             return await Mediator.Send(command);
         }
 
