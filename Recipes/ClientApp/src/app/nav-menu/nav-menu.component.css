@@ -1,22 +1,12 @@
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
 
-html {
-  font-size: 14px;
+header .container {
+	padding: 0 1%;
+	border-radius: 8px;
+	background-color: #fcfcfc;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
+/* .fixed-top{
+	margin-bottom: 15px;
+} */
 .bar{
 	box-shadow: 0 0 5px 1px rgba(221, 221, 221, 1);
 }
@@ -80,7 +70,6 @@ header .nav-item a:hover:after{
 	border-radius: 15px;
 	transition: all 0.2s linear;
 }
-
 
 .d-flex .btn-dark:hover{
 	background-color: rgba(0,0,0,0.8);
