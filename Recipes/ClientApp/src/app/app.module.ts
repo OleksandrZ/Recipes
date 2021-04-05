@@ -20,6 +20,7 @@ import { RecipeComponent } from './recipe/recipe.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'recipe/:id', component: RecipeComponent }
