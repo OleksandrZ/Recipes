@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Recipes.Domain;
 using Recipes.Infrastructure;
+using Recipes.Infrastructure.Errors;
 using Recipes.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -75,10 +76,18 @@ namespace Recipes.Features.Recipes
                     TimeOfCooking = request.TimeOfCooking,
                     Ingredients = request.Ingredients,
                     Cuisine = context.Cuisines.Where(x => x.Name == request.Cuisine).FirstOrDefault(),
-                    Difficulty = (Difficulty)Enum.Parse(typeof(Difficulty), request.Difficulty),
                     NutritionValue = request.NutritionValue,
                     StepsOfCooking = request.StepsOfCooking
                 };
+
+                if(Enum.TryParse(typeof(Difficulty), request.Difficulty,  out object res))
+                {
+                    recipe.Difficulty = (Difficulty)res;
+                }
+                else
+                {
+                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Recipe = "Wrong difficulty" });
+                }
 
                 recipe.Categories = new List<Category>();
                 foreach (var cat in request.Categories)

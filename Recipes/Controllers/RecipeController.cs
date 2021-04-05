@@ -32,6 +32,7 @@ namespace Recipes.Controllers
         [Authorize]
         [HttpPost]
         [Route("create")]
+        // receives multipart/form-data, converts key command (json) to class Command
         public async Task<ActionResult<Unit>> Create([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, ICollection<IFormFile> images)
         {
             command.Images = images;
