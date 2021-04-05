@@ -12,5 +12,6 @@ export interface Recipe{
     images: [],
     servings: number,
     favorited: boolean,
-    favoritesCount: number
+    favoritesCount: number,
+    likes: number
 }
