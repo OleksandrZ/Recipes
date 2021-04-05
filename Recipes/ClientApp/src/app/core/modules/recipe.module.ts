@@ -6,7 +6,7 @@ export interface Recipe{
     author: Profile,
     title: string,
     difficulty: string,
-    createAt: string,
+    createdAt: string,
     updatedAt: string,
     timeOfCooking: string,
     images: [],
