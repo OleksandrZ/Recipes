@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { RecipeComponent } from './recipe/recipe.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RecipeComponent } from './recipe/recipe.component';
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'recipe/:id', component: RecipeComponent }
     // { path: 'fetch-data', component: FetchDataComponent },
-], { relativeLinkResolution: 'legacy' })
+], { relativeLinkResolution: 'legacy' }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
