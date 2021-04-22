@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Recipe } from './core/modules/recipe.module';
+import { Recipe, RecipeEnvelope } from './core/modules/recipe.module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../environments/environment.prod';
 
@@ -13,7 +13,7 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
-  getRecipes(): Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(environment.api_url + this.recipeUrl);
+  getRecipes(): Observable<RecipeEnvelope>{
+    return this.http.get<RecipeEnvelope>(environment.api_url + this.recipeUrl);
   }
 }

@@ -444,42 +444,14 @@
               <button class="button__item">Read Recipe</button>
             </div>
           </div>
-          <div class="col-3 card__item">
+          <div class="col-3 card__item" *ngFor="let recipe of recipeEnvelope.recipes">
             <div class="card__image">
               <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
+                src="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}"
                 alt="">
             </div>
             <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
+              <h5>{{recipe.title}}</h5>
             </div>
             <div class="card_buttons d-flex justify-content-between align-content-center">
               <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>

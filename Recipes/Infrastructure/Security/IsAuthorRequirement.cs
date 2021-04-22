@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Recipes.Domain;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -32,13 +33,15 @@ namespace Recipes.Infrastructure.Security
 
             long size = httpContextAccessor.HttpContext.Request.ContentLength.Value;
             byte[] buffer = new byte[size];
+            var body = httpContextAccessor.HttpContext.Request.BodyReader.AsStream();
+            using var streamReader = new StreamReader(body);
 
-            var res = httpContextAccessor.HttpContext.Request.Body.ReadAsync(buffer);
+            var res = streamReader.ReadToEndAsync();
             string str = "";
 
-            if(res.IsCompletedSuccessfully)
+            if(res.IsCompleted)
             {
-                str = Encoding.Default.GetString(buffer);
+                str = res.Result;
 
                 var obj = JObject.Parse(str);
 

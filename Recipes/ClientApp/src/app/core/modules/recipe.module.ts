@@ -1,17 +1,30 @@
-import { Profile } from "./profile.module";
+import { TimeSpan } from "./timespan.module";
+import { NutritionValue } from './nutritionValue.module';
+import { Ingredient } from './ingredient.module';
+import { Step } from './step.module';
+import { Category } from './category.module';
 
-export interface Recipe{
-    id: string,
-    cuisine: string,
-    author: Profile,
-    title: string,
-    difficulty: string,
-    createdAt: string,
-    updatedAt: string,
-    timeOfCooking: string,
-    images: [],
-    servings: number,
-    favorited: boolean,
-    favoritesCount: number,
-    likes: number
+export interface Recipe {
+  id: string;
+  cuisine: string;
+  author: string;
+  title: string;
+  difficulty: string;
+  date: string;
+  timeOfCooking: TimeSpan;
+  images: any[];
+  servings: number;
+  favorited: boolean;
+  favoritesCount: number;
+  likes: number;
+  NutritionValue: NutritionValue;
+  ingredients: Ingredient[];
+  stepsOfCooking: Step[];
+  comments: any[];
+  categories: Category[];
+}
+
+export interface RecipeEnvelope {
+  recipeCount: number;
+  recipes: Recipe[];
 }
