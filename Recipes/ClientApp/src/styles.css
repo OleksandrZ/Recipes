@@ -15,6 +15,12 @@ body{
 	color: #000000; 
 	margin: 0;
 }
+/* Решение отступа модального окна */
+body.modal-open {
+	overflow:inherit; 
+	padding-right:inherit !important;
+}
+/* -------------------------------------------------------- */
 .container{
 	width: 100vw !important;
 	padding: 0;

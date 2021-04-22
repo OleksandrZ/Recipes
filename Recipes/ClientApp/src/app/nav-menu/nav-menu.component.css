@@ -1,7 +1,7 @@
 
 header .container {
 	padding: 0 1%;
-	border-radius: 8px;
+	border-radius: 0 0 8px 8px ;
 	background-color: #fcfcfc;
 }
 /* .fixed-top{
@@ -9,6 +9,11 @@ header .container {
 } */
 .bar{
 	box-shadow: 0 0 5px 1px rgba(221, 221, 221, 1);
+}
+.brand{
+	font-size: 35px;
+	margin-left: 2vw;
+	opacity: 0.8;
 }
 
 header .nav-item{
@@ -85,3 +90,199 @@ header .nav-item a:hover:after{
 .d-flex .btn-dark:active:focus{
 	box-shadow: 0 0 0 .15rem rgba(66,70,73,.5);
 }
+
+
+/* -------------------------------------------------------- */
+.modal-dialog{
+	margin: 6% auto 0% auto !important;
+}
+
+.modal-title{
+	/* text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 1px 2px 3px rgba(0, 0, 0, 1); */
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 4px 2px 6px rgba(0, 0, 0, .6);
+	color: #000;
+	font-weight: 600;
+	text-align: center;
+	margin: 0;
+	padding-left: 5%;
+	/* text-transform: uppercase; */
+	letter-spacing: 4px;
+	position: relative;
+	width: 100%;
+	opacity: .5;
+	font-size: 25px;
+}
+
+.mail, .password{
+	padding: 2% 0 2% 9% !important;
+	position: relative;
+	margin-bottom: 1%;
+}
+.mail:focus, .password:focus, .username:focus{
+	box-shadow: 0 0 0 .15rem rgba(157, 157, 157, 0.7) !important;
+	border-color: rgba(20, 20, 20, 0.8) !important;
+}
+#check,#check_remember{
+	cursor: pointer;
+}
+.remember_me:hover{
+	color: #636262;
+}
+#check:focus,#check_remember:focus{
+	box-shadow: none !important;
+	border-color: #929292 !important;
+	transition: all .3s;
+}
+#check:checked,#check_remember:checked{
+	background-color: #a8a8a8;
+	border-color: #929292;
+	transition: all .4s;
+}
+.mail_icon{
+	position: absolute;
+	top: 6%;
+	left: 6%;
+	font-size: 20px;
+	color: #c5c5c5;
+}
+
+.pass_icon{
+	position: absolute;
+	top: 24%;
+	left: 6%;
+	font-size: 19px;
+	color: #c5c5c5;
+}
+#emailHelp, #passHelp, #userHelp{
+	padding-left: 1%;
+}
+.remember_me{
+	color: #808080;
+	user-select: none;
+	cursor: pointer;
+}
+.sign_in{
+	font-weight: 500 !important;
+	padding: 2% 1% !important;
+}
+.sign_in:focus:active{
+	box-shadow: 0 0 0 .15rem rgba(30, 114, 204, 0.8) !important;
+}
+.sign_in:focus{
+	box-shadow: 0 0 0 .15rem rgba(30, 114, 204, 0.8) !important;
+}
+.h-line {
+	margin: 5% 0 5%;
+	border-bottom: 1px solid #ccc;
+}
+.h-line span{
+	display: block;
+	width: 60px;
+	margin: 0 auto -4%;
+	background-color: #fff;
+	font-size: 16px;
+	color: #808080;
+	text-align: center;
+	height: 30px;
+}
+.btn-google{
+	padding: 2% 1% !important;
+	font-weight: 500 !important;
+	color: #808080 !important;
+	position: relative;
+	border: 1px solid #ccc !important;
+	box-shadow: 0 0 7px 2px rgba(221, 221, 221, 1) !important;
+}
+.btn-google:hover{
+	background-color: #0d6efd !important;
+	color: #fff !important;
+	border: 1px solid #0d6efd !important;
+	transition: all .3s linear;
+}
+.btn-google:active{
+	box-shadow: 0 0 0 .1rem rgba(61, 88, 241, 0.9) !important;
+	transition: all .3s linear;
+}
+.btn-google:focus{
+	box-shadow: 0 0 0 .1rem rgba(61, 88, 241, 0.9) !important;
+	transition: all .3s linear;
+}
+.google_icon{
+	position: absolute;
+	width: 5%;
+	height: auto;
+	top: 26%;
+	left: 25%;
+}
+.reg-now, .login_now{
+	margin: 5% 0;
+	text-align: center;
+	color: #808080;
+}
+.reg-now a, .login_now a{
+	color: #808080;
+	text-decoration: none;
+	background-color: transparent;
+	border-bottom: 1px solid #999999;
+}
+.reg-now a:hover, .login_now a:hover{
+	text-decoration: none;
+	color: #0d6efd;
+	border-color: #0d6efd;
+}
+/* ----------------------------- */
+
+
+/* Madal sign up */
+.modal-dialog.sign-up{
+	margin: 3% auto 0% auto !important;
+}
+.username,.confirm_password{
+	padding: 2% 0 2% 9% !important;
+	position: relative;
+	margin-bottom: 1%;
+}
+.username_icon{
+	position: absolute;
+	top: 5%;
+	left: 6%;
+	font-size: 20px;
+	color: #c5c5c5;
+}
+.sign-up.mail_icon{
+	position: absolute;
+	top: 21%;
+	left: 6%;
+	font-size: 20px;
+	color: #c5c5c5;
+	padding-top: 1px;
+}
+.eye{
+   color: #c5c5c5;
+	float: right;
+   position: absolute;
+	right: 6%;
+	top: 24%;
+	z-index: 5;;
+	cursor: pointer;
+	font-size: 19px;
+}
+#hide1{
+	display: none;
+}
+.sign-up.pass_icon{
+	position: absolute;
+	top: 37%;
+	left: 6%;
+	font-size: 19px;
+	color: #c5c5c5;
+	padding-top: 2px;
+}
+.confirm_icon{
+	position: absolute;
+	top: 53%;
+	left: 6%;
+	font-size: 19px;
+	color: #c5c5c5;
+}
+/* ---------------------------- */
