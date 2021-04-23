@@ -1,135 +1,143 @@
 <header>
-	<div class="container bar fixed-top">
-		<nav class="navbar navbar-expand-lg navbar-light">
-			<a href="#" class="navbar-brand"><i class="fas fa-utensils brand"></i></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-				aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarContent">
-				<ul class="navbar-nav m-auto">
-					<li class="nav-item"><a class="nav-link active" href="#">Рецепты</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Статьи</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Уроки</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Авторы</a></li>
-				</ul>
-				<div class="d-flex">
-					<button class="btn btn-light login" data-bs-toggle="modal" data-bs-target="#Login">Вход</button>
-					<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Register">Регистрация</button>
-				</div>
-			</div>
-		</nav>
-	</div>
-	<!-- Navbar end------------------------------------------ -->
-	<!-- Modal -->
-	<div class="modal fade" id="Login" tabindex="-1" aria-labelledby="LoginLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="LoginLabel">Sign In</h5>
-					<button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="row mb-3">
-							<div class="col-sm-12">
-								<input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp"
-									placeholder="Email">
-								<i class="far fa-envelope mail_icon"></i>
-								<small id="emailHelp" class="form-text text-muted">Enter your email</small>
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-sm-12">
-								<input id="pass" type="password" class="form-control password" aria-describedby="passHelp"
-									placeholder="Password">
-								<i class="fas fa-lock pass_icon"></i>
-								<span class="eye" onclick="myFunction()">
-									<i class="fas fa-eye" id="hide1"></i>
-									<i class="fas fa-eye-slash" id="hide2"></i>
-								</span>
-								<small id="passHelp" class="form-text text-muted">Enter your password</small>
-							</div>
-						</div>
-						<div class="form-check">
-							<label for="check" class="form-check-label remember_me">
-								<input type="checkbox" id="check" class="form-check-input">
-								Remember me?
-							</label>
-						</div>
-						<button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in">Sign In</button>
-						<div class="h-line">
-							<span>or</span>
-						</div>
-						<button type="submit" class="btn btn-light btn-google col-sm-12 mt-2">Sign In with Google
-							<img class="google_icon" src="../../assets/images/google_icon.png" alt="google_icon">
-						</button>
-						<div class="reg-now">
-							<span>Not a member ?</span>
-							<a href="#">Sign up now</a>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--  -->
-	<!-- Modal Sign up -->
-	<div class="modal fade" id="Register" tabindex="-1" aria-labelledby="RegisterLabel" aria-hidden="true">
-		<div class="modal-dialog sign-up">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="RegisterLabel">Sign Up</h5>
-					<button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="row mb-3">
-							<div class="col-sm-12">
-								<input id="last-name" type="text" class="form-control username" aria-describedby="userHelp"
-									placeholder="Username">
-								<i class="fas fa-user username_icon"></i>
-								<small id="userHelp" class="form-text text-muted">Create your Username</small>
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-sm-12">
-								<input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp"
-									placeholder="Email">
-								<i class="far fa-envelope sign-up mail_icon"></i>
-								<small id="emailHelp" class="form-text text-muted">Enter your email</small>
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-sm-12">
-								<input type="password" class="form-control password" aria-describedby="passHelp"
-									placeholder="Password">
-								<i class="fas fa-lock sign-up pass_icon"></i>
-								<small id="passHelp" class="form-text text-muted">Enter your password</small>
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-sm-12">
-								<input type="password" class="form-control confirm_password" aria-describedby="passHelp"
-									placeholder="Confirm password">
-								<i class="fas fa-lock confirm_icon"></i>
-								<small id="passHelp" class="form-text text-muted">Confirm your password</small>
-							</div>
-						</div>
-						<div class="form-check">
-							<label for="check_remember" class="form-check-label remember_me">
-								<input type="checkbox" id="check_remember" class="form-check-input">
-								I accept the Terms of Use & Privacy Policy
-							</label>
-						</div>
-						<button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in">Sign Up</button>
-						<div class="login_now">
-							<span>Already have an account?</span>
-							<a href="#">Sign in here</a>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="container bar fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a href="#" class="navbar-brand"><i class="fas fa-utensils brand"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav m-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Рецепты</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Статьи</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Уроки</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Авторы</a></li>
+        </ul>
+        <div class="d-flex">
+          <button class="btn btn-light login" (click)="openSignIn(loginContent)">Вход</button>
+          <button class="btn btn-dark" (click)="openSignUp(registerContent)">Регистрация</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Navbar end------------------------------------------ -->
+  <!-- Modal -->
+  <div class="modal" #visibleLogin id="Login" tabindex="-1" aria-labelledby="LoginLabel">
+    <div class="modal-dialog" #loginPosition>
+      <ng-template class="modal fade" #loginContent let-c="close" let-d="dismiss">
+        <!--<div class="modal-content"> -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="LoginLabel">Sign In</h5>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row mb-3">
+              <div class="col-sm-12">
+                <input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp"
+                  placeholder="Email">
+                <i class="far fa-envelope mail_icon"></i>
+                <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-12">
+                <input id="pass" type="password" class="form-control password" aria-describedby="passHelp"
+                  placeholder="Password">
+                <i class="fas fa-lock pass_icon"></i>
+                <span class="eye" onclick="myFunction()">
+                  <i class="fas fa-eye" id="hide1"></i>
+                  <i class="fas fa-eye-slash" id="hide2"></i>
+                </span>
+                <small id="passHelp" class="form-text text-muted">Enter your password</small>
+              </div>
+            </div>
+            <div class="form-check">
+              <label for="check" class="form-check-label remember_me">
+                <input type="checkbox" id="check" class="form-check-input">
+                Remember me?
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in">Sign
+              In</button>
+            <div class="h-line">
+              <span>or</span>
+            </div>
+            <button type="submit" class="btn btn-light btn-google col-sm-12 mt-2">Sign In with Google
+              <img class="google_icon" src="../../assets/images/google_icon.png" alt="google_icon">
+            </button>
+            <div class="reg-now">
+              <span>Not a member ?</span>
+              <a href="#"  (click)="openSignUp(registerContent)">Sign up now</a>
+            </div>
+          </form>
+        </div>
+        <!-- </div>-->
+      </ng-template>
+    </div>
+  </div>
+
+
+  <!--  -->
+  <!-- Modal Sign up -->
+  <div class="modal" #visibleRegister id="Register" tabindex="-1" aria-labelledby="RegisterLabel"
+    aria-hidden="true">
+    <div class="modal-dialog sign-up" #registerPosition>
+      <ng-template class="modal fade" #registerContent let-c="close" let-d="dismiss">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="RegisterLabel">Sign Up</h5>
+            <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input id="last-name" type="text" class="form-control username" aria-describedby="userHelp"
+                    placeholder="Username">
+                  <i class="fas fa-user username_icon"></i>
+                  <small id="userHelp" class="form-text text-muted">Create your Username</small>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp"
+                    placeholder="Email">
+                  <i class="far fa-envelope sign-up mail_icon"></i>
+                  <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="password" class="form-control password" aria-describedby="passHelp"
+                    placeholder="Password">
+                  <i class="fas fa-lock sign-up pass_icon"></i>
+                  <small id="passHelp" class="form-text text-muted">Enter your password</small>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <input type="password" class="form-control confirm_password" aria-describedby="passHelp"
+                    placeholder="Confirm password">
+                  <i class="fas fa-lock confirm_icon"></i>
+                  <small id="passHelp" class="form-text text-muted">Confirm your password</small>
+                </div>
+              </div>
+              <div class="form-check">
+                <label for="check_remember" class="form-check-label remember_me">
+                  <input type="checkbox" id="check_remember" class="form-check-input">
+                  I accept the Terms of Use & Privacy Policy
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in">Sign Up</button>
+              <div class="login_now">
+                <span>Already have an account?</span>
+                <a href="#" (click)="openSignIn(loginContent)">Sign in here</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 </header>
