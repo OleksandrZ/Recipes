@@ -8,50 +8,20 @@ import { NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
   providers: [NgbModalConfig, NgbModal],
 })
 export class NavMenuComponent {
-  @ViewChild("loginPosition") loginPosition: ElementRef<HTMLElement>;
-  @ViewChild("visibleLogin") visibleLogin: ElementRef<HTMLElement>;
-
-  @ViewChild("registerPosition") registerPosition: ElementRef<HTMLElement>;
-  @ViewChild("visibleRegister") visibleRegister: ElementRef<HTMLElement>;
-
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    // customize default values of modals used by this component tree
+    config.backdrop = 'static';
+    config.keyboard = true;
   }
 
-  openSignIn(content) {
+  openModal(content) {
     this.modalService.dismissAll();
-
-    this.visibleLogin.nativeElement.style.display = "block";
-    let modalRef = this.modalService.open(content, {
-      container: this.loginPosition.nativeElement,
-    });
+    let modalRef = this.modalService.open(content);
 
     modalRef.closed.subscribe((result) => {
-      this.visibleLogin.nativeElement.style.display = "none";
       console.log(result);
     });
 
     modalRef.dismissed.subscribe((reason) => {
-      this.visibleLogin.nativeElement.style.display = "none";
-      console.log(reason);
-    });
-  }
-
-  openSignUp(content) {
-    this.modalService.dismissAll();
-
-    this.visibleRegister.nativeElement.style.display = "block";
-    let modalRef = this.modalService.open(content, {
-      container: this.registerPosition.nativeElement,
-    });
-
-    modalRef.closed.subscribe((result) => {
-      this.visibleRegister.nativeElement.style.display = "none";
-      console.log(result);
-    });
-
-    modalRef.dismissed.subscribe((reason) => {
-      this.visibleRegister.nativeElement.style.display = "none";
       console.log(reason);
     });
   }
