@@ -74,7 +74,7 @@ namespace Recipes.Features.User
                     return new User()
                     {
                         Username = user.UserName,
-                        Image = user.Photo.Path ?? ""
+                        ImageUrl = user.Photo.Path ?? ""
                     };
                 }
 

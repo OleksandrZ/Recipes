@@ -62,7 +62,7 @@ namespace Recipes.Features.User
                 {
                     return new User()
                     {
-                        Image = user.Photo == null ? "" : user.Photo.Url,
+                        ImageUrl = user.Photo == null ? "" : user.Photo.Url,
                         Token = await jwtGenerator.CreateToken(user),
                         Username = user.UserName
                     };
