@@ -31,6 +31,7 @@ namespace Recipes.Features.User
         {
             public string Email { get; set; }
             public string Password { get; set; }
+            public bool RememberMe { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, User>
@@ -54,8 +55,8 @@ namespace Recipes.Features.User
                 if (user == null)
                     throw new RestException(System.Net.HttpStatusCode.Unauthorized);
 
-                context.Images.Load();
-                var result = await SignInManager.CheckPasswordSignInAsync(user, request.Password, false);
+                await context.Images.LoadAsync(cancellationToken: cancellationToken);
+                var result = await SignInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, false);
 
                 if(result.Succeeded)
                 {
