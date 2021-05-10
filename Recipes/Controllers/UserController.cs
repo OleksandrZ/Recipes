@@ -31,7 +31,7 @@ namespace Recipes.Controllers
 
         [HttpPost]
         [Route("register-admin")]
-        public async Task<ActionResult<User>> RegisterAdmnin(RegisterAdmin.Command command)
+        public async Task<ActionResult<User>> RegisterAdmin(RegisterAdmin.Command command)
         {
             return await Mediator.Send(command);
         }
