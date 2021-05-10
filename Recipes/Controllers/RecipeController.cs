@@ -15,6 +15,9 @@ namespace Recipes.Controllers
     [ApiController]
     public class RecipeController : BaseController
     {
+        public RecipeController(IMediator mediator)
+            : base(mediator) { }
+
         [HttpGet]
         [Route("all")]
         public async Task<ActionResult<List.RecipesEnvelope>> List()

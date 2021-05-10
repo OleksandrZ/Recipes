@@ -15,6 +15,9 @@ namespace Recipes.Controllers
     [Authorize]
     public class PhotosController : BaseController
     {
+        public PhotosController(IMediator mediator)
+            : base(mediator) { }
+
         [HttpPost]
         [Route("addprofileimage")]
         public async Task<ActionResult<Photo>> AddProfileImage([FromForm]AddProfileImage.Command command)

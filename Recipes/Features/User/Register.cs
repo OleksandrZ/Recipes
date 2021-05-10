@@ -32,7 +32,7 @@ namespace Recipes.Features.User
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Username).NotEmpty().MinimumLength(5).WithMessage("Username must be at least 5 characters");
                 RuleFor(x => x.Password).NotEmpty()
-                .MinimumLength(6).WithMessage("Password must be at least 6 characters")
+                .MinimumLength(8).WithMessage("Password must be at least 8 characters")
                 .Matches("[A-Z]").WithMessage("Password must contain 1 uppercase letter")
                 .Matches("[a-z]").WithMessage("Password must have at least 1 lowercase character")
                 .Matches("[0-9]").WithMessage("Password must contain a number")
@@ -44,13 +44,11 @@ namespace Recipes.Features.User
         {
             private readonly RecipesDbContext context;
             private readonly UserManager<AppUser> userManager;
-            private readonly IJwtTokenGenerator jwtGenerator;
 
-            public Handler(RecipesDbContext context, UserManager<AppUser> userManager, IJwtTokenGenerator jwtGenerator)
+            public Handler(RecipesDbContext context, UserManager<AppUser> userManager)
             {
                 this.context = context;
                 this.userManager = userManager;
-                this.jwtGenerator = jwtGenerator;
             }
             public async Task<User> Handle(Command request, CancellationToken cancellationToken)
             {

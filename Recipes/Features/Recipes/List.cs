@@ -40,7 +40,7 @@ namespace Recipes.Features.Recipes
                     .Include(x => x.StepsOfCooking)
                     .Include(x => x.Ingredients)
                     .Include(x => x.Images)
-                    .OrderBy(x => x.UpdatedAt).ToListAsync();
+                    .OrderBy(x => x.UpdatedAt).ToListAsync(cancellationToken: cancellationToken);
 
                 return new RecipesEnvelope(mapper.Map<List<Recipe>, List<RecipeDto>>(recipes), recipes.Count);
             }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Recipes.Features.User;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace Recipes.Controllers
 {
@@ -9,6 +10,9 @@ namespace Recipes.Controllers
     [ApiController]
     public class UserController : BaseController
     {
+        public UserController(IMediator mediator)
+            : base(mediator) { }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]

@@ -16,6 +16,9 @@ namespace Recipes.Controllers
     [ApiController]
     public class CuisineController : BaseController
     {
+        public CuisineController(IMediator mediator)
+            : base(mediator) { }
+
         [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [Route("create")]
