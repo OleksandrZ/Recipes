@@ -21,109 +21,187 @@
     </nav>
   </div>
   <!-- Navbar end------------------------------------------ -->
-  <!-- Modal Sign In-->
-  <ng-template class="modal fade" #loginContent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h5 class="modal-title" id="LoginLabel">Sign In</h5>
-      <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="row mb-3">
-          <div class="col-sm-12">
-            <input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp"
-              placeholder="Email">
-            <i class="far fa-envelope mail_icon"></i>
-            <small id="emailHelp" class="form-text text-muted">Enter your email</small>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-sm-12">
-            <input id="pass" type="password" class="form-control password" aria-describedby="passHelp"
-              placeholder="Password">
-            <i class="fas fa-lock pass_icon"></i>
-            <span class="eye" onclick="myFunction()">
-              <i class="fas fa-eye" id="hide1"></i>
-              <i class="fas fa-eye-slash" id="hide2"></i>
-            </span>
-            <small id="passHelp" class="form-text text-muted">Enter your password</small>
-          </div>
-        </div>
-        <div class="form-check">
-          <label for="check" class="form-check-label remember_me">
-            <input type="checkbox" id="check" class="form-check-input">
-            Remember me?
-          </label>
-        </div>
-        <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in">Sign
-          In</button>
-        <div class="h-line">
-          <span>or</span>
-        </div>
-        <button type="submit" class="btn btn-light btn-google col-sm-12 mt-2">Sign In with Google
-          <img class="google_icon" src="../../assets/images/google_icon.png" alt="google_icon">
-        </button>
-        <div class="reg-now">
-          <span>Not a member? </span>
-          <a href="#"  (click)="openModal(registerContent)">Sign up now</a>
-        </div>
-      </form>
-    </div>
-  </ng-template>
-  
-  <!--  -->
-  <!-- Modal Sign up -->
-  <ng-template #registerContent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h5 class="modal-title" id="RegisterLabel">Sign Up</h5>
-      <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="row mb-3">
-          <div class="col-sm-12">
-            <input id="last-name" type="text" class="form-control username" aria-describedby="userHelp"
-              placeholder="Username">
-            <i class="fas fa-user username_icon"></i>
-            <small id="userHelp" class="form-text text-muted">Create your Username</small>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-sm-12">
-            <input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp"
-              placeholder="Email">
-            <i class="far fa-envelope sign-up mail_icon"></i>
-            <small id="emailHelp" class="form-text text-muted">Enter your email</small>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-sm-12">
-            <input type="password" class="form-control password" aria-describedby="passHelp"
-              placeholder="Password">
-            <i class="fas fa-lock sign-up pass_icon"></i>
-            <small id="passHelp" class="form-text text-muted">Enter your password</small>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-sm-12">
-            <input type="password" class="form-control confirm_password" aria-describedby="passHelp"
-              placeholder="Confirm password">
-            <i class="fas fa-lock confirm_icon"></i>
-            <small id="passHelp" class="form-text text-muted">Confirm your password</small>
-          </div>
-        </div>
-        <div class="form-check">
-          <label for="check_remember" class="form-check-label remember_me">
-            <input type="checkbox" id="check_remember" class="form-check-input">
-            I accept the Terms of Use & Privacy Policy
-          </label>
-        </div>
-        <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in">Sign Up</button>
-        <div class="login_now">
-          <span>Already have an account? </span>
-          <a href="#" (click)="openModal(loginContent)">Sign in here</a>
-        </div>
-      </form>
-    </div>
-  </ng-template>
 </header>
+<!-- Modal Sign In-->
+<ng-template class="modal fade" #loginContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title" id="LoginLabel">Sign In</h5>
+    <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
+  </div>
+  <form [formGroup]="loginForm">
+    <div class="modal-body">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <input id="loginEmail" type="email" class="form-control mail" aria-describedby="emailHelp" placeholder="Email"
+            name="loginEmail" formControlName="loginEmail">
+          <i class="far fa-envelope mail_icon"></i>
+          <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+          <div
+            *ngIf="loginForm.controls.loginEmail.invalid && (loginForm.controls.loginEmail.dirty || loginForm.controls.loginEmail.touched)"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.controls.loginEmail.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="loginForm.controls.loginEmail.errors.email">
+              Invalid email
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <input id="pass" [type]="fieldTextType ? 'text' : 'password'" class="form-control password"
+            aria-describedby="passHelp" placeholder="Password" name="loginPassword" formControlName="loginPassword">
+          <i class="fas fa-lock pass_icon"></i>
+          <span class="eye">
+            <i class="fa" [ngClass]="{
+          'fa-eye-slash': !fieldTextType,
+          'fa-eye': fieldTextType
+        }" (click)="toggleFieldTextType()"></i>
+          </span>
+          <small id="passHelp" class="form-text text-muted">Enter your password</small>
+          <div
+            *ngIf="loginForm.controls.loginPassword.invalid && (loginForm.controls.loginPassword.dirty || loginForm.controls.loginPassword.touched)"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.controls.loginPassword.errors.required">
+              Password is required
+            </div>
+            <div *ngIf="loginForm.controls.loginPassword.errors.minLength">
+              Password must be at least 8 characters long
+            </div>
+            <div *ngIf="loginForm.controls.loginPassword.errors.pattern">
+              Password must have at least:
+              <ul>
+                <li>1 uppercase & 1 lowercase character</li>
+                <li>1 number</li>
+                <li>1 special symbol</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-check">
+        <label for="check" class="form-check-label remember_me">
+          <input type="checkbox" id="check" class="form-check-input" formControlName="loginRememberMe">
+          Remember me?
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in" [disabled]="loginForm.invalid" (click)="c('Sign in')">Sign
+        In</button>
+      <div class="h-line">
+        <span>or</span>
+      </div>
+      <button type="submit" class="btn btn-light btn-google col-sm-12 mt-2">Sign In with Google
+        <img class="google_icon" src="../../assets/images/google_icon.png" alt="google_icon">
+      </button>
+      <div class="reg-now">
+        <span>Not a member? </span>
+        <a href="#" (click)="openModal(registerContent)">Sign up now</a>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<!--  -->
+<!-- Modal Sign up -->
+<ng-template #registerContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title" id="RegisterLabel">Sign Up</h5>
+    <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
+  </div>
+  <form [formGroup]="registerForm">
+    <div class="modal-body">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <input id="last-name" type="text" class="form-control username" aria-describedby="userHelp"
+            placeholder="Username" formControlName="registerUsername">
+          <i class="fas fa-user username_icon"></i>
+          <small id="userHelp" class="form-text text-muted">Create your Username</small>
+          <div
+            *ngIf="registerForm.controls.registerUsername.invalid && (registerForm.controls.registerUsername.dirty || registerForm.controls.registerUsername.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.controls.registerUsername.errors.required">
+              Username is required
+            </div>
+            <div *ngIf="!registerForm.controls.registerUsername.errors.minLength">
+              Username must be at least 4 characters long
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <input id="mail" type="email" class="form-control mail" aria-describedby="emailHelp" placeholder="Email"
+            formControlName="registerEmail">
+          <i class="far fa-envelope sign-up mail_icon"></i>
+          <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+          <div
+            *ngIf="registerForm.controls.registerEmail.invalid && (registerForm.controls.registerEmail.dirty || registerForm.controls.registerEmail.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.controls.registerEmail.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="registerForm.controls.registerEmail.errors.email">
+              Invalid email
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <input type="password" class="form-control password" aria-describedby="passHelp" placeholder="Password"
+            formControlName="registerPassword">
+          <i class="fas fa-lock sign-up pass_icon"></i>
+          <small id="passHelp" class="form-text text-muted">Enter your password</small>
+          <div
+            *ngIf="registerForm.controls.registerPassword.invalid && (registerForm.controls.registerPassword.dirty || registerForm.controls.registerPassword.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.controls.registerPassword.errors.required">
+              Password is required
+            </div>
+            <div *ngIf="registerForm.controls.registerPassword.errors.minLength">
+              Password must be at least 8 characters long
+            </div>
+            <div *ngIf="registerForm.controls.registerPassword.errors.pattern">
+              Password must have at least:
+              <ul>
+                <li>1 uppercase & 1 lowercase character</li>
+                <li>1 number</li>
+                <li>1 special symbol</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <input type="password" class="form-control confirm_password" aria-describedby="passHelp"
+            placeholder="Confirm password" formControlName="registerConfirmPassword">
+          <i class="fas fa-lock confirm_icon"></i>
+          <small id="passHelp" class="form-text text-muted">Confirm your password</small>
+          <div *ngIf="registerForm.errors?.passwordMatch && (registerForm.touched || registerForm.dirty)"
+            class="cross-validation-error-message alert alert-danger">
+            Passwords must match
+          </div>
+        </div>
+      </div>
+      <div class="form-check">
+        <label for="check_remember" class="form-check-label remember_me">
+          <input type="checkbox" id="check_remember" class="form-check-input" formControlName="registerAcceptTerms">
+          I accept the Terms of Use & Privacy Policy
+        </label>
+        <div
+          *ngIf="registerForm.controls.registerAcceptTerms.invalid && (registerForm.controls.registerAcceptTerms.dirty || registerForm.controls.registerAcceptTerms.touched)"
+          class="alert alert-danger">
+          <div *ngIf="registerForm.controls.registerAcceptTerms.errors.required">This checkbox is required</div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary col-sm-12 mt-4 sign_in" (click)="c('Sign up')">Sign
+        Up</button>
+      <div class="login_now">
+        <span>Already have an account? </span>
+        <a href="#" (click)="openModal(loginContent)">Sign in here</a>
+      </div>
+    </div>
+  </form>
+</ng-template>
