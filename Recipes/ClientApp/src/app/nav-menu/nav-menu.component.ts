@@ -1,20 +1,21 @@
 import {
-  ApplicationRef,
-  Component,
-  ElementRef,
-  Inject,
-  ViewChild,
+  Component
 } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from "@angular/forms";
-import { NgbModal, NgbModalConfig, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbModal,
+  NgbModalConfig,
+  NgbModalRef,
+} from "@ng-bootstrap/ng-bootstrap";
+import { finalize } from "rxjs/operators";
+import { AuthService } from "../core/services/auth.service";
 
 @Component({
   selector: "app-nav-menu",
@@ -26,8 +27,13 @@ export class NavMenuComponent {
   loginForm: FormGroup;
   registerForm: FormGroup;
   fieldTextType: boolean;
+  busy: boolean;
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder) {
+  constructor(
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.createForm();
   }
 
@@ -77,20 +83,21 @@ export class NavMenuComponent {
     let modalRef = this.modalService.open(content);
 
     modalRef.result
-      .then((result) => {
-        console.log("Closed with " + result);
-        if(result === "Sign in"){
-
+      .then(
+        (result) => {
+          console.log("Closed with " + result);
+          if (result === "Sign in") {
+            this.login();
+          } else if (result === "Sign up") {
+          }
+        },
+        (reason) => {
+          console.log("Dismissed " + reason);
+          this.loginForm.get("loginPassword").setValue("");
+          this.registerForm.get("registerPassword").setValue("");
+          this.registerForm.get("registerConfirmPassword").setValue("");
         }
-        else if(result === "Sign up"){
-
-        }
-      }, (reason) => {
-        console.log("Dismissed " + reason);
-        this.loginForm.get("loginPassword").setValue("");
-        this.registerForm.get("registerPassword").setValue("");
-        this.registerForm.get("registerConfirmPassword").setValue("");
-      })
+      )
       .catch((error) => {
         console.log(error);
       });
@@ -98,6 +105,27 @@ export class NavMenuComponent {
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
+  }
+
+  login() {
+    let email = this.loginForm.value.loginEmail;
+    let password = this.loginForm.value.loginPassword;
+    let rememberMe = this.loginForm.value.loginRememberMe;
+    if (!email || !password) {
+      return;
+    }
+    this.busy = true;
+    this.authService
+      .login(email, password, rememberMe)
+      .pipe(finalize(() => (this.busy = false)))
+      .subscribe(
+        () => {
+          console.log(1);
+        },
+        () => {
+          console.log(2);
+        }
+      );
   }
 }
 

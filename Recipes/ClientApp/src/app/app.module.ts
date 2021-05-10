@@ -11,6 +11,7 @@ import { RecipeComponent } from "./recipe/recipe.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CoreModule } from "./core/core.module";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CoreModule,
     HttpClientModule,
     RouterModule.forRoot(
       [
