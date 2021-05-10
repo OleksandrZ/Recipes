@@ -26,7 +26,7 @@ namespace Recipes.Features.Categories
             }
             public async Task<CategoriesEnvelope> Handle(Query request, CancellationToken cancellationToken)
             {
-                var categories = await context.Categories.ToListAsync();
+                var categories = await context.Categories.ToListAsync(cancellationToken: cancellationToken);
 
                 return new CategoriesEnvelope(categories, categories.Count);
             }
