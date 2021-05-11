@@ -25,7 +25,7 @@ namespace Recipes.Features.Cuisines
             }
             public async Task<CuisinesEnvelope> Handle(Query request, CancellationToken cancellationToken)
             {
-                var cuisines = await context.Cuisines.ToListAsync();
+                var cuisines = await context.Cuisines.ToListAsync(cancellationToken: cancellationToken);
 
                 return new CuisinesEnvelope(cuisines, cuisines.Count);
             }

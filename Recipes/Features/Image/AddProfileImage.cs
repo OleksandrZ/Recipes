@@ -24,8 +24,8 @@ namespace Recipes.Features.Image
         public class Handler : IRequestHandler<Command, Photo>
         {
             private readonly RecipesDbContext context;
-            private ICurrentUserAccessor currentUserAccessor;
-            private IPhotoAccessor photoAccessor;
+            private readonly ICurrentUserAccessor currentUserAccessor;
+            private readonly IPhotoAccessor photoAccessor;
             private readonly UserManager<AppUser> userManager;
             public Handler(ICurrentUserAccessor currentUserAccessor, RecipesDbContext context, IPhotoAccessor photoAccessor, UserManager<AppUser> userManager)
             {
@@ -44,7 +44,7 @@ namespace Recipes.Features.Image
 
                 context.Images.Add(user.Photo);
 
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(cancellationToken);
 
                 return user.Photo;
             }

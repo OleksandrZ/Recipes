@@ -52,11 +52,11 @@ namespace Recipes.Features.User
             }
             public async Task<User> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (await context.AppUsers.Where(u => u.Email == request.Email).AnyAsync())
-                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Email already exsists" });
+                if (await context.AppUsers.Where(u => u.Email == request.Email).AnyAsync(cancellationToken: cancellationToken))
+                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Email already exists" });
 
-                if (await context.AppUsers.Where(u => u.UserName == request.Username).AnyAsync())
-                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Username already exsists" });
+                if (await context.AppUsers.Where(u => u.UserName == request.Username).AnyAsync(cancellationToken: cancellationToken))
+                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Username already exists" });
 
                 var user = new AppUser()
                 {

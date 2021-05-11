@@ -31,14 +31,14 @@ namespace Recipes.Features.Recipes
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var recipe = await context.Recipes.FindAsync(request.Id);
+                var recipe = await context.Recipes.FindAsync(new object[] {request.Id}, cancellationToken: cancellationToken);
 
                 if (recipe == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, new { Recipe = "Recipe not found" });
 
                 context.Remove(recipe);
 
-                if (await context.SaveChangesAsync() > 0)
+                if (await context.SaveChangesAsync(cancellationToken) > 0)
                     return Unit.Value;
 
                 throw new Exception("Problem saving changes");

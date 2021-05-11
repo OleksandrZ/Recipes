@@ -37,15 +37,15 @@ namespace Recipes.Features.Categories
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (!(await context.Categories.Where(x => x.Name == request.Name).AnyAsync()))
+                if (!(await context.Categories.Where(x => x.Name == request.Name).AnyAsync(cancellationToken: cancellationToken)))
                     throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Category = "Category doesn`t exist" });
 
 
-                var cat = context.Categories.Where(x => x.Name == request.Name).FirstOrDefault();
+                var cat = context.Categories.FirstOrDefault(x => x.Name == request.Name);
 
                 context.Categories.Remove(cat);
 
-                if (await context.SaveChangesAsync() > 0)
+                if (await context.SaveChangesAsync(cancellationToken) > 0)
                 {
                     return Unit.Value;
                 }

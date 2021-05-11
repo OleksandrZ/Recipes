@@ -38,7 +38,7 @@ namespace Recipes.Features.Categories
             }
             public async Task<Category> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (await context.Categories.Where(x => x.Name == request.Name).AnyAsync())
+                if (await context.Categories.Where(x => x.Name == request.Name).AnyAsync(cancellationToken: cancellationToken))
                     throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Category = "Category already exists" });
 
                 var category = new Category()
@@ -49,7 +49,7 @@ namespace Recipes.Features.Categories
 
                 context.Categories.Add(category);
 
-                if(await context.SaveChangesAsync() > 0)
+                if(await context.SaveChangesAsync(cancellationToken) > 0)
                 {
                     return category;
                 }

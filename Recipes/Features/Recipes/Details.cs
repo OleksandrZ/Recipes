@@ -40,7 +40,7 @@ namespace Recipes.Features.Recipes
                    .Include(x => x.StepsOfCooking)
                    .Include(x => x.Ingredients)
                    .Include(x => x.Images)
-                   .OrderBy(x => x.UpdatedAt).ToListAsync();
+                   .OrderBy(x => x.UpdatedAt).ToListAsync(cancellationToken: cancellationToken);
 
                 var recipe = recipes.Find(x => x.Id == request.Id);
 
