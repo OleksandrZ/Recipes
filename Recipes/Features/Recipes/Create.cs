@@ -80,9 +80,9 @@ namespace Recipes.Features.Recipes
                     StepsOfCooking = request.StepsOfCooking
                 };
 
-                if(Enum.TryParse(typeof(Difficulty), request.Difficulty,  out object res))
+                if(Enum.TryParse(typeof(Domain.Difficulty), request.Difficulty,  out object res))
                 {
-                    recipe.Difficulty = (Difficulty)res;
+                    recipe.Difficulty = (Domain.Difficulty)res;
                 }
                 else
                 {

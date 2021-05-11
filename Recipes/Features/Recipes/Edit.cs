@@ -64,16 +64,16 @@ namespace Recipes.Features.Recipes
                     .Include(x => x.Ingredients)
                     .Include(x => x.NutritionValue)
                     .Include(x => x.StepsOfCooking)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken: cancellationToken);
 
                 var recipe = recipes.Find(x => x.Id == request.Id);
 
                 if (recipe == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, new { Recipe = "Recipe not found" });
 
-                Difficulty diff = recipe.Difficulty;
+                Domain.Difficulty diff = recipe.Difficulty;
                 object obj;
-                if (Enum.TryParse(typeof(Difficulty), request.Difficulty, true, out obj) && obj is Difficulty difficulty)
+                if (Enum.TryParse(typeof(Domain.Difficulty), request.Difficulty, true, out obj) && obj is Domain.Difficulty difficulty)
                 {
                     diff = difficulty;
                 }
@@ -94,7 +94,7 @@ namespace Recipes.Features.Recipes
                 }
 
                 recipe.Categories = categories ?? recipe.Categories;
-                
+
 
                 if (context.ChangeTracker.Entries().First(x => x.Entity == recipe).State == EntityState.Modified)
                 {
