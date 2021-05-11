@@ -9,6 +9,6 @@ namespace Recipes.Features.User
     {
         public string Username { get; set; }
         public string ImageUrl { get; set; }
-        public string Token { get; set; }
+        public string JwtToken { get; set; }
     }
 }

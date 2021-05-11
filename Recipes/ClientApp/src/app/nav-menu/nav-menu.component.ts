@@ -1,6 +1,4 @@
-import {
-  Component
-} from "@angular/core";
+import { Component } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
@@ -14,7 +12,7 @@ import {
   NgbModalConfig,
   NgbModalRef,
 } from "@ng-bootstrap/ng-bootstrap";
-import { finalize } from "rxjs/operators";
+import { finalize, first } from "rxjs/operators";
 import { AuthService } from "../core/services/auth.service";
 
 @Component({
@@ -86,10 +84,6 @@ export class NavMenuComponent {
       .then(
         (result) => {
           console.log("Closed with " + result);
-          if (result === "Sign in") {
-            this.login();
-          } else if (result === "Sign up") {
-          }
         },
         (reason) => {
           console.log("Dismissed " + reason);
@@ -108,24 +102,28 @@ export class NavMenuComponent {
   }
 
   login() {
-    let email = this.loginForm.value.loginEmail;
-    let password = this.loginForm.value.loginPassword;
-    let rememberMe = this.loginForm.value.loginRememberMe;
-    if (!email || !password) {
+    if (this.loginForm.invalid) {
       return;
     }
+
+    let email = this.loginForm.value.loginEmail;
+    let password = this.loginForm.value.loginPassword;
+    let rememberMe: boolean = this.loginForm.value.loginRememberMe;
+
     this.busy = true;
+
     this.authService
       .login(email, password, rememberMe)
-      .pipe(finalize(() => (this.busy = false)))
-      .subscribe(
-        () => {
-          console.log(1);
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          console.log("Ok");
         },
-        () => {
-          console.log(2);
-        }
-      );
+        error: (error) => {
+          console.log("Error");
+          console.log(error);
+        },
+      });
   }
 }
 

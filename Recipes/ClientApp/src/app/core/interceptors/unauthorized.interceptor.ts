@@ -1,37 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
-import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+} from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
+import { AuthService } from "../services/auth.service";
+import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authenticationService: AuthService) {}
 
   intercept(
-    request: HttpRequest<unknown>,
+    request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err) => {
-        if (err.status === 401) {
-          this.authService.clearLocalStorage();
-          // this.router.navigate(['login'], {
-          //   queryParams: { returnUrl: this.router.routerState.snapshot.url },
-          // });
+        if (
+          [401, 403].includes(err.status) &&
+          this.authenticationService.userValue
+        ) {
+          // auto logout if 401 or 403 response returned from api
+          this.authenticationService.logout();
         }
 
-        if (!environment.production) {
-          console.error(err);
-        }
         const error = (err && err.error && err.error.message) || err.statusText;
+        console.error(err);
         return throwError(error);
       })
     );
