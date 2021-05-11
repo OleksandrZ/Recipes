@@ -8,6 +8,7 @@ namespace Recipes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : BaseController
     {
         public UserController(IMediator mediator)
@@ -30,6 +31,7 @@ namespace Recipes.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("register-admin")]
         public async Task<ActionResult<User>> RegisterAdmin(RegisterAdmin.Command command)
         {
