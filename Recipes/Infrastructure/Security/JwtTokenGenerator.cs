@@ -44,7 +44,7 @@ namespace Recipes.Infrastructure.Security
             var token = new JwtSecurityToken(
                     issuer: config["JWT:ValidIssuer"],
                     audience: config["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddHours(2),
+                    expires: DateTime.Now.AddMinutes(30),
                     claims: claims,
                     signingCredentials: creds
                     );

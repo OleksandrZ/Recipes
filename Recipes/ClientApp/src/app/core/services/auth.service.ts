@@ -31,7 +31,7 @@ export class AuthService {
       .pipe(
         map((user) => {
           this.userSubject.next(user);
-          console.log(user);
+          console.log(this.userValue);
           
           this.startRefreshTokenTimer();
           return user;
@@ -41,7 +41,7 @@ export class AuthService {
 
   logout() {
     this.http
-      .post<any>(`${this.apiUrl}/revoke-token`, {}, { withCredentials: true })
+      .post<any>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
       .subscribe();
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);

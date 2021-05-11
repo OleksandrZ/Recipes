@@ -54,6 +54,7 @@ namespace Recipes
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+            services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
 
             services.AddAutoMapper(GetType().Assembly);
 
