@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -29,35 +30,52 @@ namespace Recipes.Infrastructure.Security
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsAuthorRequirement requirement)
         {
-            var currentUserName = httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-
-            long size = httpContextAccessor.HttpContext.Request.ContentLength.Value;
-            byte[] buffer = new byte[size];
-            var body = httpContextAccessor.HttpContext.Request.BodyReader.AsStream();
-            using var streamReader = new StreamReader(body);
-
-            var res = streamReader.ReadToEndAsync();
-            string str = "";
-
-            if(res.IsCompleted)
+            if (httpContextAccessor.HttpContext != null)
             {
-                str = res.Result;
+                var currentUserName = httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                byte[] buffer;
+                if (httpContextAccessor.HttpContext.Request.ContentLength != null)
+                {
+                    long size = httpContextAccessor.HttpContext.Request.ContentLength.Value;
+                    buffer = new byte[size];
+                }
+                else
+                {
+                    throw new Exception();
+                }
 
-                var obj = JObject.Parse(str);
+                // Copy body to memory stream
+                var memoryStream = new MemoryStream();
+                httpContextAccessor.HttpContext.Request.Body.CopyToAsync(memoryStream);
 
-                var recipeId = obj["id"].ToString();
+                // reset position after CopyToAsync
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                memoryStream.ReadAsync(buffer);
 
-                var recipes = dbContext.Recipes.Include(x => x.Author);
+                var str = Encoding.UTF8.GetString(buffer);
 
-                var recipe = recipes.Where(x => x.Id == recipeId).FirstOrDefault();
+                // reset position after ReadAsync
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                httpContextAccessor.HttpContext.Request.Body = memoryStream;
 
-                if (recipe.Author.UserName == currentUserName)
-                    context.Succeed(requirement);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    var obj = JObject.Parse(str);
+
+                    var recipeId = obj["id"]?.ToString();
+
+                    var recipes = dbContext.Recipes.Include(x => x.Author);
+
+                    var recipe = recipes.FirstOrDefault(x => x.Id == recipeId);
+
+                    if (recipe?.Author.UserName == currentUserName)
+                        context.Succeed(requirement);
+                    else
+                        context.Fail();
+                }
                 else
                     context.Fail();
             }
-            else
-                context.Fail();
 
             return Task.CompletedTask;
         }

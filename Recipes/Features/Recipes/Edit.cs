@@ -64,16 +64,16 @@ namespace Recipes.Features.Recipes
                     .Include(x => x.Ingredients)
                     .Include(x => x.NutritionValue)
                     .Include(x => x.StepsOfCooking)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken: cancellationToken);
 
                 var recipe = recipes.Find(x => x.Id == request.Id);
 
                 if (recipe == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, new { Recipe = "Recipe not found" });
 
-                Difficulty diff = recipe.Difficulty;
+                Domain.Difficulty diff = recipe.Difficulty;
                 object obj;
-                if (Enum.TryParse(typeof(Difficulty), request.Difficulty, true, out obj) && obj is Difficulty difficulty)
+                if (Enum.TryParse(typeof(Domain.Difficulty), request.Difficulty, true, out obj) && obj is Domain.Difficulty difficulty)
                 {
                     diff = difficulty;
                 }
@@ -82,7 +82,7 @@ namespace Recipes.Features.Recipes
                 recipe.Title = request.Title ?? recipe.Title;
                 recipe.TimeOfCooking = request.TimeOfCooking ?? recipe.TimeOfCooking;
                 recipe.Ingredients = request.Ingredients ?? recipe.Ingredients;
-                recipe.Cuisine = context.Cuisines.Where(x => x.Name == request.Cuisine).FirstOrDefault() ?? recipe.Cuisine;
+                recipe.Cuisine = context.Cuisines.FirstOrDefault(x => x.Name == request.Cuisine) ?? recipe.Cuisine;
                 recipe.Difficulty = diff;
                 recipe.NutritionValue = request.NutritionValue ?? recipe.NutritionValue;
                 recipe.StepsOfCooking = request.StepsOfCooking ?? recipe.StepsOfCooking;
@@ -90,18 +90,18 @@ namespace Recipes.Features.Recipes
                 var categories = new List<Category>();
                 foreach (var cat in request.Categories)
                 {
-                    categories.Add(context.Categories.Where(x => x.Name == cat.Name).FirstOrDefault());
+                    categories.Add(context.Categories.FirstOrDefault(x => x.Name == cat.Name));
                 }
 
                 recipe.Categories = categories ?? recipe.Categories;
-                
+
 
                 if (context.ChangeTracker.Entries().First(x => x.Entity == recipe).State == EntityState.Modified)
                 {
                     recipe.UpdatedAt = DateTime.Now;
                 }
 
-                if(await context.SaveChangesAsync() > 0)
+                if(await context.SaveChangesAsync(cancellationToken) > 0)
                     return Unit.Value;
 
                 throw new Exception("Problem saving recipe");

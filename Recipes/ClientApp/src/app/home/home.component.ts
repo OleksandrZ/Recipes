@@ -10,6 +10,9 @@ import { RecipeService } from "./../recipe.service";
 export class HomeComponent implements OnInit {
   recipeEnvelope: RecipeEnvelope;
   recipesLoaded = false;
+  page = 1;
+  itemsPerPage = 9;
+  pageSize: number;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
@@ -21,5 +24,9 @@ export class HomeComponent implements OnInit {
       this.recipeEnvelope = recipeEnvelope;
       this.recipesLoaded = true;
     });
+  }
+
+  onPageChange(page){
+    this.pageSize = this.itemsPerPage*(page - 1);
   }
 }

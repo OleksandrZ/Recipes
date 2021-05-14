@@ -17,6 +17,9 @@ namespace Recipes.Controllers
     [ApiController]
     public class CategoryController : BaseController
     {
+        public CategoryController(IMediator mediator)
+            : base(mediator) {}
+
         [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [Route("create")]

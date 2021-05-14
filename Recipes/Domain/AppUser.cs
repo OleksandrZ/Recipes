@@ -20,6 +20,8 @@ namespace Recipes.Domain
         [JsonIgnore]
         public ICollection<Comment> Comments { get; set; }
         public Photo Photo { get; set; }
+        [JsonIgnore]
+        public List<RefreshToken> RefreshTokens { get; set; }
 
     }
 }

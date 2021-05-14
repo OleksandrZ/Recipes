@@ -50,7 +50,7 @@ namespace Recipes.Features.Recipes
         {
             private readonly RecipesDbContext context;
             private readonly UserManager<AppUser> userManager;
-            private ICurrentUserAccessor currentUserAccessor;
+            private readonly ICurrentUserAccessor currentUserAccessor;
             private readonly IPhotoAccessor photoAccessor;
 
             public Handler(RecipesDbContext context, UserManager<AppUser> userManager, ICurrentUserAccessor currentUserAccessor, IPhotoAccessor photoAccessor)
@@ -75,14 +75,14 @@ namespace Recipes.Features.Recipes
                     Title = request.Title,
                     TimeOfCooking = request.TimeOfCooking,
                     Ingredients = request.Ingredients,
-                    Cuisine = context.Cuisines.Where(x => x.Name == request.Cuisine).FirstOrDefault(),
+                    Cuisine = context.Cuisines.FirstOrDefault(x => x.Name == request.Cuisine),
                     NutritionValue = request.NutritionValue,
                     StepsOfCooking = request.StepsOfCooking
                 };
 
-                if(Enum.TryParse(typeof(Difficulty), request.Difficulty,  out object res))
+                if(Enum.TryParse(typeof(Domain.Difficulty), request.Difficulty,  out object res))
                 {
-                    recipe.Difficulty = (Difficulty)res;
+                    recipe.Difficulty = (Domain.Difficulty)res;
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace Recipes.Features.Recipes
                 recipe.Categories = new List<Category>();
                 foreach (var cat in request.Categories)
                 {
-                    recipe.Categories.Add(context.Categories.Where(x => x.Name == cat.Name).FirstOrDefault());
+                    recipe.Categories.Add(context.Categories.FirstOrDefault(x => x.Name == cat.Name));
                 }
 
                 if (request.Images != null && request.Images.Count > 0)
@@ -108,7 +108,7 @@ namespace Recipes.Features.Recipes
                 context.Recipes.Add(recipe);
 
 
-                if(await context.SaveChangesAsync() > 0)
+                if(await context.SaveChangesAsync(cancellationToken) > 0)
                     return Unit.Value;
 
                 throw new Exception("Problem saving recipe");

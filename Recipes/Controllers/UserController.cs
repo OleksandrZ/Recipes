@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recipes.Features.User;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Recipes.Domain;
 
 namespace Recipes.Controllers
 {
@@ -9,14 +13,50 @@ namespace Recipes.Controllers
     [ApiController]
     public class UserController : BaseController
     {
+        public UserController(IMediator mediator)
+            : base(mediator) { }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult<User>> Login(Login.Query query)
         {
-            return await Mediator.Send(query);
+            query.Ip = IpAddress();
+
+            var user = await Mediator.Send(query);
+
+            SetTokenCookie(user.RefreshToken);
+
+            return user;
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("refresh-token")]
+        public async Task<ActionResult<User>> RefreshToken(Features.User.RefreshToken.Query query)
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+            query.Token = refreshToken;
+            query.Ip = IpAddress();
+
+            var user = await Mediator.Send(query);
+
+            SetTokenCookie(user.RefreshToken);
+
+            return user;
+        }
+
+        [HttpPost]
+        [Route(("logout"))]
+        public async Task<Unit> Logout(Logout.Command command)
+        {
+            var token = Request.Cookies["refreshToken"];
+
+            command.Token = token;
+            command.Ip = IpAddress();
+
+            return await Mediator.Send(command);
+        }
         [AllowAnonymous]
         [HttpPost]
         [Route("register")]
@@ -26,10 +66,29 @@ namespace Recipes.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("register-admin")]
-        public async Task<ActionResult<User>> RegisterAdmnin(RegisterAdmin.Command command)
+        public async Task<ActionResult<User>> RegisterAdmin(RegisterAdmin.Command command)
         {
             return await Mediator.Send(command);
+        }
+
+        private void SetTokenCookie(string token)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(7)
+            };
+            Response.Cookies.Append("refreshToken", token, cookieOptions);
+        }
+
+        private string IpAddress()
+        {
+            if (Request.Headers.ContainsKey("X-Forwarded-For"))
+                return Request.Headers["X-Forwarded-For"];
+            else
+                return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
         }
     }
 }

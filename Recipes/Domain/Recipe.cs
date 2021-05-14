@@ -26,12 +26,4 @@ namespace Recipes.Domain
         [JsonIgnore]
         public ICollection<RecipeFavorite> RecipeFavorites { get; set; }
     }
-    public enum Difficulty
-    {
-        Begginer = 1,
-        Easy,
-        Normal,
-        Hard,
-        Expert
-    }
 }

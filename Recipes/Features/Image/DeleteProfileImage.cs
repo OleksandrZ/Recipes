@@ -35,9 +35,9 @@ namespace Recipes.Features.Image
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                context.Images.Load();
-                var user = await context.Users.SingleOrDefaultAsync(x => x.UserName == currentUserAccessor.GetCurrentUsername());
-                
+                await context.Images.LoadAsync(cancellationToken: cancellationToken);
+                var user = await context.Users.SingleOrDefaultAsync(x => x.UserName == currentUserAccessor.GetCurrentUsername(), cancellationToken: cancellationToken);
+
                 if(user.Photo == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Photo = "Photo doesn't exist" });
 

@@ -444,7 +444,7 @@
               <button class="button__item">Read Recipe</button>
             </div>
           </div>
-          <div class="col-3 card__item" *ngFor="let recipe of recipeEnvelope.recipes">
+          <div class="col-3 card__item" *ngFor="let recipe of recipeEnvelope.recipes | slice: pageSize | slice: 0:itemsPerPage">
             <div class="card__image">
               <img class="d-block w-100"
                 src="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}"
@@ -458,8 +458,9 @@
               <button class="button__item">Read Recipe</button>
             </div>
           </div>
+          <ngb-pagination class="d-flex justify-content-end"  [collectionSize]="recipeEnvelope.recipeCount" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
         </div>
       </div>
     </div>
   </div>
-</main>
+</main>     

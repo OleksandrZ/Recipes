@@ -35,15 +35,15 @@ namespace Recipes.Features.Cuisines
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (!(await context.Cuisines.Where(x => x.Name == request.Name).AnyAsync()))
+                if (!(await context.Cuisines.Where(x => x.Name == request.Name).AnyAsync(cancellationToken: cancellationToken)))
                     throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Cuisine = "Cuisine doesn`t exist" });
 
 
-                var cuisine = context.Cuisines.Where(x => x.Name == request.Name).FirstOrDefault();
+                var cuisine = context.Cuisines.FirstOrDefault(x => x.Name == request.Name);
 
                 context.Cuisines.Remove(cuisine);
 
-                if (await context.SaveChangesAsync() > 0)
+                if (await context.SaveChangesAsync(cancellationToken) > 0)
                 {
                     return Unit.Value;
                 }

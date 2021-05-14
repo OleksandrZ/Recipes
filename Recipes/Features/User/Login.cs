@@ -31,6 +31,8 @@ namespace Recipes.Features.User
         {
             public string Email { get; set; }
             public string Password { get; set; }
+            public bool RememberMe { get; set; }
+            public string Ip { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, User>
@@ -38,13 +40,15 @@ namespace Recipes.Features.User
             private readonly SignInManager<AppUser> SignInManager;
             private readonly UserManager<AppUser> userManager;
             private readonly IJwtTokenGenerator jwtGenerator;
+            private readonly IRefreshTokenGenerator refreshTokenGenerator;
             private readonly RecipesDbContext context;
 
-            public Handler(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IJwtTokenGenerator jwtGenerator, RecipesDbContext context)
+            public Handler(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IJwtTokenGenerator jwtGenerator, IRefreshTokenGenerator refreshTokenGenerator, RecipesDbContext context)
             {
                 SignInManager = signInManager;
                 this.userManager = userManager;
                 this.jwtGenerator = jwtGenerator;
+                this.refreshTokenGenerator = refreshTokenGenerator;
                 this.context = context;
             }
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
@@ -54,16 +58,21 @@ namespace Recipes.Features.User
                 if (user == null)
                     throw new RestException(System.Net.HttpStatusCode.Unauthorized);
 
-                context.Images.Load();
-                var result = await SignInManager.CheckPasswordSignInAsync(user, request.Password, false);
+                await context.Images.LoadAsync(cancellationToken: cancellationToken);
+                var result = await SignInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, false);
 
                 if(result.Succeeded)
                 {
+                    var refreshToken = refreshTokenGenerator.GenerateRefreshToken(request.Ip);
+                    user.RefreshTokens.Add(refreshToken);
+                    await userManager.UpdateAsync(user);
+
                     return new User()
                     {
-                        Image = user.Photo == null ? "" : user.Photo.Url,
-                        Token = await jwtGenerator.CreateToken(user),
-                        Username = user.UserName
+                        ImageUrl = user.Photo == null ? "" : user.Photo.Url,
+                        JwtToken = await jwtGenerator.CreateToken(user),
+                        Username = user.UserName,
+                        RefreshToken = refreshToken.Token
                     };
                 }
                 throw new RestException(System.Net.HttpStatusCode.Unauthorized);
