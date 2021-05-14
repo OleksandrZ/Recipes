@@ -127,8 +127,32 @@ export class NavMenuComponent {
         },
       });
   }
+  register() {
+    if (this.registerForm.invalid) {
+      return;
+    }
+    let email = this.registerForm.value.registerEmail;
+    let password = this.registerForm.value.registerPassword;
+    let username = this.registerForm.value.registerUsername;
 
-  logout(){
+    this.busy = true;
+
+    this.authService
+      .register(username, email, password)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          console.log("Registred");
+          this.modalService.dismissAll();
+          this.modalService.open(this.loginForm);
+        },
+        error: (error) => {
+          console.log(error);
+          this.modalService.dismissAll();
+        },
+      });
+  }
+  logout() {
     this.authService.logout();
   }
 }
