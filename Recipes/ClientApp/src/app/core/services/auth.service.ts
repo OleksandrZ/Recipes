@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, ReplaySubject } from "rxjs";
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { ApplicationUser } from "./../models/application-user";
 import { environment } from "src/environments/environment";
 
@@ -52,7 +52,7 @@ export class AuthService {
 
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);
-    
+
     this.router.navigate(["/"]);
   }
 
@@ -60,12 +60,19 @@ export class AuthService {
     return this.http
       .post<any>(`${this.apiUrl}/refresh-token`, {}, { withCredentials: true })
       .pipe(
-        map((user) => {
-          this.userSubject.next(user);    
-          this.isAuthenticatedSubject.next(true);
-          this.startRefreshTokenTimer();
-          return user;
-        })
+        map(
+          (user) => {
+            this.userSubject.next(user);
+            this.isAuthenticatedSubject.next(true);
+            this.startRefreshTokenTimer();
+            return user;
+          },
+          catchError((err) => {
+            this.isAuthenticatedSubject.next(false);
+            console.log(err);
+            return err;
+          })
+        )
       );
   }
 
