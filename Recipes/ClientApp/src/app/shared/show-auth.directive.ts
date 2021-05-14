@@ -26,7 +26,7 @@ export class ShowAuthDirective {
     );
   }
 
-  @Input() set appShowAuthed(condition: boolean) {
+  @Input() set appShowAuth(condition: boolean) {
     this.condition = condition;
   }
 
