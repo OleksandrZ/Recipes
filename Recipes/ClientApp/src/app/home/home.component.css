@@ -121,7 +121,7 @@ summary {
 	box-shadow: 0 0 1px 1px rgba(228, 228, 228,0.3);
 	position: absolute;
 	top: 0;
-	right:-1%;
+	right:1%;
 	z-index: 1;
 	transform: translateY(80%);
 }
@@ -137,7 +137,7 @@ summary {
 	transition: opacity .1s linear;
 	position: absolute;
 	top: 0;
-	right:-1%;
+	right:1%;
 	z-index: 2;
 	transform: translateY(80%);
 }
@@ -157,11 +157,10 @@ summary {
 }
 
 .card__item{
-	width: 20vw !important;
+	width: 32% !important;
 	height: auto;
 	border-radius: 3px;
 	background-color: #fff;
-	margin-left: 0px;
 	margin-bottom: 3%;
 }
 .card__image{
