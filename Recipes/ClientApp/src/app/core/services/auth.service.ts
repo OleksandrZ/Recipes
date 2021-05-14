@@ -66,13 +66,12 @@ export class AuthService {
             this.isAuthenticatedSubject.next(true);
             this.startRefreshTokenTimer();
             return user;
-          },
-          catchError((err) => {
-            this.isAuthenticatedSubject.next(false);
-            console.log(err);
-            return err;
-          })
-        )
+          }
+        ),
+        catchError((error) => {
+          this.isAuthenticatedSubject.next(false);
+          return error;
+        })
       );
   }
 
