@@ -118,12 +118,18 @@ export class NavMenuComponent {
       .subscribe({
         next: () => {
           console.log("Ok");
+          this.modalService.dismissAll();
         },
         error: (error) => {
           console.log("Error");
           console.log(error);
+          this.modalService.dismissAll();
         },
       });
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }
 

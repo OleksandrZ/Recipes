@@ -339,3 +339,5 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Recipes/wwwroot/images
+Recipes/Domain Diagram.cd
+Recipes/Recipe Diagram.cd

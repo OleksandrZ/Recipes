@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from "./core/core.module";
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,14 @@ import { CoreModule } from "./core/core.module";
     RecipeComponent,
   ],
   imports: [
-    NgbAlertModule,
+
+  NgbAlertModule,
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
+    SharedModule,
     HttpClientModule,
     RouterModule.forRoot(
       [
