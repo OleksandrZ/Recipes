@@ -1,7 +1,6 @@
 /* Slider ------------------------------------------- */
 main .container{
 	padding: 0;
-	margin-top: 90px;
 }
 .slider{
 	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
