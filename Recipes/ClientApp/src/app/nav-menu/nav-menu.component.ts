@@ -110,6 +110,11 @@ export class NavMenuComponent {
     let password = this.loginForm.value.loginPassword;
     let rememberMe: boolean = this.loginForm.value.loginRememberMe;
 
+    //if checkbox unchecked, set variable to false
+    if(rememberMe !== true){
+      rememberMe = false;
+    }
+
     this.busy = true;
 
     this.authService
