@@ -13,22 +13,22 @@ using System.Threading.Tasks;
 
 namespace Recipes.Infrastructure.Security
 {
-    public class IsAuthorRequirement : IAuthorizationRequirement
+    public class IsRecipeAuthorRequirement : IAuthorizationRequirement
     {
     }
 
-    public class IsAuthorRequirementHandler : AuthorizationHandler<IsAuthorRequirement>
+    public class IsRecipeAuthorRequirementHandler : AuthorizationHandler<IsRecipeAuthorRequirement>
     {
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly RecipesDbContext dbContext;
 
-        public IsAuthorRequirementHandler(IHttpContextAccessor httpContextAccessor, RecipesDbContext context)
+        public IsRecipeAuthorRequirementHandler(IHttpContextAccessor httpContextAccessor, RecipesDbContext context)
         {
             this.dbContext = context;
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsAuthorRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsRecipeAuthorRequirement requirement)
         {
             if (httpContextAccessor.HttpContext != null)
             {
