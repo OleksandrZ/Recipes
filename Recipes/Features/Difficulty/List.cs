@@ -21,7 +21,7 @@ namespace Recipes.Features.Difficulty
             {
                 this.context = context;
             }
-            public async Task<List<string>> Handle(Query request, CancellationToken cancellationToken)
+            public Task<List<string>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var difficulties = new List<string>
                 {
@@ -32,7 +32,7 @@ namespace Recipes.Features.Difficulty
                     Domain.Difficulty.Expert.ToString()
                 };
 
-                return difficulties;
+                return Task.FromResult(difficulties);
             }
         }
     }

@@ -44,6 +44,22 @@ export class AuthService {
 			);
 	}
 
+	register(username: string, email: string, password: string) {
+		return this.http
+			.post<any>(
+				`${this.apiUrl}/register`,
+				{ username, email, password },
+				{ withCredentials: true }
+			)
+			.pipe(
+				map((user) => console.log(user)),
+				catchError((error) => {
+					console.log(error);
+					return error;
+				})
+			);
+	}
+
 	logout() {
 		this.http
 			.post<any>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
@@ -60,14 +76,12 @@ export class AuthService {
 		return this.http
 			.post<any>(`${this.apiUrl}/refresh-token`, {}, { withCredentials: true })
 			.pipe(
-				map(
-					(user) => {
-						this.userSubject.next(user);
-						this.isAuthenticatedSubject.next(true);
-						this.startRefreshTokenTimer();
-						return user;
-					}
-				),
+				map((user) => {
+					this.userSubject.next(user);
+					this.isAuthenticatedSubject.next(true);
+					this.startRefreshTokenTimer();
+					return user;
+				}),
 				catchError((error) => {
 					this.isAuthenticatedSubject.next(false);
 					return error;

@@ -50,7 +50,7 @@ namespace Recipes.Features.User
 
                 var refreshToken = user.RefreshTokens.Single(x => x.Token == request.Token);
 
-                if (!refreshToken.IsActive) throw new RestException(System.Net.HttpStatusCode.Unauthorized);
+                if (!refreshToken.IsActive) throw new RestException(System.Net.HttpStatusCode.Forbidden);
 
                 var newRefreshToken = refreshTokenGenerator.GenerateRefreshToken(request.Ip);
                 refreshToken.Revoked = DateTime.Now;

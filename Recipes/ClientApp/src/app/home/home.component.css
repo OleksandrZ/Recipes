@@ -7,7 +7,7 @@ main .container{
 }
 
 .carousel-inner > .carousel-item > img { 
-	height: 80vh;
+	height: 70vh;
 	width: auto;
 } 
 
