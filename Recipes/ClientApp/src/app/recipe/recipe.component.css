@@ -108,12 +108,13 @@ img {
 .img-timer,
 .img-portion {
     width: 100%;
-    height: 30%;
+    height: 40%;
 }
 
 .img-difficulty {
-    width: 100%;
-    height: 30%;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
 }
 
 .btn-create {

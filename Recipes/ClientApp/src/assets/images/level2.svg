@@ -42,8 +42,7 @@
   <g id="svg_28"/>
   <g id="svg_29"/>
   <g id="svg_30"/>
-  <ellipse ry="61.5" rx="30" id="svg_43" cy="415.9" cx="33.5" stroke-opacity="null" stroke-dasharray="null" stroke-width="null" stroke="#000" fill="#000000"/>
-  <ellipse ry="111" rx="26.5" id="svg_44" cy="358.4" cx="140" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="null" stroke="#000" fill="#000000"/>
-  <ellipse ry="104.5" rx="19" id="svg_46" cy="358.9" cx="127.5" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="null" stroke="#000" fill="#000000"/>
+  <ellipse ry="57" rx="25.5" id="svg_31" cy="415" cx="32" stroke="#000" fill="#000000"/>
+  <ellipse ry="112.50001" rx="29.5" id="svg_34" cy="360.49999" cx="137" stroke="#000" fill="#000000"/>
  </g>
 </svg>
