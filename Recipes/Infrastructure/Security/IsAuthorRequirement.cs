@@ -13,22 +13,22 @@ using System.Threading.Tasks;
 
 namespace Recipes.Infrastructure.Security
 {
-    public class IsRecipeAuthorRequirement : IAuthorizationRequirement
+    public class IsAuthorRequirement : IAuthorizationRequirement
     {
     }
 
-    public class IsRecipeAuthorRequirementHandler : AuthorizationHandler<IsRecipeAuthorRequirement>
+    public class IsAuthorRequirementHandler : AuthorizationHandler<IsAuthorRequirement>
     {
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly RecipesDbContext dbContext;
 
-        public IsRecipeAuthorRequirementHandler(IHttpContextAccessor httpContextAccessor, RecipesDbContext context)
+        public IsAuthorRequirementHandler(IHttpContextAccessor httpContextAccessor, RecipesDbContext context)
         {
             this.dbContext = context;
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsRecipeAuthorRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsAuthorRequirement requirement)
         {
             if (httpContextAccessor.HttpContext != null)
             {
@@ -41,7 +41,7 @@ namespace Recipes.Infrastructure.Security
                 }
                 else
                 {
-                    throw new Exception();
+                    return Task.FromException(new Exception());
                 }
 
                 // Copy body to memory stream
@@ -56,22 +56,39 @@ namespace Recipes.Infrastructure.Security
 
                 // reset position after ReadAsync
                 memoryStream.Seek(0, SeekOrigin.Begin);
+                memoryStream.Dispose();
                 httpContextAccessor.HttpContext.Request.Body = memoryStream;
 
                 if (!string.IsNullOrEmpty(str))
                 {
                     var obj = JObject.Parse(str);
 
-                    var recipeId = obj["id"]?.ToString();
+                    if (httpContextAccessor.HttpContext.Request.Path == "/api/recipe/edit")
+                    {
+                        var recipeId = obj["id"]?.ToString();
 
-                    var recipes = dbContext.Recipes.Include(x => x.Author);
+                        var recipes = dbContext.Recipes.Include(x => x.Author);
 
-                    var recipe = recipes.FirstOrDefault(x => x.Id == recipeId);
+                        var recipe = recipes.FirstOrDefault(x => x.Id == recipeId);
 
-                    if (recipe?.Author.UserName == currentUserName)
-                        context.Succeed(requirement);
+                        if (recipe?.Author.UserName == currentUserName)
+                            context.Succeed(requirement);
+                        else
+                            context.Fail();
+                    }
                     else
-                        context.Fail();
+                    {
+                        var commentId = obj["id"]?.ToString();
+
+                        var comments = dbContext.Comments.Include(x => x.Author);
+
+                        var comment = comments.FirstOrDefault(x => x.Id == commentId);
+
+                        if(comment?.Author.UserName == currentUserName)
+                            context.Succeed(requirement);
+                        else
+                            context.Fail();
+                    }
                 }
                 else
                     context.Fail();

@@ -10,7 +10,7 @@ namespace Recipes.Features.Comments
         public string Id { get; set; }
         public string Body { get; set; }
         public string Author { get; set; }
-        public DateTime CreateAt { get; set; }
-        public string Image { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string UserProfileImage { get; set; }
     }
 }
