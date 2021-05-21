@@ -21,6 +21,7 @@ namespace Recipes.Features.Recipes
         {
             public string Cuisine { get; set; }
             public string Title { get; set; }
+            public string Description { get; set; }
             public string Difficulty { get; set; }
             public ICollection<Ingredient> Ingredients { get; set; }
             public int Servings { get; set; }
@@ -39,6 +40,7 @@ namespace Recipes.Features.Recipes
                 RuleFor(x => x.Title).NotEmpty().MinimumLength(4);
                 RuleFor(x => x.Servings).NotEmpty().GreaterThan(0);
                 RuleFor(x => x.Cuisine).NotEmpty();
+                RuleFor(x => x.Description).MinimumLength(10);
                 RuleFor(x => x.Difficulty).NotEmpty();
                 RuleFor(x => x.NutritionValue).NotNull();
                 RuleFor(x => x.StepsOfCooking).NotNull();
@@ -71,6 +73,7 @@ namespace Recipes.Features.Recipes
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     Servings = request.Servings,
+                    Description = request.Description,
                     Id = Guid.NewGuid().ToString(),
                     Title = request.Title,
                     TimeOfCooking = request.TimeOfCooking,
@@ -82,7 +85,7 @@ namespace Recipes.Features.Recipes
 
                 if(Enum.TryParse(typeof(Domain.Difficulty), request.Difficulty,  out object res))
                 {
-                    recipe.Difficulty = (Domain.Difficulty)res;
+                    if (res != null) recipe.Difficulty = (Domain.Difficulty) res;
                 }
                 else
                 {
@@ -95,7 +98,7 @@ namespace Recipes.Features.Recipes
                     recipe.Categories.Add(context.Categories.FirstOrDefault(x => x.Name == cat.Name));
                 }
 
-                if (request.Images != null && request.Images.Count > 0)
+                if (request.Images is {Count: > 0})
                 {
                     recipe.Images = new List<Photo>();
                     foreach (var image in request.Images)

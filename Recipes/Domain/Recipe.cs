@@ -7,6 +7,7 @@ namespace Recipes.Domain
     public class Recipe
     {
         public string Id { get; set; }
+        public string Description { get; set; }
         public Cuisine Cuisine { get; set; }
         public AppUser Author { get; set; }
         public string Title { get; set; }
