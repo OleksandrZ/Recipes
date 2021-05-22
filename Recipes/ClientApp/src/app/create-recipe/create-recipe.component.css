@@ -42,7 +42,7 @@ label:hover {
 }
 
 #nutritional-value {
-    width: 70px;
+    width: 30%;
 }
 
 .nutritional-value span {
@@ -54,7 +54,7 @@ label:hover {
 }
 
 #bju {
-    width: 120px;
+    width: 65%;
 }
 
 .bju-form span,
@@ -63,16 +63,16 @@ label:hover {
 }
 
 #time {
-    width: 70px;
+    width: 30%;
 }
 
 #portion {
-    width: 70px;
+    width: 30%;
 }
 
 #difficulty,
 #category {
-    width: 190px;
+    width: 60%;
     text-align: center;
 }
 
@@ -84,15 +84,15 @@ label:hover {
 }
 
 #ingredient {
-    width: 350px;
+    width: 103%;
 }
 
 #quantity {
-    width: 108px;
+    width: 110%;
 }
 
 #weight {
-    width: 220px;
+    width: 100%;
     text-align: center;
 }
 
