@@ -1,0 +1,139 @@
+.wrapper-grid-10 {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 5%;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.first-container {
+    grid-column: 1 / span 10;
+    grid-row: 1 / span 2;
+    background-color: #fff;
+    box-shadow: 0 0 18px 3px #99999987;
+    border-radius: 1%;
+    padding: 3% 5% 5% 5%;
+    margin-bottom: 8%;
+}
+
+label {
+    cursor: pointer;
+}
+
+label:hover {
+    opacity: .7;
+}
+
+.first-container label {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.main-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.short-info {
+    padding-top: 2%;
+}
+
+#short-info {
+    height: 15vh;
+}
+
+#nutritional-value {
+    width: 70px;
+}
+
+.nutritional-value span {
+    padding: 4% 0 4% 3%;
+}
+
+#formFile {
+    width: 20vw;
+}
+
+#bju {
+    width: 120px;
+}
+
+.bju-form span,
+.cooking-time span {
+    padding: 4% 0 4% 3%;
+}
+
+#time {
+    width: 70px;
+}
+
+#portion {
+    width: 70px;
+}
+
+#difficulty,
+#category {
+    width: 190px;
+    text-align: center;
+}
+
+.ingredient-title,
+.steps-title {
+    margin: 2% 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#ingredient {
+    width: 350px;
+}
+
+#quantity {
+    width: 108px;
+}
+
+#weight {
+    width: 220px;
+    text-align: center;
+}
+
+.delete-ingredients {
+    padding: 2% 0 0 0;
+}
+
+.delete-ingredients button {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.more-ingredients button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 25px;
+    height: 45px;
+    border-radius: 40px;
+    margin-top: 1%;
+}
+
+#steps {
+    height: 25vh;
+}
+
+#photo-step {
+    width: 20vw;
+}
+
+.delete-steps button {
+    font-size: 15px;
+    font-weight: 700;
+    width: 45px;
+    height: 45px;
+}
+
+.more-steps button,
+.submit-form button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 25px;
+    height: 50px;
+    border-radius: 40px;
+}

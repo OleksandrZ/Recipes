@@ -1,1 +1,152 @@
-<p>create-recipe works!</p>
+<div class="wrapper-grid-10">
+    <div class="first-container">
+        <form>
+            <h1 class="main-title">Добавление рецепта</h1>
+            <div class="row mb-3">
+                <label for="title-recipe" class="col-sm-2 col-form-label">Название блюда :</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="title-recipe">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="short-info" class="col-sm-2 col-form-label short-info">Краткое описание :</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="short-info"></textarea>
+                    <div class="mt-2">
+                        <span class="short-info-help">Обязательно напишите 2-3 строки - что это за блюдо, его особенности, вкусовые качества.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 input-file">
+                <label for="formFile" class="col-sm-2  col-form-label">Добавить фото :</label>
+                <div class="col-sm-6">
+                    <input type="file" class="form-control" id="formFile">
+                </div>
+            </div>
+            <div class="row mb-3 nutritional-value">
+                <label for="nutritional-value" class="col-sm-2 col-form-label">Пищевая ценность :</label>
+                <div class="col-sm-2 d-flex">
+                    <input type="text" class="form-control" id="nutritional-value">
+                    <span>(кКалл)</span>
+                </div>
+            </div>
+            <div class="row mb-3 bju-form">
+                <label for="bju" class="col-sm-2 col-form-label">БЖУ :</label>
+                <div class="col-sm-2 d-flex">
+                    <input type="text" class="form-control" id="bju" placeholder="Белки...">
+                    <span class="col-sm-1">(грамм)</span>
+                </div>
+                <div class="col-sm-2 d-flex">
+                    <input type="text" class="form-control" id="bju" placeholder="Жиры...">
+                    <span class="col-sm-1">(грамм)</span>
+                </div>
+                <div class="col-sm-2 d-flex">
+                    <input type="text" class="form-control" id="bju" placeholder="Углеводы...">
+                    <span class="col-sm-1">(грамм)</span>
+                </div>
+            </div>
+            <div class="row mb-3 cooking-time">
+                <label for="time" class="col-sm-2 col-form-label">Время приготовления :</label>
+                <div class="col-sm-2 d-flex">
+                    <input type="text" class="form-control" id="time">
+                    <span class="col-sm-1">(минут)</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="portion" class="col-sm-2 col-form-label">Количество порций :</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="portion">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="difficulty" class="col-sm-2 col-form-label">Сложность блюда :</label>
+                <div class="col-sm-3">
+                    <select class="form-select" id="difficulty">
+							<option select>--Не выбрано--</option>
+							<option value="1">Level1</option>
+							<option value="2">Level2</option>
+							<option value="3">Level3</option>
+							<option value="4">Level4</option>
+							<option value="5">Level5</option>
+						</select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="category" class="col-sm-2 col-form-label">Категория :</label>
+                <div class="col-sm-3">
+                    <select class="form-select" id="category">
+								<option select>--Не выбрано--</option>
+								<option value="1">Завтраки</option>
+								<option value="2">Первые блюда</option>
+								<option value="3">Горячее</option>
+								<option value="4">Закуски</option>
+								<option value="5">Десерты</option>
+								<option value="6">Заготовки</option>
+								<option value="7">Выпечка</option>
+								<option value="8">Напитки</option>
+								<option value="9">Другое</option>
+							</select>
+                </div>
+            </div>
+            <h5 class="ingredient-title">Ингредиенты</h5>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="ingredient" class="form-label">Ингредиент:</label>
+                    <input type="text" id="ingredient" class="form-control">
+                </div>
+                <div class="col-sm-1">
+                    <label for="quantity" class="form-label">Количество:</label>
+                    <input type="text" name="" id="quantity" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <label for="weight" class="form-label">Мера веса/объема:</label>
+                    <select id="weight" class="form-select">
+								<option selected>--Не выбрано--</option>
+								<option>по вкусу</option>
+								<option>г.</option>
+								<option>шт</option>
+								<option>ст.л.</option>
+								<option>ч.л.</option>
+								<option>стакан</option>
+								<option>мл.</option>
+								<option>кг.</option>
+								<option>л.</option>
+								<option>щепотка</option>
+								<option>банка</option>
+								<option>пучок</option>
+					 		</select>
+                </div>
+                <div class="delete-ingredients col-sm-1">
+                    <button class="btn btn-danger">&#8211;</button>
+                </div>
+                <div class="more-ingredients">
+                    <button class="btn btn-outline-dark">Добавить еще ингредиент</button>
+                </div>
+            </div>
+            <h5 class="steps-title">Приготовление</h5>
+            <div class="row mb-3">
+                <label for="steps" class="col-sm-2 col-form-label">Описание шага :</label>
+                <div class="col-sm-6">
+                    <textarea id="steps" class="form-control"></textarea>
+                </div>
+                <div class="delete-steps col-sm-1 d-flex ">
+                    <button class="btn btn-danger align-self-center">&#8211;</button>
+                </div>
+            </div>
+            <div class="row mb-5 input-file">
+                <label for="photo-step" class="col-sm-2  col-form-label">Фотография :</label>
+                <div class="col-sm-6">
+                    <input type="file" class="form-control" id="photo-step" multiple>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="more-steps col-sm-4">
+                    <button class="btn btn-outline-dark">Добавить шаг</button>
+                </div>
+                <div class="submit-form col-sm-5 d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit">Опубликовать</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

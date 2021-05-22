@@ -16,34 +16,35 @@ import { SharedModule } from "./shared/shared.module";
 import { CreateRecipeComponent } from "./create-recipe/create-recipe.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    RecipeComponent,
-    CreateRecipeComponent,
-  ],
-  imports: [
-    NgbAlertModule,
-    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CoreModule,
-    SharedModule,
-    HttpClientModule,
-    RouterModule.forRoot(
-      [
-        { path: "", component: HomeComponent, pathMatch: "full" },
-        { path: "recipe/:id", component: RecipeComponent },
-        // { path: 'fetch-data', component: FetchDataComponent },
-      ],
-      { relativeLinkResolution: "legacy" }
-    ),
-    BrowserAnimationsModule,
-    NgbModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+	declarations: [
+		AppComponent,
+		NavMenuComponent,
+		HomeComponent,
+		RecipeComponent,
+		CreateRecipeComponent,
+	],
+	imports: [
+		NgbAlertModule,
+		BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
+		CoreModule,
+		SharedModule,
+		HttpClientModule,
+		RouterModule.forRoot(
+			[
+				{ path: "", component: HomeComponent, pathMatch: "full" },
+				{ path: "recipe/:id", component: RecipeComponent },
+				{ path: "create-recipe", component: CreateRecipeComponent },
+				// { path: 'fetch-data', component: FetchDataComponent },
+			],
+			{ relativeLinkResolution: "legacy" }
+		),
+		BrowserAnimationsModule,
+		NgbModule,
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
