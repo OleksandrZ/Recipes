@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Recipes.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Recipes.Infrastructure.Interfaces;
 
-namespace Recipes.Infrastructure
+namespace Recipes.Infrastructure.Security
 {
     public class CurrentUserAccessor : ICurrentUserAccessor
     {
@@ -19,7 +16,7 @@ namespace Recipes.Infrastructure
 
         public string GetCurrentUsername()
         {
-            return httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            return httpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }

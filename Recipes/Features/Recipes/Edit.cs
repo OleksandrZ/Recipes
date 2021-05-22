@@ -22,6 +22,7 @@ namespace Recipes.Features.Recipes
             public string Id { get; set; }
             public string Cuisine { get; set; }
             public string Title { get; set; }
+            public string Description { get; set; }
             public string Difficulty { get; set; }
             public ICollection<Ingredient> Ingredients { get; set; }
             public int? Servings { get; set; }
@@ -38,6 +39,7 @@ namespace Recipes.Features.Recipes
             {
                 RuleFor(x => x.Title).NotEmpty().MinimumLength(4);
                 RuleFor(x => x.Servings).NotEmpty().GreaterThan(0);
+                RuleFor(x => x.Description).MinimumLength(10);
                 RuleFor(x => x.Cuisine).NotEmpty();
                 RuleFor(x => x.Difficulty).NotEmpty();
                 RuleFor(x => x.NutritionValue).NotNull();
@@ -82,6 +84,7 @@ namespace Recipes.Features.Recipes
                 recipe.Title = request.Title ?? recipe.Title;
                 recipe.TimeOfCooking = request.TimeOfCooking ?? recipe.TimeOfCooking;
                 recipe.Ingredients = request.Ingredients ?? recipe.Ingredients;
+                recipe.Description = request.Description;
                 recipe.Cuisine = context.Cuisines.FirstOrDefault(x => x.Name == request.Cuisine) ?? recipe.Cuisine;
                 recipe.Difficulty = diff;
                 recipe.NutritionValue = request.NutritionValue ?? recipe.NutritionValue;
