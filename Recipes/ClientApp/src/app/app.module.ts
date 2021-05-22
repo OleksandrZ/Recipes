@@ -14,6 +14,7 @@ import { NgbAlertModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { CreateRecipeComponent } from "./create-recipe/create-recipe.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CreateRecipeComponent } from "./create-recipe/create-recipe.component";
     HomeComponent,
     RecipeComponent,
     CreateRecipeComponent,
+    ProfileComponent,
   ],
   imports: [
     NgbAlertModule,
@@ -35,6 +37,7 @@ import { CreateRecipeComponent } from "./create-recipe/create-recipe.component";
     RouterModule.forRoot(
       [
         { path: "", component: HomeComponent, pathMatch: "full" },
+        { path: "profile", component: ProfileComponent, pathMatch: "full" },
         { path: "recipe/:id", component: RecipeComponent },
         // { path: 'fetch-data', component: FetchDataComponent },
       ],
