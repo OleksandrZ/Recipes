@@ -94,11 +94,11 @@
                     <label for="ingredient" class="form-label">Ингредиент:</label>
                     <input type="text" id="ingredient" class="form-control">
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <label for="quantity" class="form-label">Количество:</label>
                     <input type="text" name="" id="quantity" class="form-control">
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label for="weight" class="form-label">Мера веса/объема:</label>
                     <select id="weight" class="form-select">
 								<option selected>--Не выбрано--</option>
@@ -116,8 +116,8 @@
 								<option>пучок</option>
 					 		</select>
                 </div>
-                <div class="delete-ingredients col-sm-1">
-                    <button class="btn btn-danger">&#8211;</button>
+                <div class="delete-ingredients col-sm-1 d-flex">
+                    <button class="btn btn-danger align-self-center">&#8211;</button>
                 </div>
                 <div class="more-ingredients">
                     <button class="btn btn-outline-dark">Добавить еще ингредиент</button>
@@ -139,13 +139,12 @@
                     <input type="file" class="form-control" id="photo-step" multiple>
                 </div>
             </div>
-            <div class="row ">
-                <div class="more-steps col-sm-4">
-                    <button class="btn btn-outline-dark">Добавить шаг</button>
-                </div>
-                <div class="submit-form col-sm-5 d-flex justify-content-end">
-                    <button class="btn btn-primary" type="submit">Опубликовать</button>
-                </div>
+
+            <div class="more-steps col-sm-4 mb-3">
+                <button class="btn btn-outline-dark">Добавить шаг</button>
+            </div>
+            <div class="submit-form col-sm-4">
+                <button class="btn btn-primary" type="submit">Опубликовать</button>
             </div>
         </form>
     </div>
