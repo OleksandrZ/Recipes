@@ -341,3 +341,5 @@ healthchecksdb
 /Recipes/wwwroot/images
 Recipes/Domain Diagram.cd
 Recipes/Recipe Diagram.cd
+Recipes/ClientApp/src/environments/environment.prod.ts
+Recipes/ClientApp/src/environments/environment.ts
