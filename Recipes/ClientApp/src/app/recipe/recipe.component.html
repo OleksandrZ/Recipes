@@ -79,7 +79,7 @@
     </div>
   </div>
   <div class="five">
-    <div class="row">
+    <div class="row" *appShowAuth="true">
       <div class="col-sm-8 ">
         <h5 class="title-new-comments">Новый Комментарий</h5>
       </div>
@@ -126,7 +126,7 @@
       </ul>
     </div>
     <div class="comments-footer ">
-      <span>Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>
+      <span  *appShowAuth="false">Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>
       <button class="btn btn-outline-secondary all-comments ">Все комментарии</button>
     </div>
   </div>
