@@ -1,202 +1,133 @@
-<div class="wrapper-grid-10">
-    <div class="one">
-        <div class="img">
-            <img src="https://image.shutterstock.com/image-photo/homemade-apple-pie-600w-711969070.jpg" alt="Здесь должна быть картинка" class="w-100 d-block">
-        </div>
-        <div class="content d-flex justify-content-start">
-            <p>Автор</p>
-            <p>Дмитрий Калашников</p>
-            <p><i class="far fa-heart"></i>2,5k</p>
-            <p><i class="far fa-comment-alt"></i>77</p>
-        </div>
+<div class="wrapper-grid-10" *ngIf="recipeLoaded">
+  <div class="one">
+    <div class="img">
+      <img src="https:\\{{recipe.images[0].url}}" alt="Здесь должна быть картинка" class="w-100 d-block">
     </div>
-    <div class="two">
-        <h5 class="info-title">Яблочный пирог с корицей</h5>
-        <div class="recipe-info wrapper-grid-2">
-            <div class="info-content">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit vel neque repellendus cum maiores natus voluptates porro voluptatum, sed numquamiores natus voluptates porro voluptatum, sed numquam.
+    <div class="content d-flex justify-content-start">
+      <p>Автор</p>
+      <p>{{recipe.author}}</p>
+      <p><i class="far fa-heart"></i>2,5k</p>
+      <p><i class="far fa-comment-alt"></i>77</p>
+    </div>
+  </div>
+  <div class="two">
+    <h5 class="info-title">{{recipe.title}}</h5>
+    <div class="recipe-info wrapper-grid-2">
+      <div class="info-content">
+        {{recipe.description}}
+      </div>
+      <div class="calories">
+        <h5>Пищевая ценность</h5>
+        <span>{{recipe.nutritionValue.value}}</span>
+      </div>
+      <div class="details d-flex ">
+        <div class="d-flex flex-column justify-content-center timer">
+          <img class="img-timer" src="/assets/images/timer.svg" alt="">
+          <span>{{recipe.timeOfCooking.totalMinutes}}</span>
+        </div>
+        <div class="d-flex  flex-column justify-content-center portion">
+          <img class="img-portion" src="/assets/images/plate.svg" alt="">
+          <span>{{recipe.servings}}</span>
+        </div>
+        <div class="d-flex flex-column justify-content-center difficulty">
+          <img class="img-difficulty" src="/assets/images/{{recipe.difficulty}}.svg" alt="">
+          <span>Сложность</span>
+        </div>
+      </div>
+      <div class="bju d-flex flex-column">
+        <ul class="bju-quantity">
+          <li>Белки<span class="value">{{recipe.nutritionValue.proteins}} г.</span></li>
+          <li>Жиры<span class="value">{{recipe.nutritionValue.fats}} г.</span></li>
+          <li>Углеводы<span class="value">{{recipe.nutritionValue.carbohydrates}} г.</span></li>
+        </ul>
+      </div>
+      <div class="btn-create">
+        <button type="button" class="btn btn-outline-dark">Сохранить рецепт</button>
+      </div>
+    </div>
+  </div>
+  <div class="three">
+    <div class="ingredients d-flex justify-content-between">
+      <h5>Ингридиенты</h5>
+      <div class="number-input md-number-input ">
+        <span class="">порции</span>
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+        <input class="quantity" min="0" name="quantity" value="1" type="number">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+      </div>
+    </div>
+    <div class="components">
+      <ul class="components-quantity" *ngFor="let ingredient of recipe.ingredients">
+        <li>{{ingredient.name}}<span class="value">{{ingredient.amount}} {{ingredient.unit}}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="four">
+    <div class="cooking-title">
+      <h5>Приготовление</h5>
+    </div>
+    <div class="photo-galery row" *ngFor="let image of recipe.images">
+      <div class="col-sm-12 col-md-6 col-lg-4 item">
+        <a href="https://{{image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="https://{{image.url}}"
+            alt="#"></a>
+      </div>
+    </div>
+    <div class="cooking-steps">
+      <ol class="steps" *ngFor="let step of recipe.stepsOfCooking">
+        <li>{{step.description}}</li>
+      </ol>
+    </div>
+  </div>
+  <div class="five">
+    <div class="row">
+      <div class="col-sm-8 ">
+        <h5 class="title-new-comments">Новый Комментарий</h5>
+      </div>
+      <form class="new-comment">
+        <fieldset>
+          <div class="row">
+            <div class="col-sm-3 col-lg-2 hidden-xs">
+              <img class="media-object d-block"
+                src="https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg" alt="">
             </div>
-            <div class="calories">
-                <h5>Пищевая ценность</h5>
-                <span>300 кКалл</span>
+            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+              <textarea class="form-control" id="message" cols="60" rows="5"></textarea>
             </div>
-            <div class="details d-flex ">
-                <div class="d-flex flex-column justify-content-center timer">
-                    <img class="img-timer" src="/assets/images/timer.svg" alt="">
-                    <span>30 минут</span>
+          </div>
+        </fieldset>
+        <button type="submit " class="btn btn-normal btn-outline-dark ">Отправить</button>
+      </form>
+    </div>
+    <h5 class="title-comments ">Прочие Комментарии</h5>
+    <div class="comments" *ngFor="let comment of recipe.comments">
+      <ul class="media-list ">
+        <li class="media d-flex ">
+          <div class="media-left ">
+            <a href=" "><img class="media-object img-circle "
+                src="{{comment.userProfileImageUrl ? 'https://' + comment.userProfileImageUrl : 'https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg'}}"
+                alt=" "></a>
+          </div>
+          <div class="media-body ">
+            <div class="panel panel-info ">
+              <div class="panel-heading ">
+                <div class="author ">{{comment.author}}</div>
+                <div class="mediadata ">
+                  <span class="date ">{{comment.date}}</span>
                 </div>
-                <div class="d-flex  flex-column justify-content-center portion">
-                    <img class="img-portion" src="/assets/images/plate.svg" alt="">
-                    <span>5 порций</span>
+              </div>
+              <div class="panel-body ">
+                <div class="media-text ">
+                  {{comment.body}}
                 </div>
-                <div class="d-flex flex-column justify-content-center difficulty">
-                    <img class="img-difficulty" src="/assets/images/level2.svg" alt="">
-                    <span>Сложность</span>
-                </div>
+              </div>
             </div>
-            <div class="bju d-flex flex-column">
-                <ul class="bju-quantity">
-                    <li>Белки<span class="value">13 г.</span></li>
-                    <li>Жиры<span class="value">30 г.</span></li>
-                    <li>Углеводы<span class="value">85 г.</span></li>
-                </ul>
-            </div>
-            <div class="btn-create">
-                <button type="button" class="btn btn-outline-dark">Сохранить рецепт</button>
-            </div>
-        </div>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="three">
-        <div class="ingredients d-flex justify-content-between">
-            <h5>Ингридиенты</h5>
-            <div class="number-input md-number-input ">
-                <span class="">порции</span>
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                <input class="quantity" min="0" name="quantity" value="1" type="number">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-            </div>
-        </div>
-        <div class="components">
-            <ul class="components-quantity">
-                <li>Пшеничная мука<span class="value">2 стакана</span></li>
-                <li>Сахар<span class="value">2 стакана</span></li>
-                <li>Манная крупа<span class="value"> 2 стакана</span></li>
-                <li>Разрыхлитель<span class="value">1 ст. ложка</span></li>
-                <li>Корица<span class="value">1,5 чайной ложки</span></li>
-                <li>Сливочное масло<span class="value">330 г.</span></li>
-                <li>Яблоки<span class="value">10 штук</span></li>
-            </ul>
-        </div>
+    <div class="comments-footer ">
+      <span>Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>
+      <button class="btn btn-outline-secondary all-comments ">Все комментарии</button>
     </div>
-    <div class="four">
-        <div class="cooking-title">
-            <h5>Приготовление</h5>
-        </div>
-        <div class="photo-galery row">
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <a href="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" data-lightbox="photo-galery"><img class="img-fluid" src="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" alt="#"></a>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <a href="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" data-lightbox="photo-galery"><img class="img-fluid" src="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" alt="#"></a>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <a href="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" data-lightbox="photo-galery"><img class="img-fluid" src="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" alt="#"></a>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 item">
-                <a href="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" data-lightbox="photo-galery"><img class="img-fluid" src="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" alt="#"></a>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 item">
-                <a href="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" data-lightbox="photo-galery"><img class="img-fluid" src="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" alt="#"></a>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 item">
-                <a href="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" data-lightbox="photo-galery"><img class="img-fluid" src="https://image.shutterstock.com/image-photo/pumpkin-pie-on-marble-cutting-600w-1519552367.jpg" alt="#"></a>
-            </div>
-        </div>
-        <div class="cooking-steps">
-            <ol class="steps">
-                <li>Смешиваем в отдельной посуде муку, манку, сахар, разрыхлитель и корицу.</li>
-                <li>Яблоки моем, чистим от кожуры и семенных коробочек и натираем на крупной терке.</li>
-                <li>Форму для выпекания выстилаем пекарской бумагой или фольгой и обильно смазываем сливочным маслом.</li>
-                <li>Насыпаем на дно формы часть сухой смеси - слой должен быть не слишком толстый, и разравниваем. Затем выкладываем натертые яблоки - слоем, примерно, такой же толщины, разварниваем. Чередуя слои, выкладываем всю сухую смесь и яблоки, последним
-                    должен быть сухой слой. У меня вышло три сухих и два яблочных слоя. Сверху натираем на текре сливочное масло.</li>
-                <li>Духовку разогреваем до 180 градусов. Выпекаем пирог в течении 40-45 минут - корочка должна стать румяной.</li>
-            </ol>
-        </div>
-    </div>
-    <div class="five">
-        <div class="comments">
-            <div class="row">
-                <div class="col-sm-8 ">
-                    <h5 class="title-new-comments">Новый Комментарий</h5>
-                </div>
-                <form class="new-comment">
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-sm-3 col-lg-2 hidden-xs">
-                                <img class="media-object d-block" src="https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg" alt="">
-                            </div>
-                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                <textarea class="form-control" id="message" cols="60" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <button type="submit " class="btn btn-normal btn-outline-dark ">Отправить</button>
-                </form>
-            </div>
-            <h5 class="title-comments ">Прочие Комментарии</h5>
-            <ul class="media-list ">
-                <li class="media d-flex ">
-                    <div class="media-left ">
-                        <a href=" "><img class="media-object img-circle " src="https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg" al t=" "></a>
-                    </div>
-                    <div class="media-body ">
-                        <div class="panel panel-info ">
-                            <div class="panel-heading ">
-                                <div class="author ">Дмитрий Калашников</div>
-                                <div class="mediadata ">
-                                    <span class="date ">18.05.2021</span>
-                                </div>
-                            </div>
-                            <div class="panel-body ">
-                                <div class="media-text ">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem doloribus sint aperiam magnam nihil soluta obcaecati, fugit mollitia ducimus. Ipsam totam cumque modi ratione minima reprehenderit sint illum obcaecati quas id eaque, molestias esse
-                                    aliquid eos culpa, illo accusamus dolores!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <ul class="media-list ">
-                <li class="media d-flex ">
-                    <div class="media-left ">
-                        <a href=" "><img class="media-object img-circle " src="https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg " al t=" "></a>
-                    </div>
-                    <div class="media-body ">
-                        <div class="panel panel-info ">
-                            <div class="panel-heading ">
-                                <div class="author ">Дмитрий Калашников</div>
-                                <div class="mediadata ">
-                                    <span class="date ">18.05.2021</span>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="media-text ">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem doloribus sint aperiam magnam nihil soluta obcaecati, fugit mollitia ducimus. Ipsam totam cumque modi ratione minima reprehenderit sint illum obcaecati quas id eaque, molestias esse
-                                    aliquid eos culpa, illo accusamus dolores!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <ul class="media-list ">
-                <li class="media d-flex ">
-                    <div class="media-left ">
-                        <a href=" "><img class="media-object img-circle " src="https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg " al t=" "></a>
-                    </div>
-                    <div class="media-body">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <div class="author ">Дмитрий Калашников</div>
-                                <div class="mediadata ">
-                                    <span class="date ">18.05.2021</span>
-                                </div>
-                            </div>
-                            <div class="panel-body ">
-                                <div class="media-text ">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem doloribus sint aperiam magnam nihil soluta obcaecati, fugit mollitia ducimus. Ipsam totam cumque modi ratione minima reprehenderit sint illum obcaecati quas id eaque, molestias esse
-                                    aliquid eos culpa, illo accusamus dolores!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="comments-footer ">
-            <span>Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>
-            <button class="btn btn-outline-secondary all-comments ">Все комментарии</button>
-        </div>
-    </div>
+  </div>
 </div>
