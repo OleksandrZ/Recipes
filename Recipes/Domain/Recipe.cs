@@ -26,5 +26,6 @@ namespace Recipes.Domain
 
         [JsonIgnore]
         public ICollection<RecipeFavorite> RecipeFavorites { get; set; }
+        public ICollection<RecipeLike> RecipeLikes { get; set; }
     }
 }

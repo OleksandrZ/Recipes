@@ -15,6 +15,7 @@ namespace Recipes.Infrastructure
         public DbSet<FollowedUsers> FollowedUsers { get; set; }
         public DbSet<Cuisine> Cuisines { get; set; }
         public DbSet<Photo> Images { get; set; }
+        public DbSet<RecipeLike> RecipeLikes { get; set; }
         public RecipesDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -25,7 +26,6 @@ namespace Recipes.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Recipes;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -41,6 +41,19 @@ namespace Recipes.Infrastructure
                 b.HasOne(pt => pt.User)
                     .WithMany(p => p.RecipeFavorites)
                     .HasForeignKey(pt => pt.UserId);
+            });
+
+            builder.Entity<RecipeLike>(b =>
+            {
+                b.HasKey(t => new { t.LikedByUserId, t.LikedRecipeId });
+
+                b.HasOne(pt => pt.LikedRecipe)
+                    .WithMany(p => p.RecipeLikes)
+                    .HasForeignKey(pt => pt.LikedRecipeId);
+
+                b.HasOne(pt => pt.LikedByUser)
+                    .WithMany(p => p.LikedRecipes)
+                    .HasForeignKey(pt => pt.LikedByUserId);
             });
 
             builder.Entity<FollowedUsers>(b =>

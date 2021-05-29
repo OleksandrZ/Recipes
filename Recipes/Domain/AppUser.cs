@@ -22,6 +22,7 @@ namespace Recipes.Domain
         public Photo Photo { get; set; }
         [JsonIgnore]
         public List<RefreshToken> RefreshTokens { get; set; }
+        public ICollection<RecipeLike> LikedRecipes { get; set; }
 
     }
 }
