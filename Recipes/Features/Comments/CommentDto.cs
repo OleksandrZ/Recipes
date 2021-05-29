@@ -11,6 +11,6 @@ namespace Recipes.Features.Comments
         public string Body { get; set; }
         public string Author { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string UserProfileImage { get; set; }
+        public string UserProfileImageUrl { get; set; }
     }
 }
