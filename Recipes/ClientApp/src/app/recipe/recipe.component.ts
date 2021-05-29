@@ -17,7 +17,13 @@ export class RecipeComponent implements OnInit {
   recipe: Recipe;
   public recipeLoaded: boolean;
   private recipeId: string;
+  commentsAmount: number;
   createCommentForm: FormGroup;
+
+  page = 1;
+  itemsPerPage = 6;
+  pageSize: number;
+
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
@@ -38,6 +44,8 @@ export class RecipeComponent implements OnInit {
   getRecipe(recipeId: string) {
     this.recipeService.getRecipeById(recipeId).subscribe((recipe) => {
       this.recipe = recipe;
+      this.commentsAmount = this.recipe.comments.length;
+
       this.recipeLoaded = true;
     });
   }
@@ -54,7 +62,12 @@ export class RecipeComponent implements OnInit {
       .createComment(new CommandComment(this.recipeId, body))
       .subscribe((comment) => {
         this.recipe.comments.push(comment);
+        console.log(comment);
         this.createCommentForm.reset();
       });
+  }
+
+  onPageChange(page) {
+    this.pageSize = this.itemsPerPage * (page - 1);
   }
 }
