@@ -68,8 +68,6 @@ export class AuthService {
 
 		this.stopRefreshTokenTimer();
 		this.userSubject.next(null);
-
-		this.router.navigate(["/"]);
 	}
 
 	refreshToken() {

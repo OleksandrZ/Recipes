@@ -27,9 +27,9 @@ namespace Recipes.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<RecipeDto>> Details(Details.Query query)
+        public async Task<ActionResult<RecipeDto>> Details(string id)
         {
-            return await Mediator.Send(query);
+            return await Mediator.Send(new Details.Query { Id = id });
         }
 
         [Authorize]

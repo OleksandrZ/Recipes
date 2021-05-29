@@ -3,9 +3,11 @@ import { NutritionValue } from './nutritionValue.module';
 import { Ingredient } from './ingredient.module';
 import { Step } from './step.module';
 import { Category } from './category.module';
+import { Comment } from './comment.module';
 
 export interface Recipe {
   id: string;
+  description: string;
   cuisine: string;
   author: string;
   title: string;
@@ -17,14 +19,19 @@ export interface Recipe {
   favorited: boolean;
   favoritesCount: number;
   likes: number;
-  NutritionValue: NutritionValue;
+  nutritionValue: NutritionValue;
   ingredients: Ingredient[];
   stepsOfCooking: Step[];
-  comments: any[];
+  comments: Comment[];
   categories: Category[];
 }
 
 export interface RecipeEnvelope {
   recipeCount: number;
   recipes: Recipe[];
+}
+
+export interface CuisinesEnvelope{
+  cuisines: string[];
+  cuisineCount: number;
 }

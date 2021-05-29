@@ -10,7 +10,7 @@ namespace Recipes.Domain
         public int? Value { get; set; }
         public int? Proteins { get; set; }
         public int? Fats { get; set; }
-        public int? Сarbohydrates { get; set; }
+        public int? Carbohydrates { get; set; }
 
     }
 }

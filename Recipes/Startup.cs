@@ -43,7 +43,7 @@ namespace Recipes
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssemblyContaining<Startup>();
 
-            services.AddDbContext<RecipesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            services.AddDbContext<RecipesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                             .AddRoleManager<RoleManager<IdentityRole>>()
