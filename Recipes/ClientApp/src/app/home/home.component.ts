@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { RecipeService } from "../core";
-import { Recipe, RecipeEnvelope } from "./../core/modules/recipe.module";
+import { CategoriesEnvelope } from "../core/modules/category.module";
+import {
+  CuisinesEnvelope,
+  Recipe,
+  RecipeEnvelope,
+} from "./../core/modules/recipe.module";
 
 @Component({
   selector: "app-home",
@@ -9,6 +14,9 @@ import { Recipe, RecipeEnvelope } from "./../core/modules/recipe.module";
 })
 export class HomeComponent implements OnInit {
   recipeEnvelope: RecipeEnvelope;
+  categoryEnvelope: CategoriesEnvelope;
+  cuisineEnvelope: CuisinesEnvelope;
+  difficulties: string[];
   recipesLoaded = false;
   page = 1;
   itemsPerPage = 9;
@@ -17,6 +25,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getRecipes();
+
+    this.recipeService.getAllCategories().subscribe((categoryEnvelope) => {
+      this.categoryEnvelope = categoryEnvelope;
+    });
+
+    this.recipeService.getAllCuisines().subscribe((cuisineEnvelope) => {
+      this.cuisineEnvelope = cuisineEnvelope;
+    });
+
+    this.recipeService.getAllDifficulties().subscribe((difficulties) => {
+      this.difficulties = difficulties;
+    });
   }
 
   getRecipes(): void {
@@ -26,7 +46,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onPageChange(page){
-    this.pageSize = this.itemsPerPage*(page - 1);
+  onPageChange(page) {
+    this.pageSize = this.itemsPerPage * (page - 1);
   }
 }

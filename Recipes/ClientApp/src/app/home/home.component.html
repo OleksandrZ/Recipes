@@ -50,183 +50,26 @@
     <!-- Аккордион------------------------------------------------------ -->
     <div class="row my-3">
       <div class="accordion col-3">
-        <details class="accordion__item">
+        <details class="accordion__item" *ngIf="categoryEnvelope">
           <summary class="accordion__title">
             Категория
           </summary>
-          <ul class="accordion__body">
+          <ul class="accordion__body" *ngFor="let category of categoryEnvelope.categories">
             <li class="checkbox">
-              <label class="checkbox__label">Завтраки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Первые блюда
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Горячее
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Закуски
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Десерты
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Заготовки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Выпечка
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Напитки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Другое
+              <label class="checkbox__label">{{category.name}}
                 <input type="checkbox" class="checkbox__input" name="category">
                 <span class="check__box"></span>
               </label>
             </li>
           </ul>
         </details>
-        <details class="accordion__item">
-          <summary class="accordion__title">
-            Тип питания
-          </summary>
-          <ul class="accordion__body">
-            <li class="checkbox">
-              <label class="checkbox__label">Завтраки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Первые блюда
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Горячее
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Закуски
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Десерты
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Заготовки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Выпечка
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Напитки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Другое
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-          </ul>
-        </details>
-        <details class="accordion__item">
+        <details class="accordion__item" *ngIf="cuisineEnvelope">
           <summary class="accordion__title">
             Кухня
           </summary>
-          <ul class="accordion__body">
+          <ul class="accordion__body" *ngFor="let cuisine of cuisineEnvelope.cuisines">
             <li class="checkbox">
-              <label class="checkbox__label">Завтраки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Первые блюда
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Горячее
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Закуски
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Десерты
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Заготовки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Выпечка
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Напитки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Другое
+              <label class="checkbox__label">{{cuisine.name}}
                 <input type="checkbox" class="checkbox__input" name="category">
                 <span class="check__box"></span>
               </label>
@@ -244,111 +87,15 @@
                 <span class="check__box"></span>
               </label>
             </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Первые блюда
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Горячее
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Закуски
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Десерты
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Заготовки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Выпечка
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Напитки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Другое
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
           </ul>
         </details>
         <details class="accordion__item">
           <summary class="accordion__title">
             Сложность
           </summary>
-          <ul class="accordion__body">
+          <ul class="accordion__body" *ngFor="let difficulty of difficulties">
             <li class="checkbox">
-              <label class="checkbox__label">Завтраки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Первые блюда
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Горячее
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Закуски
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Десерты
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Заготовки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Выпечка
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Напитки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-            </li>
-            <li class="checkbox">
-              <label class="checkbox__label">Другое
+              <label class="checkbox__label">{{difficulty}}
                 <input type="checkbox" class="checkbox__input" name="category">
                 <span class="check__box"></span>
               </label>

@@ -28,4 +28,8 @@ export class RecipeService {
   getAllCuisines(): Observable<CuisinesEnvelope> {
     return this.http.get<CuisinesEnvelope>(environment.api_url + "cuisine/all");
   }
+
+  getAllDifficulties() : Observable<string[]>{
+    return this.http.get<string[]>(environment.api_url + "difficulty/all");
+  }
 }
