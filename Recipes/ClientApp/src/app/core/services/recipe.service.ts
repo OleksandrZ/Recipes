@@ -8,8 +8,6 @@ import { environment } from "src/environments/environment.prod";
   providedIn: "root",
 })
 export class RecipeService {
-  recipes: Recipe[];
-
   constructor(private http: HttpClient) {}
 
   getRecipes(): Observable<RecipeEnvelope> {
