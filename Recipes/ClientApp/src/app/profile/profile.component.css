@@ -1,0 +1,263 @@
+.header-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 5%;
+    background: url("/assets/images/White-chamomile-pink-petals-decoration-background_3840x2160.jpg")center center no-repeat;
+    background-size: cover;
+    grid-auto-rows: minmax(100px, auto);
+    padding: 2%;
+}
+
+.profile-img {
+    display: grid;
+    grid-column: 1 / span 6;
+    grid-row: 1 / span 2;
+    /* background-color: chartreuse; */
+    padding: 0% 2% 0 2%;
+    margin: 0 auto;
+}
+
+.profile-info {
+    display: grid;
+    grid-column: 6 / span 12;
+    grid-row: 1 / span 2;
+    /* background-color: darkcyan; */
+    margin-left: 3%;
+}
+
+.info h5 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 1%;
+}
+
+.info span {
+    margin-bottom: 1%;
+}
+
+.like-comment {
+    margin: 1% 0;
+}
+
+.like-comment span {
+    padding-right: 2%;
+}
+
+.like-comment i {
+    padding-right: 1%;
+}
+
+.create-recipe-btn {
+    padding-bottom: 2%;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 5%;
+}
+
+.main-info {
+    display: grid;
+    grid-column: 1 / span 16;
+    grid-row: 3;
+}
+
+.main-info a {
+    color: #000;
+}
+
+.main-info a:hover {
+    color: #4d4d4d;
+}
+
+.accordion-cantainer {
+    display: grid;
+    grid-column: 1 / span 3;
+    grid-row: 4 / span 6;
+    height: 100vh;
+}
+
+.accordion {
+    user-select: none;
+}
+
+summary {
+    list-style-type: none;
+    margin-bottom: 1%;
+}
+
+.accordion__title {
+    padding: 2% 2% 2% 0%;
+    color: #000;
+    font-weight: 600;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.accordion__title:hover {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.accordion__title::after {
+    display: inline-block;
+    content: '+';
+    font-size: 25px;
+    transform: translateY(-4%);
+}
+
+.accordion__item[open] .accordion__title::after {
+    display: inline-block;
+    content: '−';
+    font-size: 25px;
+    transform: translateY(-4%);
+}
+
+.accordion__body {
+    list-style-type: none;
+    padding-left: 10%;
+}
+
+.accordion__body li {
+    padding: 6% 0;
+}
+
+.checkbox {
+    position: relative;
+}
+
+.checkbox__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+}
+
+
+/* Отрисовка нового чекбокса */
+
+.checkbox__label {
+    cursor: pointer;
+}
+
+.check__box::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: #e4e4e4;
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+    transition: background-color .1s linear, border .1s linear;
+    box-shadow: 0 0 1px 1px rgba(228, 228, 228, 0.3);
+    position: absolute;
+    top: 0;
+    right: 1%;
+    z-index: 1;
+    transform: translateY(80%);
+}
+
+
+/* Добавление галочки */
+
+.check__box::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    background: url("../../assets/images/check.svg")55% 50% no-repeat;
+    background-size: 12px 12px;
+    opacity: 0;
+    transition: opacity .1s linear;
+    position: absolute;
+    top: 0;
+    right: 1%;
+    z-index: 2;
+    transform: translateY(80%);
+}
+
+
+/* Проработка состояния checked */
+
+.checkbox__input:checked+.check__box::before {
+    background-color: #000;
+    border: 1px solid #000;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox__input:checked+.check__box::after {
+    opacity: 1;
+}
+
+.grid-container {
+    display: grid;
+    grid-column: 4 / 17;
+    grid-row: 4 / span 2;
+}
+
+.card__item {
+    width: 33.3% !important;
+    height: auto;
+    border-radius: 3px;
+    background-color: #fff;
+    margin-bottom: 1%;
+}
+
+.card__image {
+    width: 100%;
+}
+
+.card__image img {
+    max-width: 100%;
+    border-radius: 3px;
+    height: auto;
+}
+
+.card__content h5 {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 0 5px 0;
+}
+
+.heart {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.button__item {
+    background-color: white;
+    color: rgb(39, 39, 39);
+    border: 2px solid #e7e7e7;
+    border-radius: 3%;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button__item:hover {
+    background-color: #e4e4e4;
+}
+
+.card_buttons span {
+    margin-top: 7px;
+}
+
+.card_buttons span i {
+    padding-right: 5px;
+}
+
+.heart:hover {
+    color: rgb(85, 85, 85);
+}

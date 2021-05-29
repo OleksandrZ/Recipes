@@ -151,7 +151,7 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock sign-up"></i></span>
-                        <input type="password" class="form-control password" aria-describedby="Amount" placeholder="Password" formControlName="registerPassword">
+                        <input type="password" [type]="fieldTextType ? 'text' : 'password'" class="form-control password" aria-describedby="Amount" placeholder="Password" formControlName="registerPassword">
                         <span class="eye input-group-text">
 									<i class="fa" [ngClass]="{
 						 'fa-eye-slash': !fieldTextType,
@@ -182,7 +182,7 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control confirm_password" aria-describedby="Amount" placeholder="Confirm password" formControlName="registerConfirmPassword">
+                        <input type="password" [type]="fieldTextType ? 'text' : 'password'" class="form-control confirm_password" aria-describedby="Amount" placeholder="Confirm password" formControlName="registerConfirmPassword">
                         <span class="eye input-group-text">
 									<i class="fa" [ngClass]="{
 						 'fa-eye-slash': !fieldTextType,
