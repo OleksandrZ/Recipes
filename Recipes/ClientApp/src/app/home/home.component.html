@@ -358,92 +358,8 @@
       </div>
       <!-- --------------------------------------------------------------- -->
       <!-- Сетка с рецептами ---------------------------------------------- -->
-      <div class="col">
+      <div class="col" *ngIf="recipesLoaded">
         <div class="row mt-2 justify-content-xl-between">
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span class="like"><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-3 card__item">
-            <div class="card__image">
-              <img class="d-block w-100"
-                src="https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg"
-                alt="">
-            </div>
-            <div class="card__content">
-              <h5>Банановый боул с гранолой</h5>
-            </div>
-            <div class="card_buttons d-flex justify-content-between align-content-center">
-              <button class="heart"><span><i class="far fa-heart"></i>2.5k</span></button>
-              <button class="button__item">Read Recipe</button>
-            </div>
-          </div>
           <div class="col-3 card__item"
             *ngFor="let recipe of recipeEnvelope.recipes | slice: pageSize | slice: 0:itemsPerPage">
             <div class="card__image">
@@ -462,6 +378,11 @@
           <ngb-pagination class="d-flex justify-content-end" [collectionSize]="recipeEnvelope.recipeCount"
             [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true"
             [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center" *ngIf="!recipesLoaded">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
       </div>
     </div>
