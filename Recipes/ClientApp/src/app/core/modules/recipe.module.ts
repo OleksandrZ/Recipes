@@ -30,3 +30,8 @@ export interface RecipeEnvelope {
   recipeCount: number;
   recipes: Recipe[];
 }
+
+export interface CuisinesEnvelope{
+  cuisines: string[];
+  cuisineCount: number;
+}
