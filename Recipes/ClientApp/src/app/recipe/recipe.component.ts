@@ -38,8 +38,6 @@ export class RecipeComponent implements OnInit {
   getRecipe(recipeId: string) {
     this.recipeService.getRecipeById(recipeId).subscribe((recipe) => {
       this.recipe = recipe;
-      console.log(this.recipe);
-
       this.recipeLoaded = true;
     });
   }
@@ -51,11 +49,12 @@ export class RecipeComponent implements OnInit {
 
     let body = this.createCommentForm.value.body;
     console.log(body);
-    
+
     this.commentService
       .createComment(new CommandComment(this.recipeId, body))
       .subscribe((comment) => {
         this.recipe.comments.push(comment);
+        this.createCommentForm.reset();
       });
   }
 }
