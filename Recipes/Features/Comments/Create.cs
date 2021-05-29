@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace Recipes.Features.Comments
 {
     public static class Create
     {
-        public class Command : IRequest
+        public class Command : IRequest<CommentDto>
         {
             public string RecipeId { get; set; }
             public string Body { get; set; }
@@ -33,20 +34,22 @@ namespace Recipes.Features.Comments
             }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, CommentDto>
         {
             private readonly RecipesDbContext context;
             private readonly UserManager<AppUser> userManager;
             private readonly ICurrentUserAccessor currentUserAccessor;
+            private readonly IMapper mapper;
 
-            public Handler(RecipesDbContext context, ICurrentUserAccessor currentUserAccessor, UserManager<AppUser> userManager)
+            public Handler(RecipesDbContext context, ICurrentUserAccessor currentUserAccessor, UserManager<AppUser> userManager, IMapper mapper)
             {
                 this.context = context;
                 this.currentUserAccessor = currentUserAccessor;
                 this.userManager = userManager;
+                this.mapper = mapper;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<CommentDto> Handle(Command request, CancellationToken cancellationToken)
             {
                 var user = await userManager.FindByNameAsync(currentUserAccessor.GetCurrentUsername());
 
@@ -68,7 +71,7 @@ namespace Recipes.Features.Comments
                 await context.Comments.AddAsync(comment, cancellationToken);
                 if (await context.SaveChangesAsync(cancellationToken) > 0)
                 {
-                    return Unit.Value;
+                    return mapper.Map<Comment, CommentDto>(comment);
                 }
 
                 throw new Exception("Problem when creating comment");
