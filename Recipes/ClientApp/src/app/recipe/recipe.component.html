@@ -18,7 +18,7 @@
       </div>
       <div class="calories">
         <h5>Пищевая ценность</h5>
-        <span>{{recipe.nutritionValue.value}}</span>
+        <span>{{recipe.nutritionValue.value}} кКал</span>
       </div>
       <div class="details d-flex ">
         <div class="d-flex flex-column justify-content-center timer">
@@ -99,34 +99,39 @@
       </form>
     </div>
     <h5 class="title-comments ">Прочие Комментарии</h5>
-    <div class="comments" *ngFor="let comment of recipe.comments">
-      <ul class="media-list ">
-        <li class="media d-flex ">
-          <div class="media-left ">
-            <a href=" "><img class="media-object img-circle "
-                src="{{comment.userProfileImageUrl ? 'https://' + comment.userProfileImageUrl : 'https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg'}}"
-                alt=" "></a>
-          </div>
-          <div class="media-body ">
-            <div class="panel panel-info ">
-              <div class="panel-heading ">
-                <div class="author ">{{comment.author}}</div>
-                <div class="mediadata ">
-                  <span class="date ">{{comment.date}}</span>
+    <div *ngIf="recipeLoaded">
+      <div class="comments" *ngFor="let comment of recipe.comments | slice: pageSize | slice: 0:itemsPerPage">
+        <ul class="media-list ">
+          <li class="media d-flex ">
+            <div class="media-left ">
+              <a href=" "><img class="media-object img-circle "
+                  src="{{comment.userProfileImageUrl ? 'https://' + comment.userProfileImageUrl : 'https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg'}}"
+                  alt=" "></a>
+            </div>
+            <div class="media-body ">
+              <div class="panel panel-info ">
+                <div class="panel-heading ">
+                  <div class="author ">{{comment.author}}</div>
+                  <div class="mediadata ">
+                    <span class="date ">{{comment.createdAt}}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="panel-body ">
-                <div class="media-text ">
-                  {{comment.body}}
+                <div class="panel-body ">
+                  <div class="media-text ">
+                    {{comment.body}}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
+      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="commentsAmount"
+        [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true"
+        [boundaryLinks]="true"></ngb-pagination>
     </div>
     <div class="comments-footer ">
-      <span  *appShowAuth="false">Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>
+      <span *appShowAuth="false">Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>
       <button class="btn btn-outline-secondary all-comments ">Все комментарии</button>
     </div>
   </div>
