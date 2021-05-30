@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
+using Recipes.Features.DTOs;
 using Recipes.Infrastructure;
 using Recipes.Infrastructure.Errors;
 using System;

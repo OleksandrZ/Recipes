@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Recipes.Features.Comments
+namespace Recipes.Features.DTOs
 {
     public class CommentDto
     {

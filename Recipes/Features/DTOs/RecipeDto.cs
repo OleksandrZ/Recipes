@@ -3,7 +3,7 @@ using Recipes.Features.Comments;
 using System;
 using System.Collections.Generic;
 
-namespace Recipes.Features.Recipes
+namespace Recipes.Features.DTOs
 {
     public class RecipeDto
     {
