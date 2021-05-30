@@ -12,7 +12,7 @@ namespace Recipes.Infrastructure
         {
             if (bindingContext == null)
             {
-                throw new ArgumentNullException(nameof(bindingContext));
+                return Task.FromException(new ArgumentNullException(nameof(bindingContext)));
             }
 
             // Check the value sent in
