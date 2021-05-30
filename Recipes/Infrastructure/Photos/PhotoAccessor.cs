@@ -50,10 +50,10 @@ namespace Recipes.Infrastructure.Photos
 
         public async System.Threading.Tasks.Task<bool> DeletePhotoAsync(Photo photo)
         {
-            using (var context = new RecipesDbContext())
+            await using (var context = new RecipesDbContext())
             {
                 File.Delete(photo.Path);
-                context.Users.Load();
+                await context.Users.LoadAsync();
                 context.Images.Remove(photo);
 
                 try
@@ -65,12 +65,10 @@ namespace Recipes.Infrastructure.Photos
                 }
                 catch (Exception)
                 {
-                    
                     throw;
                 }
-                
                 throw new Exception("Problem deleting image");
-            } 
+            }
         }
     }
 }
