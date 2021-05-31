@@ -73,8 +73,8 @@
       </div>
     </div>
     <div class="cooking-steps">
-      <ol class="steps" *ngFor="let step of recipe.stepsOfCooking">
-        <li>{{step.description}}</li>
+      <ol class="steps">
+        <li *ngFor="let step of recipe.stepsOfCooking">{{step.description}}</li>
       </ol>
     </div>
   </div>
