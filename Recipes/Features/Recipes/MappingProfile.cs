@@ -15,7 +15,7 @@ namespace Recipes.Features.Recipes
         {
             CreateMap<Comment, CommentDto>()
                 .ForMember(d => d.Author, o => o.MapFrom(s => s.Author.UserName))
-                .ForMember(d => d.UserProfileImageUrl, o => o.MapFrom(s => s.Author.Photo));
+                .ForMember(d => d.UserProfileImageUrl, o => o.MapFrom(s => s.Author.Photo.Url));
 
             CreateMap<Recipe, RecipeDto>()
                 .ForMember(d => d.Author, o => o.MapFrom(s => s.Author.UserName))
@@ -25,7 +25,7 @@ namespace Recipes.Features.Recipes
                     o => o.MapFrom(s => s.Comments));
             CreateMap<Recipe, ShortRecipeDto>()
                 .ForMember(d => d.Author, o => o.MapFrom(s => s.Author.UserName))
-                .ForMember(d => d.Image, o => o.MapFrom(s => s.Images.First().Url));
+                .ForMember(d => d.Image, o => o.MapFrom(s => s.MainImage.Url));
         }
     }
 }

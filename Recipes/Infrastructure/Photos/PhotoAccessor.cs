@@ -39,7 +39,7 @@ namespace Recipes.Infrastructure.Photos
                         }
                     }
                     HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-                    photo.Url = httpContextAccessor.HttpContext.Request.Host.Value + @"\images\" + fileName;
+                    photo.Url = "https://" + httpContextAccessor.HttpContext.Request.Host.Value + @"\images\" + fileName;
                     photo.FileName = fileName;
                     photo.Path = fullPath;
                     photo.Size = image.Length;

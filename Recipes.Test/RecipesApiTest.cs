@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Moq;
 using Recipes.Controllers;
+using Recipes.Features.DTOs;
 using Recipes.Features.Recipes;
 using Xunit;
 

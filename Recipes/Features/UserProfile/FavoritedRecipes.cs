@@ -41,7 +41,7 @@ namespace Recipes.Features.UserProfile
             {
                 var user = await context.Users.Include(x => x.RecipeFavorites)
                                               .ThenInclude(x => x.Recipe)
-                                              .ThenInclude(x => x.Images)
+                                              .ThenInclude(x => x.MainImage)
                                               .Include(x => x.RecipeFavorites)
                                               .ThenInclude(x => x.Recipe)
                                               .ThenInclude(x => x.Author)

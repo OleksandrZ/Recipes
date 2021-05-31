@@ -39,8 +39,9 @@ namespace Recipes.Features.Recipes
                     .Include(x => x.Comments)
                     .Include(x => x.NutritionValue)
                     .Include(x => x.StepsOfCooking)
+                    .ThenInclude(x => x.Image)
                     .Include(x => x.Ingredients)
-                    .Include(x => x.Images)
+                    .Include(x => x.MainImage)
                     .OrderBy(x => x.UpdatedAt).ToListAsync(cancellationToken: cancellationToken);
 
                 return new RecipesEnvelope(mapper.Map<List<Recipe>, List<RecipeDto>>(recipes), recipes.Count);

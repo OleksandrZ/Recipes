@@ -38,9 +38,10 @@ namespace Recipes.Controllers
         [HttpPost]
         [Route("create")]
         // receives multipart/form-data, converts key command (json) to class Command
-        public async Task<ActionResult<Unit>> Create([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, ICollection<IFormFile> images)
+        public async Task<ActionResult<Unit>> Create([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command,IFormFile mainImage, ICollection<IFormFile> images)
         {
             command.Images = images;
+            command.MainImage = mainImage;
             return await Mediator.Send(command);
         }
 

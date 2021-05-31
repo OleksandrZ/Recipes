@@ -16,7 +16,7 @@ namespace Recipes.Features.DTOs
         public ICollection<Ingredient> Ingredients { get; set; }
         public int Servings { get; set; }
         public TimeSpan TimeOfCooking { get; set; }
-        public ICollection<Photo> Images { get; set; }
+        public Photo MainImage { get; set; }
         public NutritionValue NutritionValue { get; set; }
         public ICollection<Step> StepsOfCooking { get; set; }
         public ICollection<Category> Categories { get; set; }

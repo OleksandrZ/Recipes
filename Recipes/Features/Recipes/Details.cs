@@ -39,8 +39,9 @@ namespace Recipes.Features.Recipes
                    .Include(x => x.Comments)
                    .Include(x => x.NutritionValue)
                    .Include(x => x.StepsOfCooking)
+                   .ThenInclude(x => x.Image)
                    .Include(x => x.Ingredients)
-                   .Include(x => x.Images)
+                   .Include(x => x.MainImage)
                    .OrderBy(x => x.UpdatedAt).ToListAsync(cancellationToken: cancellationToken);
 
                 var recipe = recipes.Find(x => x.Id == request.Id);
