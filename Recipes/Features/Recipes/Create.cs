@@ -112,7 +112,6 @@ namespace Recipes.Features.Recipes
                         recipe.StepsOfCooking.Add(new Step()
                         {
                             Description = stepDto.Description,
-                            Id = Guid.NewGuid().ToString(),
                             Image = photoAccessor.CreatePhoto(request.Images.SingleOrDefault(x => x.FileName == stepDto.ImageName)),
                             StepNumber = stepDto.StepNumber
                         });
