@@ -1,7 +1,7 @@
 <div class="wrapper-grid-10" *ngIf="recipeLoaded">
   <div class="one">
     <div class="img">
-      <img src="https:\\{{recipe.images[0].url}}" alt="Здесь должна быть картинка" class="w-100 d-block">
+      <img src="{{recipe.mainImage.url}}" alt="Здесь должна быть картинка" class="w-100 d-block">
     </div>
     <div class="content d-flex justify-content-start">
       <p>Автор</p>
@@ -66,9 +66,9 @@
     <div class="cooking-title">
       <h5>Приготовление</h5>
     </div>
-    <div class="photo-galery row" *ngFor="let image of recipe.images">
+    <div class="photo-galery row" *ngFor="let step of recipe.stepsOfCooking">
       <div class="col-sm-12 col-md-6 col-lg-4 item">
-        <a href="https://{{image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="https://{{image.url}}"
+        <a href="{{step.image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{step.image.url}}"
             alt="#"></a>
       </div>
     </div>
@@ -126,9 +126,9 @@
           </li>
         </ul>
       </div>
-      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="commentsAmount"
-        [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true"
-        [boundaryLinks]="true"></ngb-pagination>
+      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="commentsAmount" [pageSize]="itemsPerPage"
+        [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true" [boundaryLinks]="true">
+      </ngb-pagination>
     </div>
     <div class="comments-footer ">
       <span *appShowAuth="false">Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>

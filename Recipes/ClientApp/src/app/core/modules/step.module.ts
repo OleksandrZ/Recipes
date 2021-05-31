@@ -1,4 +1,7 @@
+import { Image } from './image.module';
+
 export interface Step {
-  id: string;
   description: string;
+  stepNumber: number;
+  image: Image
 }

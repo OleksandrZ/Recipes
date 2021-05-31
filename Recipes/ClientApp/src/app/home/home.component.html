@@ -108,7 +108,7 @@
                 <div class="row mt-2 justify-content-xl-between" *ngIf="recipesLoaded">
                     <div class="col-3 card__item" *ngFor="let recipe of recipeEnvelope.recipes | slice: pageSize | slice: 0:itemsPerPage">
                         <div class="card__image">
-                            <img class="d-block w-100" src="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}" alt="">
+                            <img class="d-block w-100" src="{{recipe.mainImage.url}}" alt="">
                         </div>
                         <div class="card__content">
                             <h5>{{recipe.title}}</h5>
