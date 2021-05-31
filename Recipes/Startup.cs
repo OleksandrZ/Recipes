@@ -39,6 +39,8 @@ namespace Recipes
         {
             services.AddControllersWithViews();
 
+            services.AddCors();
+
             services.AddMediatR(typeof(Register).GetTypeInfo().Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssemblyContaining<Startup>();
@@ -111,6 +113,8 @@ namespace Recipes
             }
 
             app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
