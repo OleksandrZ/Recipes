@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RecipeService } from "../core";
 import { CategoriesEnvelope, CuisinesEnvelope, Recipe } from "../core/modules";
 import { Category } from "./../core/modules/category.module";
@@ -25,7 +25,6 @@ export class CreateRecipeComponent implements OnInit {
       title: ["", [Validators.required, Validators.minLength(4)]],
       description: ["", [Validators.required, Validators.minLength(10)]],
       mainImage: ["", [Validators.required]],
-      mainImageSource: ["", [Validators.required]],
       nutritionValue: [""],
       proteins: [""],
       fats: [""],
@@ -35,12 +34,19 @@ export class CreateRecipeComponent implements OnInit {
       difficulty: ["", [Validators.required]],
       category: ["", [Validators.required]],
       cuisine: ["", [Validators.required]],
-      ingredientName: ["", [Validators.required, Validators.minLength(2)]],
-      ingredientQuantity: ["", [Validators.required]],
-      unit: ["", [Validators.required]],
-      stepDescription: ["", [Validators.required, Validators.minLength(5)]],
-      stepImage: ["", [Validators.required]],
-      stepImageSource: ["", [Validators.required]],
+      ingredients: this.fb.array([
+        this.fb.group({
+          ingredientName: ["", [Validators.required, Validators.minLength(2)]],
+          ingredientQuantity: ["", [Validators.required]],
+          unit: ["", [Validators.required]],
+        }),
+      ]),
+      steps: this.fb.array([
+        this.fb.group({
+          stepDescription: ["", [Validators.required, Validators.minLength(5)]],
+          stepImage: ["", [Validators.required]],
+        }),
+      ]),
     });
 
     this.recipeService.getAllCategories().subscribe((categoryEnvelope) => {
@@ -56,21 +62,55 @@ export class CreateRecipeComponent implements OnInit {
     });
   }
 
+  get ingredients() {
+    return this.createRecipeForm.get("ingredients") as FormArray;
+  }
+
+  get steps() {
+    return this.createRecipeForm.get("steps") as FormArray;
+  }
+
+  addIngredient() {
+    this.ingredients.push(
+      this.fb.group({
+        ingredientName: ["", [Validators.required, Validators.minLength(2)]],
+        ingredientQuantity: ["", [Validators.required]],
+        unit: ["", [Validators.required]],
+      })
+    );
+  }
+
+  deleteIngredient(index) {
+    this.steps.removeAt(index);
+  }
+
+  addStep() {
+    this.steps.push(
+      this.fb.group({
+        stepDescription: ["", [Validators.required, Validators.minLength(5)]],
+        stepImage: ["", [Validators.required]],
+        stepImageSource: ["", [Validators.required]],
+      })
+    );
+  }
+
+  deleteStep(index) {
+    this.steps.removeAt(index);
+  }
+
   onMainImageFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.createRecipeForm.patchValue({
-        mainImageSource: file,
+        mainImage: file,
       });
     }
   }
 
-  onStepImageFileChange(event) {
+  onStepImageFileChange(event, index) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.createRecipeForm.patchValue({
-        stepImageSource: file,
-      });
+      this.steps.at(index).value.stepImage = file;
     }
   }
 
@@ -84,25 +124,28 @@ export class CreateRecipeComponent implements OnInit {
 
     recipe.description = this.createRecipeForm.value.description;
     recipe.title = this.createRecipeForm.value.title;
-
     recipe.ingredients = [];
-    let ingredient = new Ingredient();
-    ingredient.amount = this.createRecipeForm.value.ingredientQuantity;
-    ingredient.name = this.createRecipeForm.value.ingredientName;
-    ingredient.unit = this.createRecipeForm.value.unit;
-
-    recipe.ingredients.push(ingredient);
+    this.createRecipeForm.value.ingredients.forEach((ingredient) => {
+      recipe.ingredients.push({
+        amount: ingredient.ingredientQuantity,
+        name: ingredient.ingredientName,
+        unit: ingredient.unit,
+      });
+    });
 
     recipe.difficulty = this.createRecipeForm.value.difficulty;
 
     recipe.stepsOfCooking = [];
-    let step = new Step();
-    step.description = this.createRecipeForm.value.stepDescription;
-    step.stepNumber = 1;
-    step.imageName = this.createRecipeForm.value.stepImage.substr(
-      this.createRecipeForm.value.stepImage.lastIndexOf("\\") + 1
-    );
-    recipe.stepsOfCooking.push(step);
+    let counter = 1;
+    this.createRecipeForm.value.steps.forEach((step) => {
+      recipe.stepsOfCooking.push({
+        description: step.stepDescription,
+        imageName: step.stepImage.name,
+        stepNumber: counter,
+        image: null,
+      });
+      counter++;
+    });
 
     recipe.servings = this.createRecipeForm.value.portions;
 
@@ -116,20 +159,22 @@ export class CreateRecipeComponent implements OnInit {
     recipe.cuisine = this.createRecipeForm.value.cuisine;
 
     formData.append("command", JSON.stringify(recipe));
-    formData.append(
-      "mainImage",
-      this.createRecipeForm.get("mainImageSource").value,
-      this.createRecipeForm.value.mainImage.substr(
-        this.createRecipeForm.value.mainImage.lastIndexOf("\\") + 1
-      )
-    );
-    formData.append(
-      "image",
-      this.createRecipeForm.get("stepImageSource").value
-    );
+    formData.append("mainImage", this.createRecipeForm.get("mainImage").value);
+    counter = 1;
+    this.createRecipeForm.value.steps.forEach((step) => {
+      console.log(step.stepImage);
+      formData.append("images", step.stepImage);
+      counter++;
+    });
 
-    this.recipeService
-      .createRecipeWithOneImageInSteps(formData)
-      .subscribe((response) => console.log(response));
+    if (formData.getAll("images").length > 1) {
+      this.recipeService
+        .createRecipe(formData)
+        .subscribe((response) => console.log(response));
+    } else {
+      this.recipeService
+        .createRecipeWithOneImageInSteps(formData)
+        .subscribe((response) => console.log(response));
+    }
   }
 }

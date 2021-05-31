@@ -1,4 +1,4 @@
-<div class="wrapper-grid-10">
+<div class="wrapper-grid-10" *ngIf="cuisineEnvelope && categoryEnvelope && difficulties">
   <div class="first-container">
     <form [formGroup]="createRecipeForm" (ngSubmit)="createRecipe()">
       <h1 class="main-title">Добавление рецепта</h1>
@@ -21,7 +21,8 @@
       <div class="row mb-3 input-file">
         <label for="formFile" class="col-sm-3  col-form-label">Добавить фото :</label>
         <div class="col-sm-6">
-          <input type="file" class="form-control" id="formFile" formControlName="mainImage" (change)="onMainImageFileChange($event)">
+          <input type="file" class="form-control" id="formFile" formControlName="mainImage"
+            (change)="onMainImageFileChange($event)">
         </div>
       </div>
       <div class="row mb-3 nutritional-value">
@@ -89,59 +90,67 @@
         </div>
       </div>
       <h5 class="ingredient-title">Ингредиенты</h5>
-      <div class="row">
-        <div class="col-sm-3 col-md-12 col-lg-3">
-          <label for="ingredient" class="form-label">Ингредиент:</label>
-          <input type="text" id="ingredient" class="form-control" formControlName="ingredientName">
-        </div>
-        <div class="col-sm-2 col-md-12 col-lg-3">
-          <label for="quantity" class="form-label">Количество:</label>
-          <input type="text" name="" id="quantity" class="form-control" formControlName="ingredientQuantity">
-        </div>
-        <div class="col-sm-3 col-md-12 col-lg-3">
-          <label for="weight" class="form-label">Мера веса/объема:</label>
-          <select id="weight" class="form-select" formControlName="unit">
-            <option selected>--Не выбрано--</option>
-            <option>по вкусу</option>
-            <option>г.</option>
-            <option>шт</option>
-            <option>ст.л.</option>
-            <option>ч.л.</option>
-            <option>стакан</option>
-            <option>мл.</option>
-            <option>кг.</option>
-            <option>л.</option>
-            <option>щепотка</option>
-            <option>банка</option>
-            <option>пучок</option>
-          </select>
-        </div>
-        <div class="delete-ingredients col-sm-1 d-flex justify-content-center">
-          <button class="btn btn-danger align-self-center">&#8211;</button>
+      <div formArrayName="ingredients">
+        <div class="row" *ngFor="let item of ingredients.controls; let ingredientIndex=index"
+          [formGroupName]="ingredientIndex">
+          <div class="col-sm-3 col-md-12 col-lg-3">
+            <label for="ingredient" class="form-label">Ингредиент:</label>
+            <input type="text" id="ingredient" class="form-control" formControlName="ingredientName">
+          </div>
+          <div class="col-sm-2 col-md-12 col-lg-3">
+            <label for="quantity" class="form-label">Количество:</label>
+            <input type="text" name="" id="quantity" class="form-control" formControlName="ingredientQuantity">
+          </div>
+          <div class="col-sm-3 col-md-12 col-lg-3">
+            <label for="weight" class="form-label">Мера веса/объема:</label>
+            <select id="weight" class="form-select" formControlName="unit">
+              <option selected>--Не выбрано--</option>
+              <option>по вкусу</option>
+              <option>г.</option>
+              <option>шт</option>
+              <option>ст.л.</option>
+              <option>ч.л.</option>
+              <option>стакан</option>
+              <option>мл.</option>
+              <option>кг.</option>
+              <option>л.</option>
+              <option>щепотка</option>
+              <option>банка</option>
+              <option>пучок</option>
+            </select>
+          </div>
+          <div class="delete-ingredients col-sm-1 d-flex justify-content-center">
+            <button class="btn btn-danger align-self-center"
+              (click)="deleteIngredient(ingredientIndex)">&#8211;</button>
+          </div>
         </div>
         <div class="more-ingredients">
-          <button class="btn btn-outline-dark">Добавить еще ингредиент</button>
+          <button class="btn btn-outline-dark" type="button" (click)="addIngredient()">Добавить еще ингредиент</button>
         </div>
       </div>
       <h5 class="steps-title">Приготовление</h5>
-      <div class="row mb-3">
-        <label for="steps" class="col-sm-3 col-form-label">Описание шага :</label>
-        <div class="col-sm-6">
-          <textarea id="steps" class="form-control" formControlName="stepDescription"></textarea>
+      <div formArrayName="steps">
+        <div *ngFor="let item of steps.controls; let stepIndex=index" [formGroupName]="stepIndex">
+          <div class="row mb-3">
+            <label for="steps" class="col-sm-3 col-form-label">Описание шага :</label>
+            <div class="col-sm-6">
+              <textarea id="steps" class="form-control" formControlName="stepDescription"></textarea>
+            </div>
+            <div class="delete-steps col-sm-1 d-flex ">
+              <button class="btn btn-danger align-self-center" (click)="deleteStep(stepIndex)">&#8211;</button>
+            </div>
+          </div>
+          <div class="row mb-5 input-file">
+            <label for="photo-step" class="col-sm-3  col-form-label">Фотография :</label>
+            <div class="col-sm-6">
+              <input type="file" class="form-control" id="photo-step" formControlName="stepImage"
+                (change)="onStepImageFileChange($event, stepIndex)">
+            </div>
+          </div>
         </div>
-        <div class="delete-steps col-sm-1 d-flex ">
-          <button class="btn btn-danger align-self-center">&#8211;</button>
+        <div class="more-steps col-sm-4 mb-3">
+          <button class="btn btn-outline-dark" type="button" (click)="addStep()">Добавить шаг</button>
         </div>
-      </div>
-      <div class="row mb-5 input-file">
-        <label for="photo-step" class="col-sm-3  col-form-label">Фотография :</label>
-        <div class="col-sm-6">
-          <input type="file" class="form-control" id="photo-step" formControlName="stepImage" (change)="onStepImageFileChange($event)">
-        </div>
-      </div>
-
-      <div class="more-steps col-sm-4 mb-3">
-        <button class="btn btn-outline-dark">Добавить шаг</button>
       </div>
       <div class="submit-form col-sm-4">
         <button class="btn btn-primary" type="submit">Опубликовать</button>

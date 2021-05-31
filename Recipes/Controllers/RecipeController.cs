@@ -47,11 +47,11 @@ namespace Recipes.Controllers
         [Authorize]
         [HttpPost]
         [Route("createwithoneimage")]
-        public async Task<ActionResult<Unit>> CreateWithOneImage([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, IFormFile mainImage, IFormFile image)
+        public async Task<ActionResult<Unit>> CreateWithOneImage([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, IFormFile mainImage, IFormFile images)
         {
             command.Images = new List<IFormFile>();
-            if(image != null)
-                command.Images.Add(image);
+            if(images != null)
+                command.Images.Add(images);
 
             command.MainImage = mainImage;
             return await Mediator.Send(command);

@@ -49,6 +49,8 @@ namespace Recipes.Features.Recipes
                 if (recipe == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, new { Recipe = "Not found" });
 
+                recipe.StepsOfCooking = recipe.StepsOfCooking.OrderBy(x => x.StepNumber).ToList();
+
                 recipe.SiteVisits++;
                 return mapper.Map<Recipe, RecipeDto>(recipe);
             }

@@ -12,7 +12,7 @@ import { AuthService } from "../services/auth.service";
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthService) {}
-  
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -26,6 +26,9 @@ export class JwtInterceptor implements HttpInterceptor {
         setHeaders: { Authorization: `Bearer ${user.jwtToken}` },
       });
     }
+    request = request.clone({
+      withCredentials: false,
+    });
 
     return next.handle(request);
   }

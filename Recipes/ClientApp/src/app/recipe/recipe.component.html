@@ -67,9 +67,8 @@
       <h5>Приготовление</h5>
     </div>
     <div class="photo-galery row" *ngFor="let step of recipe.stepsOfCooking">
-      <div class="col-sm-12 col-md-6 col-lg-4 item">
-        <a href="{{step.image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{step.image.url}}"
-            alt="#"></a>
+      <div class="col-sm-12 col-md-6 col-lg-4 item" *ngIf="step.image">
+        <a href="{{step.image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{step.image.url}}" alt="#"></a>
       </div>
     </div>
     <div class="cooking-steps">

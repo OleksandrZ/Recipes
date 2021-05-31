@@ -109,12 +109,19 @@ namespace Recipes.Features.Recipes
                     recipe.StepsOfCooking = new List<Step>();
                     foreach (var stepDto in request.StepsOfCooking)
                     {
-                        recipe.StepsOfCooking.Add(new Step()
+                        var step = new Step()
                         {
                             Description = stepDto.Description,
-                            Image = photoAccessor.CreatePhoto(request.Images.SingleOrDefault(x => x.FileName == stepDto.ImageName)),
                             StepNumber = stepDto.StepNumber
-                        });
+                        };
+
+                        if (!string.IsNullOrEmpty(stepDto.ImageName))
+                        {
+                            step.Image = photoAccessor.CreatePhoto(request.Images.FirstOrDefault(x => x.FileName == stepDto.ImageName));
+                            request.Images.Remove(request.Images.First(x => x.FileName == stepDto.ImageName));
+                        }
+
+                        recipe.StepsOfCooking.Add(step);
                     }
                 }
 
