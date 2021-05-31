@@ -1,218 +1,239 @@
 <div id="hole"></div>
 <header>
-    <div class="container bar fixed-top">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a [routerLink]="['/']" class="navbar-brand"><i class="fas fa-utensils brand"></i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="container bar fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a [routerLink]="['/']" class="navbar-brand"><i class="fas fa-utensils brand"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item"><a class="nav-link active" [routerLink]="['/']">Рецепты</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Статьи</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Уроки</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Авторы</a></li>
-                </ul>
-                <div class="d-flex" *appShowAuth="false">
-                    <button class="btn btn-light login" (click)="openModal(loginContent)">Вход</button>
-                    <button class="btn btn-dark" (click)="openModal(registerContent)">Регистрация</button>
-                </div>
-                <div class="d-flex" *appShowAuth="true">
-                    <button class="btn btn-light" [routerLink]="['create-recipe']">Create recipe</button>
-                    <button class="btn btn-light" (click)="logout()">Выход</button>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <!-- Navbar end------------------------------------------ -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav m-auto">
+          <li class="nav-item"><a class="nav-link active" [routerLink]="['/']">Рецепты</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Статьи</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Уроки</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Авторы</a></li>
+        </ul>
+        <div class="d-flex" *appShowAuth="false">
+          <button class="btn btn-light login" (click)="openModal(loginContent)">Вход</button>
+          <button class="btn btn-dark" (click)="openModal(registerContent)">Регистрация</button>
+        </div>
+        <div class="d-flex" *appShowAuth="true">
+          <button class="btn btn-light" [routerLink]="['create-recipe']">Create recipe</button>
+          <button class="btn btn-light" (click)="logout()">Выход</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Navbar end------------------------------------------ -->
 </header>
 <!-- Modal Sign In-->
 <ng-template class="modal fade" #loginContent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h5 class="modal-title" id="LoginLabel">Sign In</h5>
-        <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
-    </div>
-    <form [formGroup]="loginForm">
-        <div class="modal-body">
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="mail-icon-group input-group-text" id="mail-icon"><i class="far fa-envelope"></i></span>
-                        <input id="loginEmail" type="email" class="form-control" aria-describedby="mail" placeholder="Email" name="loginEmail" formControlName="loginEmail">
-                    </div>
-                    <small id="emailHelp" class="form-text text-muted">Enter your email</small>
-                    <div *ngIf="loginForm.controls.loginEmail.invalid && (loginForm.controls.loginEmail.dirty || loginForm.controls.loginEmail.touched)" class="alert alert-danger">
-                        <div *ngIf="loginForm.controls.loginEmail.errors.required">
-                            Email is required
-                        </div>
-                        <div *ngIf="loginForm.controls.loginEmail.errors.email">
-                            Invalid email
-                        </div>
-                    </div>
-                </div>
+  <div class="modal-header">
+    <h5 class="modal-title" id="LoginLabel">Sign In</h5>
+    <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
+  </div>
+  <form [formGroup]="loginForm">
+    <div class="modal-body">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="mail-icon-group input-group-text" id="mail-icon"><i class="far fa-envelope"></i></span>
+            <input id="loginEmail" type="email" class="form-control" aria-describedby="mail" placeholder="Email"
+              name="loginEmail" formControlName="loginEmail">
+          </div>
+          <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+          <div
+            *ngIf="loginForm.controls.loginEmail.invalid && (loginForm.controls.loginEmail.dirty || loginForm.controls.loginEmail.touched)"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.controls.loginEmail.errors.required">
+              Email is required
             </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock"></i></span>
-                        <input id="pass" [type]="fieldTextType ? 'text' : 'password'" class="form-control password" aria-describedby="Amount" placeholder="Password" name="loginPassword" formControlName="loginPassword">
-                        <span class="eye input-group-text">
-									<i class="fa" [ngClass]="{
+            <div *ngIf="loginForm.controls.loginEmail.errors.email">
+              Invalid email
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock"></i></span>
+            <input id="pass" [type]="fieldTextType ? 'text' : 'password'" class="form-control password"
+              aria-describedby="Amount" placeholder="Password" name="loginPassword" formControlName="loginPassword">
+            <span class="eye input-group-text">
+              <i class="fa" [ngClass]="{
 						 'fa-eye-slash': !fieldTextType,
 						 'fa-eye': fieldTextType
 					  }" (click)="toggleFieldTextType()"></i>
-								</span>
-                    </div>
+            </span>
+          </div>
 
-                    <small id="passHelp" class="form-text text-muted">Enter your password</small>
-                    <div *ngIf="loginForm.controls.loginPassword.invalid && (loginForm.controls.loginPassword.dirty || loginForm.controls.loginPassword.touched)" class="alert alert-danger">
-                        <div *ngIf="loginForm.controls.loginPassword.errors.required">
-                            Password is required
-                        </div>
-                        <div *ngIf="loginForm.controls.loginPassword.errors.minLength">
-                            Password must be at least 8 characters long
-                        </div>
-                        <div *ngIf="loginForm.controls.loginPassword.errors.pattern">
-                            Password must have at least:
-                            <ul>
-                                <li>1 uppercase & 1 lowercase character</li>
-                                <li>1 number</li>
-                                <li>1 special symbol</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+          <small id="passHelp" class="form-text text-muted">Enter your password</small>
+          <div
+            *ngIf="loginForm.controls.loginPassword.invalid && (loginForm.controls.loginPassword.dirty || loginForm.controls.loginPassword.touched)"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.controls.loginPassword.errors.required">
+              Password is required
             </div>
-            <div class="form-check">
-                <label for="check" class="form-check-label remember_me">
-					<input type="checkbox" id="check" class="form-check-input" formControlName="loginRememberMe">
-					Remember me?
-				</label>
+            <div *ngIf="loginForm.controls.loginPassword.errors.minLength">
+              Password must be at least 8 characters long
             </div>
-            <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in" [disabled]="loginForm.invalid" (click)="login()">Sign
-				In</button>
-            <div class="h-line">
-                <span>or</span>
+            <div *ngIf="loginForm.controls.loginPassword.errors.pattern">
+              Password must have at least:
+              <ul>
+                <li>1 uppercase & 1 lowercase character</li>
+                <li>1 number</li>
+                <li>1 special symbol</li>
+              </ul>
             </div>
-            <button type="submit" class="btn btn-light btn-google col-sm-12 mt-2">Sign In with Google
-				<img class="google_icon" src="../../assets/images/google_icon.png" alt="google_icon">
-			</button>
-            <div class="reg-now">
-                <span>Not a member? </span>
-                <a href="#" (click)="openModal(registerContent)">Sign up now</a>
-            </div>
+          </div>
         </div>
-    </form>
+      </div>
+      <div class="form-check">
+        <label for="check" class="form-check-label remember_me">
+          <input type="checkbox" id="check" class="form-check-input" formControlName="loginRememberMe">
+          Remember me?
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary col-sm-12 mt-4 sign_in" [disabled]="loginForm.invalid"
+        (click)="login()">Sign
+        In</button>
+      <div class="h-line">
+        <span>or</span>
+      </div>
+      <button type="submit" class="btn btn-light btn-google col-sm-12 mt-2">Sign In with Google
+        <img class="google_icon" src="../../assets/images/google_icon.png" alt="google_icon">
+      </button>
+      <div class="reg-now">
+        <span>Not a member? </span>
+        <a href="#" (click)="openModal(registerContent)">Sign up now</a>
+      </div>
+    </div>
+  </form>
 </ng-template>
 
 <!--  -->
 <!-- Modal Sign up -->
 <ng-template #registerContent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h5 class="modal-title" id="RegisterLabel">Sign Up</h5>
-        <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
-    </div>
-    <form [formGroup]="registerForm">
-        <div class="modal-body">
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="user-icon-group input-group-text" id="user-icon"><i class="fas fa-user"></i></span>
-                        <input id="last-name" type="text" class="form-control username" aria-describedby="user-icon" placeholder="Username" formControlName="registerUsername">
-                    </div>
-                    <small id="userHelp" class="form-text text-muted">Create your Username</small>
-                    <div *ngIf="registerForm.controls.registerUsername.invalid && (registerForm.controls.registerUsername.dirty || registerForm.controls.registerUsername.touched)" class="alert alert-danger">
-                        <div *ngIf="registerForm.controls.registerUsername.errors.required">
-                            Username is required
-                        </div>
-                        <div *ngIf="!registerForm.controls.registerUsername.errors.minLength">
-                            Username must be at least 4 characters long
-                        </div>
-                    </div>
-                </div>
+  <div class="modal-header">
+    <h5 class="modal-title" id="RegisterLabel">Sign Up</h5>
+    <button class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="d('Cross click')"></button>
+  </div>
+  <form [formGroup]="registerForm">
+    <div class="modal-body">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="user-icon-group input-group-text" id="user-icon"><i class="fas fa-user"></i></span>
+            <input id="last-name" type="text" class="form-control username" aria-describedby="user-icon"
+              placeholder="Username" formControlName="registerUsername">
+          </div>
+          <small id="userHelp" class="form-text text-muted">Create your Username</small>
+          <div
+            *ngIf="registerForm.controls.registerUsername.invalid && (registerForm.controls.registerUsername.dirty || registerForm.controls.registerUsername.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.controls.registerUsername.errors.required">
+              Username is required
             </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="mail-icon-group input-group-text" id="mail-icon"><i class="far fa-envelope sign-up"></i></span>
-                        <input id="mail" type="email" class="form-control mail" aria-describedby="mail-icon" placeholder="Email" formControlName="registerEmail">
-                    </div>
-                    <small id="emailHelp" class="form-text text-muted">Enter your email</small>
-                    <div *ngIf="registerForm.controls.registerEmail.invalid && (registerForm.controls.registerEmail.dirty || registerForm.controls.registerEmail.touched)" class="alert alert-danger">
-                        <div *ngIf="registerForm.controls.registerEmail.errors.required">
-                            Email is required
-                        </div>
-                        <div *ngIf="registerForm.controls.registerEmail.errors.email">
-                            Invalid email
-                        </div>
-                    </div>
-                </div>
+            <div *ngIf="!registerForm.controls.registerUsername.errors.minLength">
+              Username must be at least 4 characters long
             </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock sign-up"></i></span>
-                        <input type="password" [type]="fieldTextType ? 'text' : 'password'" class="form-control password" aria-describedby="Amount" placeholder="Password" formControlName="registerPassword">
-                        <span class="eye input-group-text">
-									<i class="fa" [ngClass]="{
-						 'fa-eye-slash': !fieldTextType,
-						 'fa-eye': fieldTextType
-					  }" (click)="toggleFieldTextType()"></i>
-								</span>
-                    </div>
-                    <small id="passHelp" class="form-text text-muted">Enter your password</small>
-                    <div *ngIf="registerForm.controls.registerPassword.invalid && (registerForm.controls.registerPassword.dirty || registerForm.controls.registerPassword.touched)" class="alert alert-danger">
-                        <div *ngIf="registerForm.controls.registerPassword.errors.required">
-                            Password is required
-                        </div>
-                        <div *ngIf="registerForm.controls.registerPassword.errors.minLength">
-                            Password must be at least 8 characters long
-                        </div>
-                        <div *ngIf="registerForm.controls.registerPassword.errors.pattern">
-                            Password must have at least:
-                            <ul>
-                                <li>1 uppercase & 1 lowercase character</li>
-                                <li>1 number</li>
-                                <li>1 special symbol</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="input-group">
-                        <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock"></i></span>
-                        <input type="password" [type]="fieldTextType ? 'text' : 'password'" class="form-control confirm_password" aria-describedby="Amount" placeholder="Confirm password" formControlName="registerConfirmPassword">
-                        <span class="eye input-group-text">
-									<i class="fa" [ngClass]="{
-						 'fa-eye-slash': !fieldTextType,
-						 'fa-eye': fieldTextType
-					  }" (click)="toggleFieldTextType()"></i>
-								</span>
-                    </div>
-                    <small id="passHelp" class="form-text text-muted">Confirm your password</small>
-                    <div *ngIf="registerForm.errors?.passwordMatch && (registerForm.touched || registerForm.dirty)" class="cross-validation-error-message alert alert-danger">
-                        Passwords must match
-                    </div>
-                </div>
-            </div>
-            <div class="form-check">
-                <label for="check_remember" class="form-check-label remember_me">
-					<input type="checkbox" id="check_remember" class="form-check-input"
-						formControlName="registerAcceptTerms">
-					I accept the Terms of Use & Privacy Policy
-				</label>
-                <div *ngIf="registerForm.controls.registerAcceptTerms.invalid && (registerForm.controls.registerAcceptTerms.dirty || registerForm.controls.registerAcceptTerms.touched)" class="alert alert-danger">
-                    <div *ngIf="registerForm.controls.registerAcceptTerms.errors.required">This checkbox is required</div>
-                </div>
-            </div>
-            <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary col-sm-12 mt-4 sign_in" (click)="register()">Sign
-				Up</button>
-            <div class="login_now">
-                <span>Already have an account? </span>
-                <a href="#" (click)="openModal(loginContent)">Sign in here</a>
-            </div>
+          </div>
         </div>
-    </form>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="mail-icon-group input-group-text" id="mail-icon"><i class="far fa-envelope sign-up"></i></span>
+            <input id="mail" type="email" class="form-control mail" aria-describedby="mail-icon" placeholder="Email"
+              formControlName="registerEmail">
+          </div>
+          <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+          <div
+            *ngIf="registerForm.controls.registerEmail.invalid && (registerForm.controls.registerEmail.dirty || registerForm.controls.registerEmail.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.controls.registerEmail.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="registerForm.controls.registerEmail.errors.email">
+              Invalid email
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock sign-up"></i></span>
+            <input type="password" [type]="fieldTextType ? 'text' : 'password'" class="form-control password"
+              aria-describedby="Amount" placeholder="Password" formControlName="registerPassword">
+            <span class="eye input-group-text">
+              <i class="fa" [ngClass]="{
+						 'fa-eye-slash': !fieldTextType,
+						 'fa-eye': fieldTextType
+					  }" (click)="toggleFieldTextType()"></i>
+            </span>
+          </div>
+          <small id="passHelp" class="form-text text-muted">Enter your password</small>
+          <div
+            *ngIf="registerForm.controls.registerPassword.invalid && (registerForm.controls.registerPassword.dirty || registerForm.controls.registerPassword.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.controls.registerPassword.errors.required">
+              Password is required
+            </div>
+            <div *ngIf="registerForm.controls.registerPassword.errors.minLength">
+              Password must be at least 8 characters long
+            </div>
+            <div *ngIf="registerForm.controls.registerPassword.errors.pattern">
+              Password must have at least:
+              <ul>
+                <li>1 uppercase & 1 lowercase character</li>
+                <li>1 number</li>
+                <li>1 special symbol</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <span class="pass-icon-group input-group-text" id="pass-icon"><i class="fas fa-lock"></i></span>
+            <input type="password" [type]="fieldTextType ? 'text' : 'password'" class="form-control confirm_password"
+              aria-describedby="Amount" placeholder="Confirm password" formControlName="registerConfirmPassword">
+            <span class="eye input-group-text">
+              <i class="fa" [ngClass]="{
+						 'fa-eye-slash': !fieldTextType,
+						 'fa-eye': fieldTextType
+					  }" (click)="toggleFieldTextType()"></i>
+            </span>
+          </div>
+          <small id="passHelp" class="form-text text-muted">Confirm your password</small>
+          <div *ngIf="registerForm.errors?.passwordMatch && (registerForm.touched || registerForm.dirty)"
+            class="cross-validation-error-message alert alert-danger">
+            Passwords must match
+          </div>
+        </div>
+      </div>
+      <div class="form-check">
+        <label for="check_remember" class="form-check-label remember_me">
+          <input type="checkbox" id="check_remember" class="form-check-input" formControlName="registerAcceptTerms">
+          I accept the Terms of Use & Privacy Policy
+        </label>
+        <div
+          *ngIf="registerForm.controls.registerAcceptTerms.invalid && (registerForm.controls.registerAcceptTerms.dirty || registerForm.controls.registerAcceptTerms.touched)"
+          class="alert alert-danger">
+          <div *ngIf="registerForm.controls.registerAcceptTerms.errors.required">This checkbox is required</div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary col-sm-12 mt-4 sign_in"
+        (click)="register()">Sign
+        Up</button>
+      <div class="login_now">
+        <span>Already have an account? </span>
+        <a href="#" (click)="openModal(loginContent)">Sign in here</a>
+      </div>
+    </div>
+  </form>
 </ng-template>
