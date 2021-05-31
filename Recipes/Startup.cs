@@ -114,7 +114,7 @@ namespace Recipes
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
