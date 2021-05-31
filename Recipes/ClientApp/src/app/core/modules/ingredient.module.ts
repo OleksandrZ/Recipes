@@ -4,3 +4,5 @@ export interface Ingredient {
   unit: string;
   amount: number;
 }
+
+export class Ingredient implements Ingredient{}
