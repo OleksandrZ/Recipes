@@ -81,7 +81,7 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   deleteIngredient(index) {
-    this.steps.removeAt(index);
+    this.ingredients.removeAt(index);
   }
 
   addStep() {
