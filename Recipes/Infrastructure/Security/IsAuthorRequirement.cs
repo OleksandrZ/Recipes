@@ -56,14 +56,14 @@ namespace Recipes.Infrastructure.Security
 
                 // reset position after ReadAsync
                 memoryStream.Seek(0, SeekOrigin.Begin);
-                memoryStream.Dispose();
                 httpContextAccessor.HttpContext.Request.Body = memoryStream;
 
                 if (!string.IsNullOrEmpty(str))
                 {
                     var obj = JObject.Parse(str);
 
-                    if (httpContextAccessor.HttpContext.Request.Path == "/api/recipe/edit")
+
+                    if (httpContextAccessor.HttpContext.Request.Path.ToString() is "/api/recipe/edit" or "/api/recipe/delete")
                     {
                         var recipeId = obj["id"]?.ToString();
 

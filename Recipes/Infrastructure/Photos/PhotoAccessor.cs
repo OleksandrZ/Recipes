@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ImageMagick;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
 using Recipes.Features.Image;
@@ -13,6 +14,12 @@ namespace Recipes.Infrastructure.Photos
     public class PhotoAccessor : IPhotoAccessor
     {
         private readonly string[] _permittedExtensions = { ".jpg", ".gif", ".png" };
+        private readonly RecipesDbContext context;
+
+        public PhotoAccessor(RecipesDbContext context)
+        {
+            this.context = context;
+        }
 
         public Photo CreatePhoto(IFormFile image)
         {
@@ -39,7 +46,15 @@ namespace Recipes.Infrastructure.Photos
                         }
                     }
                     HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-                    photo.Url = httpContextAccessor.HttpContext.Request.Host.Value + @"\images\" + fileName;
+
+                    var file = new FileInfo(fullPath);
+
+                    var optimizer = new ImageOptimizer();
+                    optimizer.Compress(file);
+
+                    file.Refresh();
+
+                    photo.Url = "https://" + httpContextAccessor.HttpContext.Request.Host.Value + @"\images\" + fileName;
                     photo.FileName = fileName;
                     photo.Path = fullPath;
                     photo.Size = image.Length;
@@ -50,27 +65,23 @@ namespace Recipes.Infrastructure.Photos
 
         public async System.Threading.Tasks.Task<bool> DeletePhotoAsync(Photo photo)
         {
-            using (var context = new RecipesDbContext())
-            {
-                File.Delete(photo.Path);
-                context.Users.Load();
-                context.Images.Remove(photo);
+            File.Delete(photo.Path);
+            await context.Users.LoadAsync();
+            context.Images.Remove(photo);
 
-                try
+            try
+            {
+                if (await context.SaveChangesAsync() > 0)
                 {
-                    if (await context.SaveChangesAsync() > 0)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                catch (Exception)
-                {
-                    
-                    throw;
-                }
-                
-                throw new Exception("Problem deleting image");
-            } 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            throw new Exception("Problem deleting image");
+
         }
     }
 }

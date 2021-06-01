@@ -1,7 +1,7 @@
 <div class="wrapper-grid-10" *ngIf="recipeLoaded">
     <div class="one">
         <div class="img">
-            <img src="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}" alt="Здесь должна быть картинка" class="img-fluid">
+            <img src="{{recipe.mainImage.url}}" alt="Здесь должна быть картинка" class="w-100 d-block">
         </div>
         <div class="content d-flex justify-content-start">
             <p>Автор</p>
@@ -21,15 +21,15 @@
                 <span>{{recipe.nutritionValue.value}} кКал</span>
             </div>
             <div class="details d-flex ">
-                <div class="d-flex flex-column justify-content-center align-items-center timer">
+                <div class="d-flex flex-column justify-content-center timer">
                     <img class="img-timer" src="/assets/images/timer.svg" alt="">
                     <span>{{recipe.timeOfCooking.totalMinutes}}</span>
                 </div>
-                <div class="d-flex  flex-column justify-content-center align-items-center  portion">
+                <div class="d-flex  flex-column justify-content-center portion">
                     <img class="img-portion" src="/assets/images/plate.svg" alt="">
                     <span>{{recipe.servings}}</span>
                 </div>
-                <div class="d-flex flex-column justify-content-center align-items-center  difficulty">
+                <div class="d-flex flex-column justify-content-center difficulty">
                     <img class="img-difficulty" src="/assets/images/{{recipe.difficulty}}.svg" alt="">
                     <span>Сложность</span>
                 </div>
@@ -66,14 +66,14 @@
         <div class="cooking-title">
             <h5>Приготовление</h5>
         </div>
-        <div class="photo-galery row" *ngFor="let image of recipe.images">
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <a href="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}" alt="#"></a>
+        <div class="photo-galery row" *ngFor="let step of recipe.stepsOfCooking">
+            <div class="col-sm-12 col-md-6 col-lg-4 item" *ngIf="step.image">
+                <a href="{{step.image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{step.image.url}}" alt="#"></a>
             </div>
         </div>
         <div class="cooking-steps">
-            <ol class="steps" *ngFor="let step of recipe.stepsOfCooking">
-                <li>{{step.description}}</li>
+            <ol class="steps">
+                <li *ngFor="let step of recipe.stepsOfCooking">{{step.description}}</li>
             </ol>
         </div>
     </div>
@@ -122,7 +122,8 @@
                     </li>
                 </ul>
             </div>
-            <ngb-pagination class="d-flex justify-content-end" [collectionSize]="commentsAmount" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+            <ngb-pagination class="d-flex justify-content-end" [collectionSize]="commentsAmount" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="onPageChange(page)" [maxSize]="6" [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
         </div>
         <div class="comments-footer ">
             <span *appShowAuth="false">Войдите или Зарегистрируйтесь чтобы оставить комментарий!</span>

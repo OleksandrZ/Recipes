@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
+using Recipes.Features.DTOs;
 using Recipes.Infrastructure;
 using Recipes.Infrastructure.Errors;
 using System;
@@ -38,14 +39,17 @@ namespace Recipes.Features.Recipes
                    .Include(x => x.Comments)
                    .Include(x => x.NutritionValue)
                    .Include(x => x.StepsOfCooking)
+                   .ThenInclude(x => x.Image)
                    .Include(x => x.Ingredients)
-                   .Include(x => x.Images)
+                   .Include(x => x.MainImage)
                    .OrderBy(x => x.UpdatedAt).ToListAsync(cancellationToken: cancellationToken);
 
                 var recipe = recipes.Find(x => x.Id == request.Id);
 
                 if (recipe == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, new { Recipe = "Not found" });
+
+                recipe.StepsOfCooking = recipe.StepsOfCooking.OrderBy(x => x.StepNumber).ToList();
 
                 recipe.SiteVisits++;
                 return mapper.Map<Recipe, RecipeDto>(recipe);

@@ -3,7 +3,7 @@ using Recipes.Features.Comments;
 using System;
 using System.Collections.Generic;
 
-namespace Recipes.Features.Recipes
+namespace Recipes.Features.DTOs
 {
     public class RecipeDto
     {
@@ -16,7 +16,7 @@ namespace Recipes.Features.Recipes
         public ICollection<Ingredient> Ingredients { get; set; }
         public int Servings { get; set; }
         public TimeSpan TimeOfCooking { get; set; }
-        public ICollection<Photo> Images { get; set; }
+        public Photo MainImage { get; set; }
         public NutritionValue NutritionValue { get; set; }
         public ICollection<Step> StepsOfCooking { get; set; }
         public ICollection<Category> Categories { get; set; }

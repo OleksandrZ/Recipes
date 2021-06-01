@@ -32,4 +32,11 @@ export class RecipeService {
   getAllDifficulties() : Observable<string[]>{
     return this.http.get<string[]>(environment.api_url + "difficulty/all");
   }
+
+  createRecipe(formData: FormData){
+    return this.http.post(environment.api_url + "recipe/create", formData);
+  }
+  createRecipeWithOneImageInSteps(formData: FormData){
+    return this.http.post(environment.api_url + "recipe/createwithoneimage", formData);
+  }
 }

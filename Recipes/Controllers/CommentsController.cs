@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Recipes.Features.Comments;
 using List = Recipes.Features.Comments.List;
+using Recipes.Features.DTOs;
 
 namespace Recipes.Controllers
 {

@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Recipes.Domain;
+using Recipes.Features.DTOs;
 using Recipes.Infrastructure;
 using Recipes.Infrastructure.Errors;
 using Recipes.Infrastructure.Interfaces;
@@ -28,8 +29,9 @@ namespace Recipes.Features.Recipes
             [JsonConverter(typeof(TimeSpanConverter))]
             public TimeSpan TimeOfCooking { get; set; }
             public NutritionValue NutritionValue { get; set; }
-            public ICollection<Step> StepsOfCooking { get; set; }
+            public ICollection<StepDto> StepsOfCooking { get; set; }
             public ICollection<Category> Categories { get; set; }
+            public IFormFile MainImage { get; set; }
             public ICollection<IFormFile> Images { get; set; }
         }
 
@@ -79,8 +81,7 @@ namespace Recipes.Features.Recipes
                     TimeOfCooking = request.TimeOfCooking,
                     Ingredients = request.Ingredients,
                     Cuisine = context.Cuisines.FirstOrDefault(x => x.Name == request.Cuisine),
-                    NutritionValue = request.NutritionValue,
-                    StepsOfCooking = request.StepsOfCooking
+                    NutritionValue = request.NutritionValue
                 };
 
                 if(Enum.TryParse(typeof(Domain.Difficulty), request.Difficulty,  out object res))
@@ -89,7 +90,7 @@ namespace Recipes.Features.Recipes
                 }
                 else
                 {
-                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Recipe = "Wrong difficulty" });
+                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { message = "Wrong difficulty" });
                 }
 
                 recipe.Categories = new List<Category>();
@@ -98,12 +99,29 @@ namespace Recipes.Features.Recipes
                     recipe.Categories.Add(context.Categories.FirstOrDefault(x => x.Name == cat.Name));
                 }
 
+                if (request.MainImage == null)
+                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { message = "Main image is required" });
+
+                recipe.MainImage = photoAccessor.CreatePhoto(request.MainImage);
+
                 if (request.Images is {Count: > 0})
                 {
-                    recipe.Images = new List<Photo>();
-                    foreach (var image in request.Images)
+                    recipe.StepsOfCooking = new List<Step>();
+                    foreach (var stepDto in request.StepsOfCooking)
                     {
-                        recipe.Images.Add(photoAccessor.CreatePhoto(image));
+                        var step = new Step()
+                        {
+                            Description = stepDto.Description,
+                            StepNumber = stepDto.StepNumber
+                        };
+
+                        if (!string.IsNullOrEmpty(stepDto.ImageName))
+                        {
+                            step.Image = photoAccessor.CreatePhoto(request.Images.FirstOrDefault(x => x.FileName == stepDto.ImageName));
+                            request.Images.Remove(request.Images.First(x => x.FileName == stepDto.ImageName));
+                        }
+
+                        recipe.StepsOfCooking.Add(step);
                     }
                 }
 

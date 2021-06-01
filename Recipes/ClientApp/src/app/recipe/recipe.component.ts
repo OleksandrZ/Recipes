@@ -45,9 +45,7 @@ export class RecipeComponent implements OnInit {
 		this.recipeService.getRecipeById(recipeId).subscribe((recipe) => {
 			this.recipe = recipe;
 			this.commentsAmount = this.recipe.comments.length;
-
 			this.recipeLoaded = true;
-			console.log(recipe);
 		});
 	}
 

@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32.SafeHandles;
 using Recipes.Domain;
+using Recipes.Features.DTOs;
 using Recipes.Infrastructure;
 
 namespace Recipes.Features.Comments

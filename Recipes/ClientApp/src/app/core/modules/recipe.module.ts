@@ -1,9 +1,10 @@
 import { TimeSpan } from "./timespan.module";
-import { NutritionValue } from './nutritionValue.module';
-import { Ingredient } from './ingredient.module';
-import { Step } from './step.module';
-import { Category } from './category.module';
-import { Comment } from './comment.module';
+import { NutritionValue } from "./nutritionValue.module";
+import { Ingredient } from "./ingredient.module";
+import { Step } from "./step.module";
+import { Category } from "./category.module";
+import { Comment } from "./comment.module";
+import { Image } from "./image.module";
 
 export interface Recipe {
   id: string;
@@ -14,7 +15,7 @@ export interface Recipe {
   difficulty: string;
   date: string;
   timeOfCooking: TimeSpan;
-  images: any[];
+  mainImage: Image;
   servings: number;
   favorited: boolean;
   favoritesCount: number;
@@ -26,12 +27,16 @@ export interface Recipe {
   categories: Category[];
 }
 
+export class Recipe implements Recipe{
+
+}
+
 export interface RecipeEnvelope {
   recipeCount: number;
   recipes: Recipe[];
 }
 
-export interface CuisinesEnvelope{
+export interface CuisinesEnvelope {
   cuisines: string[];
   cuisineCount: number;
 }

@@ -11,6 +11,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
+using Recipes.Features.DTOs;
 using Recipes.Infrastructure;
 using Recipes.Infrastructure.Errors;
 using Recipes.Infrastructure.Interfaces;

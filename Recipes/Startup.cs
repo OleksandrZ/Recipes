@@ -1,4 +1,3 @@
-using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -39,6 +38,8 @@ namespace Recipes
         {
             services.AddControllersWithViews();
 
+            services.AddCors();
+
             services.AddMediatR(typeof(Register).GetTypeInfo().Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssemblyContaining<Startup>();
@@ -53,7 +54,7 @@ namespace Recipes
 
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+            services.AddScoped<IPhotoAccessor, PhotoAccessorCloudinary>();
             services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
 
             services.AddAutoMapper(GetType().Assembly);
@@ -94,6 +95,12 @@ namespace Recipes
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.Configure<CloudinarySettings>(x =>
+            {
+                x.CloudName = Configuration["AccountSettings:CloudName"];
+                x.ApiKey = Configuration["AccountSettings:ApiKey"];
+                x.ApiSecret = Configuration["AccountSettings:ApiSecret"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,6 +118,8 @@ namespace Recipes
             }
 
             app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
