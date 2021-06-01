@@ -1,7 +1,7 @@
 <div class="wrapper-grid-10" *ngIf="recipeLoaded">
     <div class="one">
         <div class="img">
-            <img src="{{recipe.mainImage.url}}" alt="Здесь должна быть картинка" class="w-100 d-block">
+            <img src="{{recipe.mainImage.url}}" alt="Здесь должна быть картинка" class="img-fluid img-responsive">
         </div>
         <div class="content d-flex justify-content-start">
             <p>Автор</p>
@@ -21,15 +21,15 @@
                 <span>{{recipe.nutritionValue.value}} кКал</span>
             </div>
             <div class="details d-flex ">
-                <div class="d-flex flex-column justify-content-center timer">
+                <div class="d-flex flex-column justify-content-center align-items-center timer">
                     <img class="img-timer" src="/assets/images/timer.svg" alt="">
                     <span>{{recipe.timeOfCooking.totalMinutes}}</span>
                 </div>
-                <div class="d-flex  flex-column justify-content-center portion">
+                <div class="d-flex  flex-column justify-content-center align-items-center portion">
                     <img class="img-portion" src="/assets/images/plate.svg" alt="">
                     <span>{{recipe.servings}}</span>
                 </div>
-                <div class="d-flex flex-column justify-content-center difficulty">
+                <div class="d-flex flex-column justify-content-center align-items-center difficulty">
                     <img class="img-difficulty" src="/assets/images/{{recipe.difficulty}}.svg" alt="">
                     <span>Сложность</span>
                 </div>

@@ -59,6 +59,41 @@ header .nav-item a:hover:after {
     transition: all 0.2s ease;
 }
 
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.dropdown .btn {
+    padding: 0.5rem .75rem !important;
+}
+
+.nav-img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.2rem !important;
+}
+
+.dropdown-menu {
+    margin-top: 2.5rem;
+    left: 4rem;
+    top: 1rem;
+}
+
+.log-out-btn {
+    font-weight: 700;
+    color: #a33232;
+    font-size: 1.1rem;
+}
+
 .d-flex .btn-light:hover {
     background-color: #ffffffcc;
     box-shadow: 0 0 0 .10rem rgba(0, 0, 0, 0.8);
