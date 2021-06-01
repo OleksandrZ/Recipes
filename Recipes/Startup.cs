@@ -1,4 +1,3 @@
-using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -55,7 +54,7 @@ namespace Recipes
 
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+            services.AddScoped<IPhotoAccessor, PhotoAccessorCloudinary>();
             services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
 
             services.AddAutoMapper(GetType().Assembly);
@@ -95,6 +94,12 @@ namespace Recipes
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+            services.Configure<CloudinarySettings>(x =>
+            {
+                x.CloudName = Configuration["AccountSettings:CloudName"];
+                x.ApiKey = Configuration["AccountSettings:ApiKey"];
+                x.ApiSecret = Configuration["AccountSettings:ApiSecret"];
             });
         }
 
