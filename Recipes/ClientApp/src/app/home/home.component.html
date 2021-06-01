@@ -8,7 +8,7 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active col-md-12 col-4">
-                        <img src="../../assets/images/carousel.jpg" class="d-block w-100" alt="...">
+                        <img src="../../assets/images/carousel.jpg" class="img-responsive w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5 class="display-2">First slide label</h5>
                             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -23,13 +23,13 @@
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
                 <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
             </div>
         </div>
     </div>
@@ -79,14 +79,17 @@
                     <summary class="accordion__title">
                         Время приготовления
                     </summary>
-                    <ul class="accordion__body">
-                        <li class="checkbox">
-                            <label class="checkbox__label">Завтраки
-                <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
-              </label>
-                        </li>
-                    </ul>
+                    <div class="cookong-time-category d-flex">
+                        <input type="text" class="form-control  align-items-center">
+                        <span class="d-flex align-items-center">&#8212;</span>
+                        <input type="text" class="form-control align-items-center">
+                        <div class="btn-group time-group" role="group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-dark" for="btnradio1">мин</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-dark" for="btnradio2">ч</label>
+                        </div>
+                    </div>
                 </details>
                 <details class="accordion__item">
                     <summary class="accordion__title">
@@ -96,7 +99,7 @@
                         <li class="checkbox">
                             <label class="checkbox__label">{{difficulty}}
                 <input type="checkbox" class="checkbox__input" name="category">
-                <span class="check__box"></span>
+                <span class="check__box d-flex align-content-center"></span>
               </label>
                         </li>
                     </ul>
@@ -105,7 +108,7 @@
             <!-- --------------------------------------------------------------- -->
             <!-- Сетка с рецептами ---------------------------------------------- -->
             <div class="col">
-                <div class="row mt-2 justify-content-xl-between" *ngIf="recipesLoaded">
+                <div class="row" *ngIf="recipesLoaded">
                     <div class="col-3 card__item" *ngFor="let recipe of recipeEnvelope.recipes | slice: pageSize | slice: 0:itemsPerPage">
                         <div class="card__image">
                             <img class="d-block w-100" src="{{recipe.images[0] ? 'https://' + recipe.images[0].url : 'https://image.shutterstock.com/image-photo/classic-french-croissant-bakery-shop-600w-1793075422.jpg'}}" alt="">

@@ -77,6 +77,10 @@ img {
     margin: 0 7%;
 }
 
+.timer span {
+    text-align: center;
+}
+
 .bju {
     grid-column: 3;
     grid-row: 2;
@@ -105,16 +109,23 @@ img {
     order: 3;
 }
 
-.img-timer,
+.img-timer {
+    width: 4.3rem;
+    height: 4rem;
+}
+
 .img-portion {
-    width: 100%;
-    height: 40%;
+    width: 4.3rem;
+    height: 4rem;
 }
 
 .img-difficulty {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
+    width: 2.7rem;
+    height: 2.6rem;
+}
+
+.difficulty span {
+    margin-top: 1%;
 }
 
 .btn-create {
@@ -212,7 +223,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .md-number-input.number-input input[type=number] {
-    max-width: 2rem;
+    max-width: 2.3rem;
     padding: .5rem;
     border: 2px solid #ddd;
     border-top-width: medium;
@@ -220,7 +231,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-bottom-width: medium;
     border-left-width: medium;
     border-width: 2px 2px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 2rem;
     outline: none;
 }

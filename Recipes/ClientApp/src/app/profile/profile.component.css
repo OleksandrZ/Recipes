@@ -261,3 +261,37 @@ summary {
 .heart:hover {
     color: rgb(85, 85, 85);
 }
+
+.subscriptions-container {
+    display: grid;
+    grid-column: 1 / 17;
+    grid-row: 4;
+}
+
+.subscriptions-title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.media-object {
+    border-radius: 50%;
+    width: 6rem;
+}
+
+.author-name {
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 0.8rem;
+}
+
+.img-author {
+    margin-right: 1rem;
+}
+
+.author-info {
+    margin-right: 2rem;
+}
+
+.subscription-card {
+    padding: 2rem;
+}
