@@ -12,6 +12,13 @@ main .container {
     height: 70vh;
     width: auto;
 }
+.carousel-caption h5{
+    font-size: 4rem;
+    padding: 0 0 4% 0;
+}
+.carousel-caption p{
+    font-size: 2rem;
+}
 
 
 /* .carousel-inner img{
@@ -23,7 +30,9 @@ main .container {
     position: absolute;
     top: 50%;
 }
-
+.carousel-item img{
+    object-fit: cover;
+}
 
 /* Slider end -------------------------------------------------- */
 
@@ -163,7 +172,7 @@ summary {
     box-shadow: 0 0 1px 1px rgba(228, 228, 228, 0.3);
     position: absolute;
     top: 0;
-    right: 1%;
+    right: 3%;
     z-index: 1;
     transform: translateY(80%);
 }
@@ -182,7 +191,7 @@ summary {
     transition: opacity .1s linear;
     position: absolute;
     top: 0;
-    right: 1%;
+    right: 3%;
     z-index: 2;
     transform: translateY(80%);
 }

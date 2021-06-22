@@ -4,7 +4,7 @@
 
 export const environment = {
 	production: false,
-	api_url: 'https://lessonweb-recipes.azurewebsites.net/api/'
+	api_url: 'https://lessonweb.azurewebsites.net/api/'
 };
 
 /*

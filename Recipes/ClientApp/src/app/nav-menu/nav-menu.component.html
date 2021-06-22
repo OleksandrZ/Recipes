@@ -9,8 +9,8 @@
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item"><a class="nav-link active" [routerLink]="['/']">Рецепты</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Статьи</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Уроки</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="#">Статьи</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Уроки</a></li> -->
                     <li class="nav-item"><a class="nav-link" href="#">Авторы</a></li>
                 </ul>
                 <div class="d-flex" *appShowAuth="false">
@@ -20,11 +20,10 @@
                 <div class="d-flex dropdown" *appShowAuth="true">
                     <img src="https://static10.tgstat.ru/channels/_0/0d/0df75992fcceceff9b162f7559345917.jpg" alt="" class="img-responsitive nav-img">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Profile name
-						</button>
+							Мой профиль
+					</button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#" [routerLink]="['create-recipe']">Создать рецепт</a></li>
-                        <li><a class="dropdown-item" href="#">Профиль</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

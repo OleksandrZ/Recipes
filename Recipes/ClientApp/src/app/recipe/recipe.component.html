@@ -66,14 +66,15 @@
         <div class="cooking-title">
             <h5>Приготовление</h5>
         </div>
-        <div class="photo-galery row" *ngFor="let step of recipe.stepsOfCooking">
-            <div class="col-sm-12 col-md-6 col-lg-4 item" *ngIf="step.image">
-                <a href="{{step.image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{step.image.url}}" alt="#"></a>
-            </div>
-        </div>
         <div class="cooking-steps">
             <ol class="steps">
-                <li *ngFor="let step of recipe.stepsOfCooking">{{step.description}}</li>
+                <li *ngFor="let step of recipe.stepsOfCooking">{{step.description}}
+                    <div class="photo-galery row mt-3">
+                        <div class="col-sm-12 col-md-6 col-lg-4 item" *ngIf="step.image">
+                            <a href="{{step.image.url}}" data-lightbox="photo-galery"><img class="img-fluid" src="{{step.image.url}}" alt="#"></a>
+                        </div>
+                    </div>
+                </li>
             </ol>
         </div>
     </div>
