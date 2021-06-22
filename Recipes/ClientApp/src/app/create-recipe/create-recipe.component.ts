@@ -135,6 +135,8 @@ export class CreateRecipeComponent implements OnInit {
 
     recipe.difficulty = this.createRecipeForm.value.difficulty;
 
+    recipe.timeOfCooking = this.createRecipeForm.value.timeOfCooking;
+
     recipe.stepsOfCooking = [];
     let counter = 1;
     this.createRecipeForm.value.steps.forEach((step) => {
@@ -148,7 +150,6 @@ export class CreateRecipeComponent implements OnInit {
     });
 
     recipe.servings = this.createRecipeForm.value.portions;
-
     recipe.nutritionValue = {
       carbohydrates: this.createRecipeForm.value.carbohydrates,
       fats: this.createRecipeForm.value.fats,

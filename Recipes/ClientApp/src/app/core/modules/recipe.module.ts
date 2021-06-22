@@ -14,7 +14,7 @@ export interface Recipe {
   title: string;
   difficulty: string;
   date: string;
-  timeOfCooking: TimeSpan;
+  timeOfCooking: string;
   mainImage: Image;
   servings: number;
   favorited: boolean;
