@@ -5,12 +5,10 @@ using Recipes.Infrastructure;
 using Recipes.Infrastructure.Errors;
 using Recipes.Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Recipes.Features.DTOs
+namespace Recipes.Features.Recipes
 {
     public static class AddToFavorite
     {
@@ -60,7 +58,7 @@ namespace Recipes.Features.DTOs
 
                 context.RecipeFavorites.Add(favorited);
 
-                if((await context.SaveChangesAsync(cancellationToken) > 0))
+                if ((await context.SaveChangesAsync(cancellationToken) > 0))
                 {
                     return Unit.Value;
                 }

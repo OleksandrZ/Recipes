@@ -5,7 +5,16 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes", "Recipes\Recipes.csproj", "{28A23A43-F4CE-450E-BF5A-8EF576F93E7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipes.Test", "Recipes.Test\Recipes.Test.csproj", "{786D2F61-33F3-4B21-A7FE-A8F73A4F77BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes.Test", "Recipes.Test\Recipes.Test.csproj", "{786D2F61-33F3-4B21-A7FE-A8F73A4F77BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{39755163-B7F9-4707-B187-617FF79C5EA9}"
+	ProjectSection(SolutionItems) = preProject
+		Controllers.dgml = Controllers.dgml
+		Domain.dgml = Domain.dgml
+		Features.dgml = Features.dgml
+		Graph2.dgml = Graph2.dgml
+		infrastructure.dgml = infrastructure.dgml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

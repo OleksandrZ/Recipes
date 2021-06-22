@@ -40,6 +40,7 @@ import { ProfileComponent } from "./profile/profile.component";
 				{ path: "profile", component: ProfileComponent, pathMatch: "full" },
 				{ path: "recipe/:id", component: RecipeComponent },
 				{ path: "create-recipe", component: CreateRecipeComponent },
+        { path: "profile", component: ProfileComponent}
 				// { path: 'fetch-data', component: FetchDataComponent },
 			],
 			{ relativeLinkResolution: "legacy" }
