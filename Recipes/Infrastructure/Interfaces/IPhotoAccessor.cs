@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Recipes.Domain;
-using Recipes.Features.Image;
 using System.Threading.Tasks;
 
 namespace Recipes.Infrastructure.Interfaces

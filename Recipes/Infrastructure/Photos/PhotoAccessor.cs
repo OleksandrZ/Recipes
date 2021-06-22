@@ -2,12 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Recipes.Domain;
-using Recipes.Features.Image;
-using Recipes.Infrastructure.Errors;
 using Recipes.Infrastructure.Interfaces;
 using System;
 using System.IO;
-using System.Net;
 
 namespace Recipes.Infrastructure.Photos
 {

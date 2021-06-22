@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Recipes.Features.DTOs
+namespace Recipes.Features.Recipes
 {
     public static class RemoveFromFavorite
     {

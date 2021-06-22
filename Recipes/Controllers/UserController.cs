@@ -1,11 +1,10 @@
-﻿using System;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recipes.Features.User;
+using System;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Recipes.Domain;
 
 namespace Recipes.Controllers
 {
@@ -48,6 +47,7 @@ namespace Recipes.Controllers
 
         [HttpPost]
         [Route(("logout"))]
+        [Authorize]
         public async Task<Unit> Logout(Logout.Command command)
         {
             var token = Request.Cookies["refreshToken"];

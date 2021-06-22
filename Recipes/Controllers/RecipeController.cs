@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Recipes.Features.DTOs;
 using Recipes.Features.Recipes;
 using Recipes.Infrastructure;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Recipes.Controllers
@@ -38,7 +36,7 @@ namespace Recipes.Controllers
         [HttpPost]
         [Route("create")]
         // receives multipart/form-data, converts key command (json) to class Command
-        public async Task<ActionResult<Unit>> Create([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command,IFormFile mainImage, ICollection<IFormFile> images)
+        public async Task<ActionResult<Unit>> Create([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, IFormFile mainImage, ICollection<IFormFile> images)
         {
             command.Images = images;
             command.MainImage = mainImage;
@@ -50,7 +48,7 @@ namespace Recipes.Controllers
         public async Task<ActionResult<Unit>> CreateWithOneImage([ModelBinder(BinderType = typeof(JsonModelBinder))] Create.Command command, IFormFile mainImage, IFormFile images)
         {
             command.Images = new List<IFormFile>();
-            if(images != null)
+            if (images != null)
                 command.Images.Add(images);
 
             command.MainImage = mainImage;

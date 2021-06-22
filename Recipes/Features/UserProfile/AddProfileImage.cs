@@ -1,17 +1,13 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Recipes.Domain;
 using Recipes.Infrastructure;
 using Recipes.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Recipes.Features.Image
+namespace Recipes.Features.UserProfile
 {
     public static class AddProfileImage
     {
