@@ -135,7 +135,8 @@ export class CreateRecipeComponent implements OnInit {
 
     recipe.difficulty = this.createRecipeForm.value.difficulty;
 
-    recipe.timeOfCooking = this.createRecipeForm.value.timeOfCooking;
+    recipe.timeOfCooking =
+      "0:" + this.createRecipeForm.value.timeOfCooking + ":0";
 
     recipe.stepsOfCooking = [];
     let counter = 1;
